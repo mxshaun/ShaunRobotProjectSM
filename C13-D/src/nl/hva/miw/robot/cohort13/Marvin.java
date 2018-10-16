@@ -1,6 +1,7 @@
 package nl.hva.miw.robot.cohort13;
 
 import lejos.hardware.Brick;
+
 import lejos.hardware.Button;
 import lejos.hardware.Key;
 import lejos.hardware.ev3.LocalEV3;
@@ -26,6 +27,7 @@ public class Marvin {
 		display.drawString("Welkom", 0, 3);
 		display.drawString("Team Delta!", 0, 4);
 		waitForKey(Button.ENTER);
+		
 	}
 	
 	public void waitForKey(Key key) {
