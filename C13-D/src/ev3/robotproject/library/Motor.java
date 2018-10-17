@@ -9,7 +9,7 @@ public class Motor {
 	final static EV3LargeRegulatedMotor MOTOR_RECHTERWIEL = new EV3LargeRegulatedMotor(MotorPort.A);
 	final static EV3LargeRegulatedMotor MOTOR_LINKERWIEL = new EV3LargeRegulatedMotor(MotorPort.B);
 	
-
+	
 }
 
 
