@@ -18,23 +18,46 @@ public class LineFollower {
 	public static void main(String[] args) throws Exception {
 		Logging.setup(LineFollower.class.getPackage(), false);
 		Logging.log("Start");
+		float colorValueWhite;
+		float colorValueBlack;
 		float colorValue;
+		float colorBorder;
 
 		System.out.println("Line Follower\n");
 
 		color.setRedMode();
 		color.setFloodLight(Color.RED);
 		color.setFloodLight(true);
+		
 
 		Button.LEDPattern(4); // flash green led and
 		Sound.beepSequenceUp(); // make sound when ready.
 
-		System.out.println("Press any key to start");
+		System.out.println("Press any key to start the calibration");
 
 		Button.waitForAnyPress();
 		Logging.log("Button is pressed");
-		motorA.setPower(40);
-		motorB.setPower(40);
+		
+		System.out.println("Scan wit vlak, press button");
+		Button.waitForAnyPress();
+		colorValueWhite = color.getRed();
+		Logging.log("colorValueWhite: %f", colorValueWhite);
+		
+		System.out.println("Scan zwart vlak, press button");
+		Button.waitForAnyPress();
+		colorValueBlack = color.getRed();
+		Logging.log("colorValueBlack: %f", colorValueBlack);
+
+		
+		colorBorder = (colorValueBlack + colorValueWhite) / 2;
+		Logging.log("colorborder: %f", colorBorder);
+		Button.LEDPattern(4); // flash green led and
+		Sound.beepSequenceUp(); // make sound when ready.
+
+		System.out.println("Press any key to start the race");
+		Button.waitForAnyPress();
+		motorA.setPower(25);
+		motorB.setPower(25);
 
 		// drive waiting for touch sensor or escape key to stop driving.
 
@@ -44,54 +67,54 @@ public class LineFollower {
 			Logging.log("gemeten colorvalue: %f",  colorValue);
 			LCD.clear(7);
 
-			if (colorValue > .35) {
-				if (colorValue > .70) {
-					motorA.setPower(90);
-					motorB.setPower(10);
-				} else if (colorValue > .65) {
+			if (colorValue > colorBorder) {
+				if (colorValue/colorBorder > 1.7) {
 					motorA.setPower(90);
 					motorB.setPower(0);
-				} else if (colorValue > .60) {
+				} else if (colorValue/colorBorder > 1.6) {
+					motorA.setPower(90);
+					motorB.setPower(0);
+				} else if (colorValue/colorBorder > 1.5) {
 					motorA.setPower(80);
 					motorB.setPower(10);
-				} else if (colorValue > .55) {
+				} else if (colorValue/colorBorder > 1.4) {
 					motorA.setPower(70);
-					motorB.setPower(20);
-				} else if (colorValue > .50) {
+					motorB.setPower(10);
+				} else if (colorValue/colorBorder > 1.3) {
 					motorA.setPower(60);
-					motorB.setPower(20);
-				} else if (colorValue > .45) {
+					motorB.setPower(10);
+				} else if (colorValue/colorBorder > 1.2) {
 					motorA.setPower(50);
-					motorB.setPower(20);
-				} else if (colorValue > .40) {
+					motorB.setPower(10);
+				} else if (colorValue/colorBorder > 1.1) {
 					motorA.setPower(40);
-					motorB.setPower(20);
+					motorB.setPower(10);
 				}
-				motorA.setPower(40);
-				motorB.setPower(20);
+				motorA.setPower(20);
+				motorB.setPower(10);
 			} else {
-				if (colorValue < .05) {
+				if (colorValue/colorBorder < 0.40) {
 					motorA.setPower(0);
 					motorB.setPower(90);
-				} else if (colorValue < .10) {
+				} else if (colorValue/colorBorder < 0.50) {
 					motorA.setPower(0);
-					motorB.setPower(90);
-				} else if (colorValue < .15) {
-					motorA.setPower(20);
 					motorB.setPower(80);
-				} else if (colorValue < .20) {
-					motorA.setPower(20);
+				} else if (colorValue/colorBorder < 0.60) {
+					motorA.setPower(10);
 					motorB.setPower(70);
-				} else if (colorValue < .25) {
-					motorA.setPower(20);
+				} else if (colorValue/colorBorder < 0.70) {
+					motorA.setPower(10);
 					motorB.setPower(60);
-				} else if (colorValue < .30) {
-					motorA.setPower(20);
+				} else if (colorValue/colorBorder < 0.80) {
+					motorA.setPower(10);
 					motorB.setPower(50);
+				} else if (colorValue/colorBorder < 0.90) {
+					motorA.setPower(10);
+					motorB.setPower(40);
 				}
 				Logging.log("Moterkrcht A: %d Motorkracht B: %d", motorA.getPower(), motorB.getPower());
-				motorA.setPower(20);
-				motorB.setPower(40);
+				motorA.setPower(10);
+				motorB.setPower(20);
 			}
 		}
 
