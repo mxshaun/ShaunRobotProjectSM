@@ -47,7 +47,7 @@ public class LineFollower {
 			if (colorValue > .35) {
 				if (colorValue > .70) {
 					motorA.setPower(90);
-					motorB.setPower(-10);
+					motorB.setPower(10);
 				} else if (colorValue > .65) {
 					motorA.setPower(90);
 					motorB.setPower(0);
@@ -70,24 +70,24 @@ public class LineFollower {
 				motorA.setPower(40);
 				motorB.setPower(20);
 			} else {
-				if (colorValue < .30) {
-					motorA.setPower(20);
-					motorB.setPower(50);
-				} else if (colorValue < .25) {
-					motorA.setPower(20);
-					motorB.setPower(60);
-				} else if (colorValue < .20) {
-					motorA.setPower(20);
-					motorB.setPower(70);
-				} else if (colorValue < .15) {
-					motorA.setPower(20);
-					motorB.setPower(80);
+				if (colorValue < .05) {
+					motorA.setPower(0);
+					motorB.setPower(90);
 				} else if (colorValue < .10) {
 					motorA.setPower(0);
 					motorB.setPower(90);
-				} else if (colorValue < .05) {
-					motorA.setPower(-10);
-					motorB.setPower(90);
+				} else if (colorValue < .15) {
+					motorA.setPower(20);
+					motorB.setPower(80);
+				} else if (colorValue < .20) {
+					motorA.setPower(20);
+					motorB.setPower(70);
+				} else if (colorValue < .25) {
+					motorA.setPower(20);
+					motorB.setPower(60);
+				} else if (colorValue < .30) {
+					motorA.setPower(20);
+					motorB.setPower(50);
 				}
 				Logging.log("Moterkrcht A: %d Motorkracht B: %d", motorA.getPower(), motorB.getPower());
 				motorA.setPower(20);
