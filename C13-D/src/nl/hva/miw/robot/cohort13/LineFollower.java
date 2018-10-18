@@ -61,110 +61,151 @@ public class LineFollower {
 		float maxSpeedMotorA = motorAA.getMaxSpeed(); 
 		float maxSpeedMotorB = motorBB.getMaxSpeed();
 		
-		motorAA.setSpeed(maxSpeedMotorA / 50);
-		motorBB.setSpeed(maxSpeedMotorB / 50);
-		motorAA.forward();
-		motorBB.forward();
+//		motorAA.setSpeed(maxSpeedMotorA / 2);
+//		motorBB.setSpeed(maxSpeedMotorB / 2);
+//		motorAA.forward();
+//		motorBB.forward();
 		//motorB.setPower(25);
 
 		// drive waiting for touch sensor or escape key to stop driving.
 
+//		while (!touch.isTouched() && Button.ESCAPE.isUp()) {
+//			
+//			colorValue = color.getRed();
+//			Logging.log("gemeten colorvalue: %f",  colorValue);
+//			LCD.clear(7);
+////			float maxSpeedMotorAA = motorAA.getMaxSpeed();
+////			float maxSpeedMotorBB = motorBB.getMaxSpeed();
+//			
+//			//Voordat de loop-comando's gegeven worden, worden de motoren gestopt.
+//			motorAA.stop();
+//			motorBB.stop();
+//
+//			if (colorValue > colorBorder) {
+//				if (colorValue/colorBorder > 1.5) {
+//					motorAA.setSpeed(maxSpeedMotorA * (float)0.5);
+//					motorBB.setSpeed(maxSpeedMotorB * (float)0.5);
+//					motorAA.forward();
+//					motorBB.backward();
+////				} else if (colorValue/colorBorder > 1.6) {
+////					motorAA.setSpeed(maxSpeedMotorAA * (float)0.8);
+////					motorBB.setSpeed(maxSpeedMotorBB * (float)0.2);
+////
+////					motorAA.forward();
+////					motorBB.backward();
+////				} else if (colorValue/colorBorder > 1.5) {
+////					motorAA.setSpeed(maxSpeedMotorAA * (float)0.4);
+////					motorBB.setSpeed(maxSpeedMotorBB * (float)0.1);
+////
+////					motorAA.forward();
+////					motorBB.backward();
+////				} else if (colorValue/colorBorder > 1.4) {
+////					motorAA.setSpeed(maxSpeedMotorAA * (float)0.4);
+////					motorBB.setSpeed(maxSpeedMotorBB * (float)0.0);
+////
+////					motorAA.forward();
+////					motorBB.forward();
+////				} else if (colorValue/colorBorder > 1.3) {
+////					motorAA.setSpeed(maxSpeedMotorAA * (float)0.3);
+////					motorBB.setSpeed(maxSpeedMotorBB * (float)0.1);
+////
+////					motorAA.forward();
+////					motorBB.forward();
+//				} else if (colorValue/colorBorder > 1.2) {
+//					motorAA.setSpeed(maxSpeedMotorA * (float)0.5);
+//					motorBB.setSpeed(maxSpeedMotorB * (float)0.3);
+//
+//					motorAA.forward();
+//					motorBB.forward();
+//				} 
+//				motorAA.setSpeed(maxSpeedMotorA * (float)0.5);
+//				motorBB.setSpeed(maxSpeedMotorB * (float)0.45);
+//
+//				motorAA.forward();
+//				motorBB.forward();
+//			} else {
+//				if (colorValue/colorBorder < 0.30) {
+//					motorAA.setSpeed(maxSpeedMotorA * (float)0.5);
+//					motorBB.setSpeed(maxSpeedMotorB * (float)0.5);
+//
+//					motorAA.backward();
+//					motorBB.forward();
+////				} else if (colorValue/colorBorder < 0.40) {
+////					motorAA.setSpeed(maxSpeedMotorAA * (float)0.2);
+////					motorBB.setSpeed(maxSpeedMotorBB * (float)0.8);
+////
+////					motorAA.backward();
+////					motorBB.forward();
+////				} else if (colorValue/colorBorder < 0.50) {
+////					motorAA.setSpeed(maxSpeedMotorAA * (float)0.1);
+////					motorBB.setSpeed(maxSpeedMotorBB * (float)0.4);
+////
+////					motorAA.backward();
+////					motorBB.forward();
+////				} else if (colorValue/colorBorder < 0.60) {
+////					motorAA.setSpeed(maxSpeedMotorAA * (float)0.0);
+////					motorBB.setSpeed(maxSpeedMotorBB * (float)0.4);
+////
+////					motorAA.forward();
+////					motorBB.forward();
+////				} else if (colorValue/colorBorder < 0.70) {
+////					motorAA.setSpeed(maxSpeedMotorAA * (float)0.1);
+////					motorBB.setSpeed(maxSpeedMotorBB * (float)0.3);
+////
+////					motorAA.forward();
+////					motorBB.forward();
+//				} else if (colorValue/colorBorder < 0.80) {
+//					motorAA.setSpeed(maxSpeedMotorA * (float)0.3);
+//					motorBB.setSpeed(maxSpeedMotorB * (float)0.5);
+//
+//					motorAA.forward();
+//					motorBB.forward();
+//				}
+//				Logging.log("Moterkrcht A: %d Motorkracht B: %d", motorAA.getSpeed(), motorBB.getSpeed());
+//				motorAA.setSpeed(maxSpeedMotorA * (float)0.45);
+//				motorBB.setSpeed(maxSpeedMotorB * (float)0.5);
+//
+//				motorAA.forward();
+//				motorBB.forward();
+//			}
+//		}
+		
+		motorAA.setSpeed(maxSpeedMotorA / 2);
+		motorBB.setSpeed(maxSpeedMotorB / 2);
+		motorAA.forward();
+		motorBB.forward();
+		
 		while (!touch.isTouched() && Button.ESCAPE.isUp()) {
-			
-			colorValue = color.getRed();
-			Logging.log("gemeten colorvalue: %f",  colorValue);
-			LCD.clear(7);
-			float maxSpeedMotorAA = motorAA.getMaxSpeed();
-			float maxSpeedMotorBB = motorBB.getMaxSpeed();
 
-			if (colorValue > colorBorder) {
-				if (colorValue/colorBorder > 1.7) {
-					motorAA.setSpeed(maxSpeedMotorAA * (float)0.9);
-					motorBB.setSpeed(maxSpeedMotorBB * (float)0.4);
-					motorAA.forward();
-					motorBB.backward();
-				} else if (colorValue/colorBorder > 1.6) {
-					motorAA.setSpeed(maxSpeedMotorAA * (float)0.8);
-					motorBB.setSpeed(maxSpeedMotorBB * (float)0.2);
+            colorValue = color.getRed();
+            
+            Lcd.clear(7);
+            Lcd.print(7,  "value=%.3f", colorValue);
 
-					motorAA.forward();
-					motorBB.backward();
-				} else if (colorValue/colorBorder > 1.5) {
-					motorAA.setSpeed(maxSpeedMotorAA * (float)0.4);
-					motorBB.setSpeed(maxSpeedMotorBB * (float)0.1);
-
-					motorAA.forward();
-					motorBB.backward();
-				} else if (colorValue/colorBorder > 1.4) {
-					motorAA.setSpeed(maxSpeedMotorAA * (float)0.4);
-					motorBB.setSpeed(maxSpeedMotorBB * (float)0.0);
-
-					motorAA.forward();
-					motorBB.forward();
-				} else if (colorValue/colorBorder > 1.3) {
-					motorAA.setSpeed(maxSpeedMotorAA * (float)0.3);
-					motorBB.setSpeed(maxSpeedMotorBB * (float)0.1);
-
-					motorAA.forward();
-					motorBB.forward();
-				} else if (colorValue/colorBorder > 1.2) {
-					motorAA.setSpeed(maxSpeedMotorAA * (float)0.2);
-					motorBB.setSpeed(maxSpeedMotorBB * (float)0.1);
-
-					motorAA.forward();
-					motorBB.forward();
-				} 
-				motorAA.setSpeed(maxSpeedMotorAA * (float)0.2);
-				motorBB.setSpeed(maxSpeedMotorBB * (float)0.1);
-
-				motorAA.forward();
-				motorBB.forward();
-			} else {
-				if (colorValue/colorBorder < 0.40) {
-					motorAA.setSpeed(maxSpeedMotorAA * (float)0.4);
-					motorBB.setSpeed(maxSpeedMotorBB * (float)0.9);
-
-					motorAA.backward();
-					motorBB.forward();
-				} else if (colorValue/colorBorder < 0.50) {
-					motorAA.setSpeed(maxSpeedMotorAA * (float)0.2);
-					motorBB.setSpeed(maxSpeedMotorBB * (float)0.8);
-
-					motorAA.backward();
-					motorBB.forward();
-				} else if (colorValue/colorBorder < 0.60) {
-					motorAA.setSpeed(maxSpeedMotorAA * (float)0.1);
-					motorBB.setSpeed(maxSpeedMotorBB * (float)0.4);
-
-					motorAA.backward();
-					motorBB.forward();
-				} else if (colorValue/colorBorder < 0.70) {
-					motorAA.setSpeed(maxSpeedMotorAA * (float)0.0);
-					motorBB.setSpeed(maxSpeedMotorBB * (float)0.4);
-
-					motorAA.forward();
-					motorBB.forward();
-				} else if (colorValue/colorBorder < 0.80) {
-					motorAA.setSpeed(maxSpeedMotorAA * (float)0.1);
-					motorBB.setSpeed(maxSpeedMotorBB * (float)0.3);
-
-					motorAA.forward();
-					motorBB.forward();
-				} else if (colorValue/colorBorder < 0.90) {
-					motorAA.setSpeed(maxSpeedMotorAA * (float)0.1);
-					motorBB.setSpeed(maxSpeedMotorBB * (float)0.2);
-
-					motorAA.forward();
-					motorBB.forward();
-				}
-				Logging.log("Moterkrcht A: %d Motorkracht B: %d", motorAA.getSpeed(), motorBB.getSpeed());
-				motorAA.setSpeed(maxSpeedMotorAA * (float)0.1);
-				motorBB.setSpeed(maxSpeedMotorBB * (float)0.2);
-
-				motorAA.forward();
-				motorBB.forward();
-			}
-		}
+            if (colorValue > ((colorBorder + colorValueWhite) / 2)) { //Linksom snel draaien
+            	motorAA.setSpeed(maxSpeedMotorA * (float)0.3);
+            	motorBB.setSpeed(maxSpeedMotorB * (float)0.15);
+            	motorAA.forward();
+            	motorBB.backward();
+            } else if (colorValue > colorBorder) { //Linksom draaien
+            	motorAA.setSpeed(maxSpeedMotorA * (float)0.4);
+            	motorBB.setSpeed(maxSpeedMotorB * (float)0.2);
+            	motorAA.forward();
+            	motorBB.forward();
+            } else if (colorValue < ((colorBorder + colorValueBlack)) / 2) { //Rechtsom snel draaien
+            	motorAA.setSpeed(maxSpeedMotorA * (float)0.15);
+            	motorBB.setSpeed(maxSpeedMotorB * (float)0.3);
+            	motorAA.backward();
+            	motorBB.forward();
+            } else { //Rechtsom draaien
+            	motorAA.setSpeed(maxSpeedMotorA * (float)0.2);
+            	motorBB.setSpeed(maxSpeedMotorB * (float)0.4);
+            	motorAA.forward();
+            	motorBB.forward();
+            }
+        }
+		
+		
 
 		// stop motors with brakes on.
 		motorAA.stop();
