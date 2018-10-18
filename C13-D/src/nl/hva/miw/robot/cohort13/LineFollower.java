@@ -157,7 +157,7 @@ public class LineFollower {
 					motorAA.forward();
 					motorBB.forward();
 				}
-				Logging.log("Moterkrcht A: %d Motorkracht B: %d", motorAA.getSpeed(), motorBB.getSpeed());
+				Logging.log("Moterkrcht A: %f Motorkracht B: %f", motorAA.getSpeed(), motorBB.getSpeed());
 				motorAA.setSpeed(maxSpeedMotorAA * (float)0.1);
 				motorBB.setSpeed(maxSpeedMotorBB * (float)0.2);
 
