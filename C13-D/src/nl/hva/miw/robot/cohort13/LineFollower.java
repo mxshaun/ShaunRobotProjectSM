@@ -7,15 +7,20 @@ import lejos.hardware.motor.*;
 import lejos.hardware.port.*;
 import lejos.robotics.Color;
 import ev3.robotproject.library.*;
+import ev3.robotproject.library.Motor;
+
 import java.io.IOException;
 
 public class LineFollower {
+<<<<<<< HEAD
 	//static UnregulatedMotor motorA = new UnregulatedMotor(MotorPort.A);
 	//static UnregulatedMotor motorB = new UnregulatedMotor(MotorPort.B);
 	static TouchSensor touch = new TouchSensor(SensorPort.S1);
 	static ColorSensor color = new ColorSensor(SensorPort.S3);
 	static EV3LargeRegulatedMotor motorAA = new EV3LargeRegulatedMotor(MotorPort.A);
 	static EV3LargeRegulatedMotor motorBB = new EV3LargeRegulatedMotor(MotorPort.B);
+=======
+>>>>>>> samrepository
 
 	public static void main(String[] args) throws Exception {
 		Logging.setup(LineFollower.class.getPackage(), false);
@@ -27,11 +32,14 @@ public class LineFollower {
 		
 		System.out.println("Line Follower\n");
 
+<<<<<<< HEAD
 		color.setRedMode();
 		color.setFloodLight(Color.RED);
 		color.setFloodLight(true);
 		
 
+=======
+>>>>>>> samrepository
 		Button.LEDPattern(4); // flash green led and
 		Sound.beepSequenceUp(); // make sound when ready.
 
@@ -42,12 +50,20 @@ public class LineFollower {
 		
 		System.out.println("Scan wit vlak, press button");
 		Button.waitForAnyPress();
+<<<<<<< HEAD
 		colorValueWhite = color.getRed();
+=======
+		colorValueWhite = RedSensor.getRed();
+>>>>>>> samrepository
 		Logging.log("colorValueWhite: %f", colorValueWhite);
 		
 		System.out.println("Scan zwart vlak, press button");
 		Button.waitForAnyPress();
+<<<<<<< HEAD
 		colorValueBlack = color.getRed();
+=======
+		colorValueBlack = RedSensor.getRed();
+>>>>>>> samrepository
 		Logging.log("colorValueBlack: %f", colorValueBlack);
 
 		
@@ -58,6 +74,7 @@ public class LineFollower {
 
 		System.out.println("Press any key to start the race");
 		Button.waitForAnyPress();
+<<<<<<< HEAD
 		float maxSpeedMotorA = motorAA.getMaxSpeed(); 
 		float maxSpeedMotorB = motorBB.getMaxSpeed();
 		
@@ -66,9 +83,15 @@ public class LineFollower {
 //		motorAA.forward();
 //		motorBB.forward();
 		//motorB.setPower(25);
+=======
+		float maxSpeedMotor= Motor.getMaxSpeed();
+>>>>>>> samrepository
 
-		// drive waiting for touch sensor or escape key to stop driving.
+		Motor.rechtVooruit((int)maxSpeedMotor / 2);
+		
+		while (!TouchSensor.isTouched() && Button.ESCAPE.isUp()) {
 
+<<<<<<< HEAD
 //		while (!touch.isTouched() && Button.ESCAPE.isUp()) {
 //			
 //			colorValue = color.getRed();
@@ -178,11 +201,15 @@ public class LineFollower {
 		while (!touch.isTouched() && Button.ESCAPE.isUp()) {
 
             colorValue = color.getRed();
+=======
+            colorValue = RedSensor.getRed();
+>>>>>>> samrepository
             
             Lcd.clear(7);
             Lcd.print(7,  "value=%.3f", colorValue);
 
             if (colorValue > ((colorBorder + colorValueWhite) / 2)) { //Linksom snel draaien
+<<<<<<< HEAD
             	motorAA.setSpeed(maxSpeedMotorA * (float)0.3);
             	motorBB.setSpeed(maxSpeedMotorB * (float)0.15);
             	motorAA.forward();
@@ -202,12 +229,26 @@ public class LineFollower {
             	motorBB.setSpeed(maxSpeedMotorB * (float)0.4);
             	motorAA.forward();
             	motorBB.forward();
+=======
+            	Logging.log("linksom snel draaien met color value: %.3f", RedSensor.getRed());
+            	Motor.draaiOmAs((-(int)(maxSpeedMotor * (float)0.15)), (int)(maxSpeedMotor * (float)0.3));
+            } else if (colorValue > colorBorder) { //Linksom draaien
+            	Logging.log("linksom draaien met color value: %.3f", RedSensor.getRed());
+            	Motor.bochtVooruit((int)(maxSpeedMotor * (float)0.2), (int)(maxSpeedMotor * (float)0.4));
+            } else if (colorValue < ((colorBorder + colorValueBlack)) / 2) { //Rechtsom snel draaien
+            	Logging.log("Rechtstom snel draaien met color value: %.3f", RedSensor.getRed());
+            	Motor.draaiOmAs((int)(maxSpeedMotor * (float)0.3), (-(int)(maxSpeedMotor * (float)0.15)));
+            } else { //Rechtsom draaien
+            	Logging.log("Rechtsom draaien met color value: %.3f", RedSensor.getRed());
+            	Motor.bochtVooruit((int)(maxSpeedMotor * (float)0.4), (int)(maxSpeedMotor * (float)0.2));
+>>>>>>> samrepository
             }
         }
 		
 		
 
 		// stop motors with brakes on.
+<<<<<<< HEAD
 		motorAA.stop();
 		motorBB.stop();
 
@@ -216,6 +257,14 @@ public class LineFollower {
 		motorBB.close();
 		touch.close();
 		color.close();
+=======
+		Motor.uitRollen();
+
+		// free up resources.
+		Motor.sluit();
+		TouchSensor.close();
+		RedSensor.close();
+>>>>>>> samrepository
 
 		Sound.beepSequence(); // we are done.
 	}

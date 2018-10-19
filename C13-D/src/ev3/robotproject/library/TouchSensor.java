@@ -1,34 +1,37 @@
 package ev3.robotproject.library;
 
 import lejos.hardware.port.Port;
+import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3TouchSensor;
 import lejos.robotics.SampleProvider;
 
 
-public class TouchSensor {
+public final class TouchSensor {
 	
-	EV3TouchSensor sensor;
-    SampleProvider sp;
+	final static EV3TouchSensor DRUK_SENSOR = new EV3TouchSensor(SensorPort.S1);
+    final static SampleProvider DRUK_SENSOR_SP = DRUK_SENSOR.getTouchMode();
 
     /**
      * Creates TouchSensor object.
      * @param port SensorPort of Touch Sensor device.
      */
-    public TouchSensor(Port port)
-    {
-        sensor = new EV3TouchSensor(port);
-        sp = sensor.getTouchMode();
+    private TouchSensor(Port port){
+    	EV3TouchSensor sensor = new EV3TouchSensor(port);
+    	SampleProvider sp = sensor.getTouchMode();
     }
 
     /**
      * Check state of Touch Sensor.
      * @return True if touched.
+     * Let op: deze method return altijd true, als hij eenmaal een keer ingedrukt is.
+     * Voor een nieuwe drukmeting moet de sensor eerst geclosed worden, voor de methode nogmaals
+     * te gebruiken!
      */
-    public boolean isTouched()
+    public static boolean isTouched()
     {
-       float [] sample = new float[sp.sampleSize()];
+       float[] sample = new float[DRUK_SENSOR_SP.sampleSize()];
 
-       sp.fetchSample(sample, 0);
+       DRUK_SENSOR_SP.fetchSample(sample, 0);
 
        if (sample[0] == 0)
            return false;
@@ -39,9 +42,9 @@ public class TouchSensor {
     /**
      * Release internal EV3TouchSensor.
      */
-    public void close()
+    public static void close()
     {
-        sensor.close();
+        DRUK_SENSOR.close();
     }
 	
 }
