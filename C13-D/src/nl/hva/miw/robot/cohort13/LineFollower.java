@@ -20,7 +20,7 @@ public class LineFollower {
 		float colorValueBlack;
 		float colorValue;
 		float colorBorder;
-		
+
 		System.out.println("Line Follower\n");
 
 		Button.LEDPattern(4); // flash green led and
@@ -30,14 +30,14 @@ public class LineFollower {
 
 		Button.waitForAnyPress();
 		Logging.log("Button is pressed");
-		
+
 		System.out.println("Scan wit vlak, press button");
 		Button.waitForAnyPress();
 
 		colorValueWhite = RedSensor.getRed();
 
 		Logging.log("colorValueWhite: %f", colorValueWhite);
-		
+
 		System.out.println("Scan zwart vlak, press button");
 		Button.waitForAnyPress();
 
@@ -45,7 +45,6 @@ public class LineFollower {
 
 		Logging.log("colorValueBlack: %f", colorValueBlack);
 
-		
 		colorBorder = (colorValueBlack + colorValueWhite) / 2;
 		Logging.log("colorborder: %f", colorBorder);
 		Button.LEDPattern(4); // flash green led and
@@ -53,29 +52,27 @@ public class LineFollower {
 
 		System.out.println("Press any key to start the race");
 		Button.waitForAnyPress();
-		float maxSpeedMotor = Motor.getMaxSpeed();
-		Motor.rechtVooruit((int)maxSpeedMotor / 2);
+		float maxSpeedMotor = (Motor.getMaxSpeed() * (float) 0.75);
+		Motor.rechtVooruit((int) maxSpeedMotor);
+		Logging.log("maximale snelheid is %f", maxSpeedMotor);
 
 		while (!TouchSensor.isTouched() && Button.ESCAPE.isUp()) {
-            colorValue = RedSensor.getRed();
-            Lcd.clear(7);
-            Lcd.print(7,  "value=%.3f", colorValue);
-
-            if (colorValue > ((colorBorder + colorValueWhite) / 2)) { //Linksom snel draaien
-            	Logging.log("linksom snel draaien met color value: %.3f", RedSensor.getRed());
-            	Motor.draaiOmAs((-(int)(maxSpeedMotor * (float)0.15)), (int)(maxSpeedMotor * (float)0.3));
-            } else if (colorValue > colorBorder) { //Linksom draaien
-            	Logging.log("linksom draaien met color value: %.3f", RedSensor.getRed());
-            	Motor.bochtVooruit((int)(maxSpeedMotor * (float)0.2), (int)(maxSpeedMotor * (float)0.4));
-            } else if (colorValue < ((colorBorder + colorValueBlack)) / 2) { //Rechtsom snel draaien
-            	Logging.log("Rechtstom snel draaien met color value: %.3f", RedSensor.getRed());
-            	Motor.draaiOmAs((int)(maxSpeedMotor * (float)0.3), (-(int)(maxSpeedMotor * (float)0.15)));
-            } else { //Rechtsom draaien
-            	Logging.log("Rechtsom draaien met color value: %.3f", RedSensor.getRed());
-            	Motor.bochtVooruit((int)(maxSpeedMotor * (float)0.4), (int)(maxSpeedMotor * (float)0.2));
-            }
-        }
-		
+			colorValue = RedSensor.getRed();
+			Lcd.clear(7);
+			Lcd.print(7, "value=%.3f", colorValue);
+			Logging.log("ColorValue: %f", colorValue);
+			float snelheidWielB = ((colorValue / colorValueWhite) * ((float)0.9 * maxSpeedMotor)) - ((float) 0.1 * maxSpeedMotor);
+			float snelheidWielA = ((float) 0.4 * maxSpeedMotor) - snelheidWielB;
+			Logging.log("wiel a snelheid: %f en wiel b snelheid: %f", snelheidWielA, snelheidWielB);
+			if (snelheidWielA < 0 || snelheidWielB < 0) {
+				Motor.draaiOmAs((int) snelheidWielA, (int) snelheidWielB);
+				Logging.log("draait om as 'als het ware'");
+			} else {
+				Motor.bochtVooruit((int) snelheidWielA, (int) snelheidWielB);
+				Logging.log("bocht vooruit 'als het ware'");
+			}
+			
+		}
 
 		// stop motors with brakes on.
 		Motor.uitRollen();
