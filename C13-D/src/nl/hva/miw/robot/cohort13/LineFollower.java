@@ -52,7 +52,7 @@ public class LineFollower {
 
 		System.out.println("Press any key to start the race");
 		Button.waitForAnyPress();
-		float maxSpeedMotor = (Motor.getMaxSpeed() * (float) 0.75);
+		float maxSpeedMotor = (Motor.getMaxSpeed() * ((float) 0.75));
 		Motor.rechtVooruit((int) maxSpeedMotor);
 		Logging.log("maximale snelheid is %f", maxSpeedMotor);
 
@@ -61,12 +61,21 @@ public class LineFollower {
 			Lcd.clear(7);
 			Lcd.print(7, "value=%.3f", colorValue);
 			Logging.log("ColorValue: %f", colorValue);
-			float snelheidWielB = ((colorValue / colorValueWhite) * ((float)0.9 * maxSpeedMotor)) - ((float) 0.1 * maxSpeedMotor);
+			float snelheidWielB = ((colorValue / (colorValueWhite - (float) 0.12)) 
+					* ((float)0.9 * maxSpeedMotor)) - ((float) 0.1 * maxSpeedMotor);
 			float snelheidWielA = ((float) 0.4 * maxSpeedMotor) - snelheidWielB;
 			Logging.log("wiel a snelheid: %f en wiel b snelheid: %f", snelheidWielA, snelheidWielB);
 			if (snelheidWielA < 0 || snelheidWielB < 0) {
-				Motor.draaiOmAs((int) snelheidWielA, (int) snelheidWielB);
 				Logging.log("draait om as 'als het ware'");
+				if(snelheidWielA < 0) {				
+					Motor.draaiOmAs(((int) (snelheidWielA * (float) 1.3)), (int) snelheidWielB);
+					Logging.log("snelheid ach teruit = %f", snelheidWielA);
+				} else {
+					Motor.draaiOmAs((int) snelheidWielA, ((int) (snelheidWielB * (float) 1.3)));
+					Logging.log("snelheid achteruit = %f", snelheidWielB);
+				}
+				
+				
 			} else {
 				Motor.bochtVooruit((int) snelheidWielA, (int) snelheidWielB);
 				Logging.log("bocht vooruit 'als het ware'");
