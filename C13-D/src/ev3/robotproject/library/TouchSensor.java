@@ -15,7 +15,7 @@ public final class TouchSensor {
      * Creates TouchSensor object.
      * @param port SensorPort of Touch Sensor device.
      */
-    private TouchSensor(Port port){
+    public TouchSensor(Port port){
     	EV3TouchSensor sensor = new EV3TouchSensor(port);
     	SampleProvider sp = sensor.getTouchMode();
     }

@@ -12,11 +12,7 @@ public final class GrijpMotor {
 	//default constructor. doet niks.
 	private GrijpMotor() {	
 	}
-	
-//	public static EV3MediumRegulatedMotor getGrijpMotor() {
-//		return MOTOR_GRIJP;
-//	}
-	
+		
 	 
 	public static void grijpen() {
 		
