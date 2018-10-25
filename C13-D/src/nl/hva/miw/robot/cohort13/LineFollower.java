@@ -20,6 +20,8 @@ public class LineFollower {
 		float colorValueBlack;
 		float colorValue;
 		float colorBorder;
+		float minimaalVermogen = -80;
+		float maximaalVermogen = 720;
 
 		System.out.println("Line Follower\n");
 
@@ -52,7 +54,7 @@ public class LineFollower {
 
 		System.out.println("Press any key to start the race");
 		Button.waitForAnyPress();
-		float maxSpeedMotor = (Motor.getMaxSpeed() * ((float) 0.75));
+		float maxSpeedMotor = (maximaalVermogen * ((float) 0.75));
 		Motor.rechtVooruit((int) maxSpeedMotor);
 		Logging.log("maximale snelheid is %f", maxSpeedMotor);
 
@@ -61,9 +63,16 @@ public class LineFollower {
 			Lcd.clear(7);
 			Lcd.print(7, "value=%.3f", colorValue);
 			Logging.log("ColorValue: %f", colorValue);
-			float snelheidWielB = ((colorValue / (colorValueWhite - (float) 0.12)) 
-					* ((float)0.9 * maxSpeedMotor)) - ((float) 0.1 * maxSpeedMotor);
-			float snelheidWielA = ((float) 0.4 * maxSpeedMotor) - snelheidWielB;
+			float snelheidWielB = ((colorValue / colorValueWhite) * ((float)0.8 * maxSpeedMotor)) 
+					- ((float) 0.2 * maxSpeedMotor);
+			float snelheidWielA = (((1 - colorValue) / colorValueBlack) * ((float)0.8 * maxSpeedMotor)) 
+					- ((float) 0.2 * maxSpeedMotor);
+			//float snelheidWielA = maximaalVermogen - ((-(maximaalVermogen - minimaalVermogen) / (colorValueWhite - colorValueBlack))
+			//					* ((colorValueWhite - colorValueBlack) + (colorValueBlack - colorValue)) 
+			//					+ (maximaalVermogen - minimaalVermogen));
+			//float snelheidWielB = minimaalVermogen - ((maximaalVermogen - minimaalVermogen) / (colorValueWhite - colorValueBlack))
+			//					* ((colorValueWhite - colorValueBlack) + (colorValueBlack - colorValue)) 
+			//					- (maximaalVermogen - minimaalVermogen);
 			Logging.log("wiel a snelheid: %f en wiel b snelheid: %f", snelheidWielA, snelheidWielB);
 			if (snelheidWielA < 0 || snelheidWielB < 0) {
 				Logging.log("draait om as 'als het ware'");
