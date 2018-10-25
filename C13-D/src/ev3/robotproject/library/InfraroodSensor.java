@@ -1,9 +1,13 @@
 package ev3.robotproject.library;
 
+import java.util.ArrayList;
+
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.RangeFinder;
 import lejos.robotics.SampleProvider;
+import lejos.robotics.localization.BeaconLocator;
+import lejos.hardware.sensor.*;
 
 public class InfraroodSensor implements RangeFinder
 {
@@ -87,4 +91,6 @@ public class InfraroodSensor implements RangeFinder
 	{
 		sensor.close();
 	}
+
+
 }
