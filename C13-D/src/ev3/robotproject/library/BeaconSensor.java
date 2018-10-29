@@ -1,7 +1,5 @@
 package ev3.robotproject.library;
 
-import java.io.IOException;
-
 import lejos.hardware.port.Port;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3IRSensor;
@@ -36,21 +34,31 @@ public class BeaconSensor {
 		// sluiten van de BeaconSensor (free up resources).
 		ir.close();
 	}
+	
+	
 
 	public static void zoekBeacon() {
 		// Methode die de robot laat draaien totdat de beacon voor hem ligt.
-		do {
-			Lcd.print(1, "BeaconZoeker actief");
-			Lcd.clear(2);
+		float direction = 100;
+		
+		
+		while (direction > 10 || direction < -10) {
+			
+			direction = getDirection();
+			float distance = getDistance();
+			
+			Lcd.clear(1);
+			Lcd.print(2, "BeaconZoeker actief");
 			Lcd.clear(3);
 			Lcd.clear(4);
 			Lcd.print(5, "Versie 1.0.5");
-			Lcd.print(6, "Dir: %f", getDirection());
-			Lcd.print(7, "Dis: %f", getDistance());
+			Lcd.print(6, "Dir: %f", direction);
+			Lcd.print(7, "Dis: %f", distance);
 			Motor.draaiOmAs(100, -100);
-		} while (getDirection() > 3 || getDirection() < -3);
+		} 
 
 		Motor.rem();
+		Lcd.clear();
 	}
 
 }
