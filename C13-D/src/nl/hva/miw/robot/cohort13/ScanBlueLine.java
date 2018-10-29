@@ -14,10 +14,14 @@ public class ScanBlueLine extends Thread {
 	
 	public void run() {
 		
-		Logging.log("%s", findBlueLine());
+		RgbSensor.setRgbMode();
 				
         while (Button.ESCAPE.isUp()) {
-			if (findBlueLine()) {
+        	boolean found = findBlueLine();
+        	
+        	Logging.log("%s", found);
+        	
+			if (found) {
 				Logging.log("\n\nBLAUWE LIJN\n\n");
 				Delay.msDelay(500);
 				teller++;
@@ -28,16 +32,17 @@ public class ScanBlueLine extends Thread {
 	}
 	
 	public boolean findBlueLine() {
-		System.out.println();
-		RgbSensor.setRgbMode();
-		Logging.log("RGB sampleSize (voor aanroep): %d", RgbSensor.getSampleSize());
+	
+//		Logging.log("RGB sampleSize (voor aanroep): %d", RgbSensor.getSampleSize());
 		RGB = RgbSensor.getColor();
-		Logging.log("RGB sampleSize (na aanroep): %d", RgbSensor.getSampleSize());
+//		Logging.log("RGB sampleSize (na aanroep): %d", RgbSensor.getSampleSize());
 		
 		int rgbRed = RGB.getRed();
 		int rgbGreen = RGB.getGreen();
 		int rgbBlue = RGB.getBlue();
-		return (rgbRed >= 9 && rgbRed <= 15 && rgbGreen >= 12 && rgbGreen <= 20 && rgbBlue >= 20 && rgbBlue <= 28);
+		Logging.log("Rood: %d - Groen: %d - Blauw: %d", rgbRed, rgbGreen, rgbBlue);
+//		return (rgbRed >= 9 && rgbRed <= 15 && rgbGreen >= 12 && rgbGreen <= 20 && rgbBlue >= 20 && rgbBlue <= 28);
+		return (rgbRed >= 55 && rgbRed <= 65 && rgbGreen >= 8 && rgbGreen <= 13 && rgbBlue >= 8 && rgbBlue <= 13);
 	}
 	
 	
