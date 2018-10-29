@@ -6,9 +6,9 @@ import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.Color;
 
 public final class RedSensor {
-	final static EV3ColorSensor KLEUREN_SENSOR = new EV3ColorSensor(SensorPort.S3);
+	final static EV3ColorSensor RED_SENSOR = new EV3ColorSensor(SensorPort.S3);
 	final static String KLEUR = "Red"; // 'Red', omdat we een roodkleurensensor gebruiken
-	final static float[] SAMPLE = new float[KLEUREN_SENSOR.sampleSize()];
+	final static float[] SAMPLE = new float[RED_SENSOR.sampleSize()];
 
     /**
    	* Creates ColorSensor object. This is a wrapper class for EV3ColorSensor.
@@ -24,7 +24,7 @@ public final class RedSensor {
 	 * Set color sensor to RED light level mode.
 	 */
 	public static void setRedMode(){
-		KLEUREN_SENSOR.setCurrentMode("Red");
+		RED_SENSOR.setCurrentMode("Red");
 	}
 
 	/**
@@ -32,10 +32,10 @@ public final class RedSensor {
 	 * @return Light level as range 0 to 1.
 	 */
 	public static float getRed(){
-		KLEUREN_SENSOR.setCurrentMode(KLEUR);
+		RED_SENSOR.setCurrentMode(KLEUR);
 		setFloodLight(true);
 		setFloodLight(Color.RED); // de meegegeven parameter is een int uit de Color klasse
-		KLEUREN_SENSOR.fetchSample(SAMPLE, 0);
+		RED_SENSOR.fetchSample(SAMPLE, 0);
 		return SAMPLE[0];
 	}
 	
@@ -43,7 +43,7 @@ public final class RedSensor {
 	 * Release resources.
 	 */
 	public static void close(){
-		KLEUREN_SENSOR.close();
+		RED_SENSOR.close();
 	}
 
 	/**
@@ -51,7 +51,7 @@ public final class RedSensor {
 	 * @return True if on, false if off.
 	 */
 	public static boolean isFloodLightOn(){
-		return KLEUREN_SENSOR.isFloodlightOn();
+		return RED_SENSOR.isFloodlightOn();
 	}
 
 	/**
@@ -60,7 +60,7 @@ public final class RedSensor {
 	 * @param on True to turn floodlight on, false to turn off.
 	 */
 	public static void setFloodLight(boolean on){
-		KLEUREN_SENSOR.setFloodlight(on);
+		RED_SENSOR.setFloodlight(on);
 	}
 	
 	/**
@@ -68,7 +68,7 @@ public final class RedSensor {
 	 * @param color Color id value from Color object.
 	 */
 	public static void setFloodLight(int color){
-		KLEUREN_SENSOR.setFloodlight(color);
+		RED_SENSOR.setFloodlight(color);
 	}
 	
 }

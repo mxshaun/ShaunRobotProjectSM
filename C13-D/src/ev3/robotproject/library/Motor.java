@@ -97,6 +97,16 @@ public final class Motor {
 	public static float getMaxSpeed() {
 		return MOTOR_LINKER.getMaxSpeed();
 	}
+	
+	public static float getSpeedLinks() {
+		return MOTOR_LINKER.getSpeed();
+	}
+	
+	public static float getSpeedRechts() {
+		return MOTOR_RECHTER.getSpeed();
+	}
+	
+	
 
 }
 
