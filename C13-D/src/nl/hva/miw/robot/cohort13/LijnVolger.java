@@ -46,8 +46,12 @@ public class LijnVolger implements Runnable{
 	 */
 	public int bepaalAfwijking() {
 		int afwijking;
+		colorBorder = (colorValueWhite - colorValueBlack) / 2;
+		colorValue = RedSensor.getRed();
+		
+		afwijking = (int) (colorValue / ((colorValueWhite - colorValueBlack) / 180));
+		
 		// hiering moet de hoek of draaiïng van de afwijking van de colorborder bepaalt worden.
-		afwijking = 10;
 		return afwijking;
 	}
 
@@ -57,12 +61,12 @@ public class LijnVolger implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		calibreerWit();
-		calibreerZwart();
+
 		while(opdracht1.getStartOpdracht()) {
 
 			opdracht1.setRijRichting(bepaalAfwijking());
 			System.out.println("rijrichting bepaalt");
+			System.out.println(bepaalAfwijking());
 			Lcd.clear();
 		}
 	}
