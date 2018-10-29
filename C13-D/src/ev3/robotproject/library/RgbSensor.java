@@ -35,8 +35,9 @@ public final class RgbSensor {
 	 * the target surface.
 	 * @return Color object with RGB intensity values of detected color.
 	 */
-	public static Color getColor()
-	{
+	public static Color getColor(){
+		RGB_SENSOR.setCurrentMode(KLEUR);
+		RGB_SENSOR.setFloodlight(Color.WHITE);
 		RGB_SENSOR.fetchSample(SAMPLE, 0);
 		
 		return new Color((int)(SAMPLE[0] * 255), (int)(SAMPLE[1] * 255), (int)(SAMPLE[2] * 255));
