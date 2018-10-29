@@ -18,7 +18,6 @@ public class LijnVolger implements Runnable{
 	private float colorBorder;
 	//private float afwijking; // dit getal reprenteerd de hoek of draai naar/ of van de colorborder,
 							 // waarmee het stuursysteem aangestuurd kan worden
-	private static boolean voerTaakUit;
 	
 	public LijnVolger() {
 	}
@@ -37,9 +36,6 @@ public class LijnVolger implements Runnable{
 		colorValueBlack = RedSensor.getRed();
 	}
 	
-	public void setVoerTaakUit(boolean start) {
-		voerTaakUit = start;
-	}
 	
 	/**
 	 * afwijking bepaalt of er of uiterst links, of uiterst rechts van het midden gemeten wordt. 	
@@ -49,7 +45,7 @@ public class LijnVolger implements Runnable{
 	public int bepaalAfwijking() {
 		int afwijking;
 		// hiering moet de hoek of draaiïng van de afwijking van de colorborder bepaalt worden.
-		afwijking = 65;
+		afwijking = 10;
 		return afwijking;
 	}
 
@@ -59,7 +55,10 @@ public class LijnVolger implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		while(voerTaakUit) {
+		calibreerWit();
+		calibreerZwart();
+		while(RobotLauncher1.getStartOpdracht()) {
+
 			RobotLauncher1.setRijRichting(bepaalAfwijking());
 			System.out.println("rijrichting bepaalt");
 			Lcd.clear();

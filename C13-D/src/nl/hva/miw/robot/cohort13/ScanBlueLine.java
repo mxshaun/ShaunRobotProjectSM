@@ -9,7 +9,7 @@ import lejos.robotics.Color;
 import lejos.utility.Delay;
 
 public class ScanBlueLine extends Thread {
-	
+	Color RGB;
 	int teller = 0;
 	
 	public void run() {
@@ -26,9 +26,10 @@ public class ScanBlueLine extends Thread {
 	}
 	
 	public boolean findBlueLine() {
-		int rgbRed = RgbSensor.getColor().getRed();
-		int rgbGreen = RgbSensor.getColor().getGreen();
-		int rgbBlue = RgbSensor.getColor().getBlue();
+		RGB = RgbSensor.getColor();
+		int rgbRed = RGB.getRed();
+		int rgbGreen = RGB.getGreen();
+		int rgbBlue = RGB.getBlue();
 		return (rgbRed >= 9 && rgbRed <= 11 && rgbGreen >= 16 && rgbGreen <= 18 && rgbBlue >= 23 && rgbBlue <= 25);
 	}
 	
