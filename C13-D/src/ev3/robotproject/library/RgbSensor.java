@@ -9,7 +9,13 @@ import lejos.robotics.ColorDetector;
 public final class RgbSensor {
 	final static EV3ColorSensor RGB_SENSOR = new EV3ColorSensor(SensorPort.S2);
 	final static String KLEUR = "RGB"; // 'RGB', omdat we een RGB modus gebruiken
-	final static float[] SAMPLE = new float[RGB_SENSOR.sampleSize()];
+	static float[] sample;
+	
+	public static int getSampleSize() {
+		return RGB_SENSOR.sampleSize();
+	}
+	
+	
 
     /**
    	* Creates ColorSensor object. This is a wrapper class for EV3ColorSensor.
@@ -26,6 +32,7 @@ public final class RgbSensor {
 	 */
 	public static void setRgbMode(){
 		RGB_SENSOR.setCurrentMode("RGB");
+		sample = new float[RGB_SENSOR.sampleSize()];
 	}
 
 	/**
@@ -40,9 +47,9 @@ public final class RgbSensor {
 
 		RGB_SENSOR.setCurrentMode(KLEUR);
 		RGB_SENSOR.setFloodlight(Color.WHITE);
-		RGB_SENSOR.fetchSample(SAMPLE, 0);
+		RGB_SENSOR.fetchSample(sample, 0);
 		
-		return new Color((int)(SAMPLE[0] * 255), (int)(SAMPLE[1] * 255), (int)(SAMPLE[2] * 255));
+		return new Color((int)(sample[0] * 255), (int)(sample[1] * 255), (int)(sample[2] * 255));
 	}
 
 	
