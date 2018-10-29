@@ -18,16 +18,16 @@ public final class GrijpMotor {
 	public static void grijpen() {
 		
 		MOTOR_GRIJP.setSpeed((MOTOR_GRIJP.getMaxSpeed()/3));
-		MOTOR_GRIJP.forward();
-		Delay.msDelay(2000);
+		MOTOR_GRIJP.backward();
+		Delay.msDelay(3000);
 		MOTOR_GRIJP.stop();
 		
 	}
 	
 	public static void losLaten() {
 		MOTOR_GRIJP.setSpeed((MOTOR_GRIJP.getMaxSpeed()/3));
-		MOTOR_GRIJP.backward();
-		Delay.msDelay(2000);
+		MOTOR_GRIJP.forward();
+		Delay.msDelay(3000);
 		MOTOR_GRIJP.stop();
 	}
 	
