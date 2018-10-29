@@ -11,7 +11,7 @@ import ev3.robotproject.library.Motor;
 public class LineFollower {
 	
 //	static TouchSensor touch = new TouchSensor(SensorPort.S1);
-//	 RedSensor color = new RedSensor(SensorPort.S3);	//Deze is niet meer nodig ivm RedSensor Class 
+//	 RedSensor color = new RedSensor(SensorPort.S3);	 
 	
 	public static void main(String[] args) throws Exception {
 		Logging.setup(LineFollower.class.getPackage(), false);
@@ -116,13 +116,14 @@ public class LineFollower {
 		} else {
 			Motor.bochtVooruit(vermogenLinks, vermogenRechts);
 		}
-		Logging.log("vermogenLinks: %d / Speed: %d en vermogenRechts: %d / Speed: %d obv colorValue: %f", vermogenLinks, Motor.getSpeedLinks(), vermogenRechts, Motor.getSpeedRechts(), colorValue);
+		Logging.log("vermogenLinks: %d / Speed: %.0f en vermogenRechts: %d / Speed: %.0f obv colorValue: %f", vermogenLinks, Motor.getSpeedLinks(), vermogenRechts, Motor.getSpeedRechts(), colorValue);
 	}
 	
 	public static void startCalibratie() {
 		System.out.println("Press any key to start the calibration");
 		Button.waitForAnyPress();
 		Logging.log("Button is pressed");
+		RedSensor.setFloodLight(true);
 	}
 	
 	

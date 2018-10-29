@@ -4,6 +4,7 @@ import lejos.hardware.port.Port;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.Color;
+import lejos.robotics.ColorDetector;
 
 public final class RgbSensor {
 	final static EV3ColorSensor RGB_SENSOR = new EV3ColorSensor(SensorPort.S2);
@@ -17,7 +18,7 @@ public final class RgbSensor {
 	private RgbSensor(Port port){
 		EV3ColorSensor sensor = new EV3ColorSensor(port);
 		sensor.setCurrentMode("RGB");
-		setFloodLight(false);
+		setFloodLight(Color.WHITE);
 	}
 	
 	/**
@@ -35,7 +36,8 @@ public final class RgbSensor {
 	 * the target surface.
 	 * @return Color object with RGB intensity values of detected color.
 	 */
-	public static Color getColor(){
+	public static Color getColor() {
+
 		RGB_SENSOR.setCurrentMode(KLEUR);
 		RGB_SENSOR.setFloodlight(Color.WHITE);
 		RGB_SENSOR.fetchSample(SAMPLE, 0);
@@ -75,5 +77,8 @@ public final class RgbSensor {
 	public static void setFloodLight(int color){
 		RGB_SENSOR.setFloodlight(color);
 	}
+
+
+
 	
 }
