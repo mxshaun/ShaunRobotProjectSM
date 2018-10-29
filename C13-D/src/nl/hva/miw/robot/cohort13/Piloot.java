@@ -14,7 +14,6 @@ import main.RobotLauncher1;
 
 public class Piloot implements Runnable{
 	private final String NAAM = "Bestuurder";
-	private static boolean voerTaakUit;
 	
 	public Piloot() {
 	}
@@ -26,16 +25,13 @@ public class Piloot implements Runnable{
 	 * @return
 	 */
 	
-	public void rijRichting(int hoek) {
+	public void rijOverLijn(int hoek) {
 		/**
 		 * @ To-do: bepaal de relatieve max lineaire snelheid, aan de hand van de hoek die gemaakt dient te worden.
 		 */
 		Wielaandrijving.setSnelheid(Wielaandrijving.getMaxLineaireSnelheid(), hoek);
 	}
-	
-	public void setVoerTaakUit(boolean start) {
-		voerTaakUit = start;
-	}
+
 
 	/**
 	 * zorgt ervoor dat er een richting op gereden wordt zolang deze thread actief is.
@@ -43,8 +39,8 @@ public class Piloot implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		while(voerTaakUit) {
-			rijRichting(RobotLauncher1.getRijRichting());
+		while(RobotLauncher1.getStartOpdracht()) {
+			rijOverLijn(RobotLauncher1.getRijRichting());
 			System.out.println("rijrichting opgehaald");
 			Lcd.clear();
 		}
