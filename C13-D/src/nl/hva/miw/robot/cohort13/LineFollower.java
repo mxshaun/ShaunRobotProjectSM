@@ -2,104 +2,154 @@ package nl.hva.miw.robot.cohort13;
 
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
-import lejos.hardware.lcd.LCD;
-import lejos.hardware.motor.*;
 import lejos.hardware.port.*;
 import lejos.robotics.Color;
+import lejos.utility.Stopwatch;
 import ev3.robotproject.library.*;
 import ev3.robotproject.library.Motor;
 
-import java.io.IOException;
-
 public class LineFollower {
-
+	
+//	static TouchSensor touch = new TouchSensor(SensorPort.S1);
+//	 RedSensor color = new RedSensor(SensorPort.S3);	//Deze is niet meer nodig ivm RedSensor Class 
+	
 	public static void main(String[] args) throws Exception {
 		Logging.setup(LineFollower.class.getPackage(), false);
 		Logging.log("Start");
 		float colorValueWhite;
 		float colorValueBlack;
-		float colorValue;
 		float colorBorder;
-		float minimaalVermogen = -80;
-		float maximaalVermogen = 720;
-
+		int tellerAantalKeerBlauweLijn = 0;
+		
 		System.out.println("Line Follower\n");
-
+		
+		//STARTEN VAN HET CALIBRATIE PROCES.
+		
+		//Biebs (fancy geluidkjes, etc)
 		Button.LEDPattern(4); // flash green led and
 		Sound.beepSequenceUp(); // make sound when ready.
-
-		System.out.println("Press any key to start the calibration");
-
-		Button.waitForAnyPress();
-		Logging.log("Button is pressed");
-
-		System.out.println("Scan wit vlak, press button");
-		Button.waitForAnyPress();
-
-		colorValueWhite = RedSensor.getRed();
-
-		Logging.log("colorValueWhite: %f", colorValueWhite);
-
-		System.out.println("Scan zwart vlak, press button");
-		Button.waitForAnyPress();
-
-		colorValueBlack = RedSensor.getRed();
-
-		Logging.log("colorValueBlack: %f", colorValueBlack);
-
-		colorBorder = (colorValueBlack + colorValueWhite) / 2;
-		Logging.log("colorborder: %f", colorBorder);
+		
+		startCalibratie();
+		colorValueWhite = calibreerWit();
+		colorValueBlack = calibreerZwart();
+		colorBorder = bepaalColorBorder(colorValueWhite, colorValueBlack);
+		
 		Button.LEDPattern(4); // flash green led and
 		Sound.beepSequenceUp(); // make sound when ready.
 
 		System.out.println("Press any key to start the race");
 		Button.waitForAnyPress();
-		float maxSpeedMotor = (maximaalVermogen * ((float) 0.75));
-		Motor.rechtVooruit((int) maxSpeedMotor);
-		Logging.log("maximale snelheid is %f", maxSpeedMotor);
-
-		while (!TouchSensor.isTouched() && Button.ESCAPE.isUp()) {
-			colorValue = RedSensor.getRed();
-			Lcd.clear(7);
-			Lcd.print(7, "value=%.3f", colorValue);
-			Logging.log("ColorValue: %f", colorValue);
-			float snelheidWielB = ((colorValue / colorValueWhite) * ((float)0.8 * maxSpeedMotor)) 
-					- ((float) 0.2 * maxSpeedMotor);
-			float snelheidWielA = (((1 - colorValue) / colorValueBlack) * ((float)0.8 * maxSpeedMotor)) 
-					- ((float) 0.2 * maxSpeedMotor);
-			//float snelheidWielA = maximaalVermogen - ((-(maximaalVermogen - minimaalVermogen) / (colorValueWhite - colorValueBlack))
-			//					* ((colorValueWhite - colorValueBlack) + (colorValueBlack - colorValue)) 
-			//					+ (maximaalVermogen - minimaalVermogen));
-			//float snelheidWielB = minimaalVermogen - ((maximaalVermogen - minimaalVermogen) / (colorValueWhite - colorValueBlack))
-			//					* ((colorValueWhite - colorValueBlack) + (colorValueBlack - colorValue)) 
-			//					- (maximaalVermogen - minimaalVermogen);
-			Logging.log("wiel a snelheid: %f en wiel b snelheid: %f", snelheidWielA, snelheidWielB);
-			if (snelheidWielA < 0 || snelheidWielB < 0) {
-				Logging.log("draait om as 'als het ware'");
-				if(snelheidWielA < 0) {				
-					Motor.draaiOmAs(((int) (snelheidWielA * (float) 1.3)), (int) snelheidWielB);
-					Logging.log("snelheid ach teruit = %f", snelheidWielA);
-				} else {
-					Motor.draaiOmAs((int) snelheidWielA, ((int) (snelheidWielB * (float) 1.3)));
-					Logging.log("snelheid achteruit = %f", snelheidWielB);
-				}
-				
-				
-			} else {
-				Motor.bochtVooruit((int) snelheidWielA, (int) snelheidWielB);
-				Logging.log("bocht vooruit 'als het ware'");
-			}
-			
+		
+		//Starten blauwe lijn scanner
+		ScanBlueLine blauweLijn = new ScanBlueLine();
+		blauweLijn.start();
+		
+		//Starten met rijden
+		Logging.log("begint met rijden");
+//		Motor.rechtVooruit((int)(Motor.getMaxSpeed()*0.5));
+//		Logging.log("Teller bedraagt direct na de start: %d", tellerAantalKeerBlauweLijn);
+		
+		//Starten controle-loop
+		Logging.log("begin loop");
+//		Stopwatch sw = new Stopwatch();
+		while (Button.ESCAPE.isUp() && tellerAantalKeerBlauweLijn<2) {
+//			Logging.log("Teller bedraagt direct voor 'followLine()': %d", tellerAantalKeerBlauweLijn);
+			followLine(colorValueWhite, colorValueBlack);
+//			if(blauweLijn.findBlueLine()) {
+//				tellerAantalKeerBlauweLijn++;
+//			}
+//			if (tellerAantalKeerBlauweLijn ==1) {
+//				sw.reset();
+//			}
+//			if (tellerAantalKeerBlauweLijn == 2) {
+//				int rondetijd = sw.elapsed();
+//				Logging.log("Teller staat op 2 met %d milliseconden", rondetijd);
+//			}
 		}
 
 		// stop motors with brakes on.
-		Motor.uitRollen();
+		Motor.rem();
 
 		// free up resources.
 		Motor.sluit();
-		TouchSensor.close();
+//		touch.close();
 		RedSensor.close();
 
 		Sound.beepSequence(); // we are done.
 	}
+	
+	public static void followLine(float colorValueWhite, float colorValueBlack) {
+		//Scanner in Red-mode
+		RedSensor.setRedMode();
+		float colorValue = RedSensor.getRed();
+		
+		//Bepalen "vaste" waarden en variabelen
+		final float CORRECTION_COLOR_MARGE = 0.08f;
+		float min = colorValueBlack + CORRECTION_COLOR_MARGE;
+		float max = colorValueWhite - CORRECTION_COLOR_MARGE*((min+CORRECTION_COLOR_MARGE)/min);
+		int maxSpeed = 720;
+		double speedCorrection = 0.7;
+		
+		
+		
+		//Bepalen vermogen links
+//		int vermogenLinks = (int)(colorValue - min) * 100;
+		int vermogenLinks =(int)((max-colorValue) / (max-min) * maxSpeed * speedCorrection);
+		
+		//Bepalen vermogen rechts
+//		int vermogenRechts = (int)(max - colorValue) * 100;
+		int vermogenRechts = (int)((colorValue-min) / (max-min) * maxSpeed * speedCorrection);
+		
+		//Aansturen motoren
+		if (colorValue<min) {
+			if (vermogenRechts > -75) {
+				Motor.draaiOmAs(vermogenLinks, (vermogenRechts * 1));
+			} else {
+				Motor.draaiOmAs(vermogenLinks, (vermogenRechts * 2));
+			}
+		} else if (colorValue>max) {
+			if (vermogenLinks > -75) {
+				Motor.draaiOmAs((vermogenLinks * 1), vermogenRechts);
+			} else {
+				Motor.draaiOmAs((vermogenLinks * 2), vermogenRechts);
+			}
+		} else {
+			Motor.bochtVooruit(vermogenLinks, vermogenRechts);
+		}
+		Logging.log("vermogenLinks: %d / Speed: %d en vermogenRechts: %d / Speed: %d obv colorValue: %f", vermogenLinks, Motor.getSpeedLinks(), vermogenRechts, Motor.getSpeedRechts(), colorValue);
+	}
+	
+	public static void startCalibratie() {
+		System.out.println("Press any key to start the calibration");
+		Button.waitForAnyPress();
+		Logging.log("Button is pressed");
+	}
+	
+	
+	public static float calibreerWit() {
+		System.out.println("Scan het witte vlak,\n\npress button");
+		Button.waitForAnyPress();
+		float colorValueWhite = RedSensor.getRed();
+		Logging.log("colorValueWhite: %f", colorValueWhite);
+		return colorValueWhite;
+	}
+	
+	public static float calibreerZwart() {
+		System.out.println("Scan de zwarte lijn,\n\nzwart vlak, press button");
+		Button.waitForAnyPress();
+		float colorValueBlack = RedSensor.getRed();
+		Logging.log("colorValueBlack: %f", colorValueBlack);
+		return colorValueBlack;
+	}
+	
+	public static float bepaalColorBorder(float colorValueWhite, float colorValueBlack) {
+		float colorBorder = (colorValueBlack + colorValueWhite) / 2;
+		Logging.log("colorborder: %f", colorBorder);
+		return colorBorder;
+	}
+	
+
+	
+	
+
 }
