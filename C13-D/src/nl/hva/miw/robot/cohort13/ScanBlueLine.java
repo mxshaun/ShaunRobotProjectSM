@@ -15,6 +15,9 @@ public class ScanBlueLine extends Thread {
 	public void run() {
 				
         while (Button.ESCAPE.isUp()) {
+        	
+        	Logging.log("%s", findBlueLine());
+        	
 			if (findBlueLine()) {
 				Logging.log("\n\nBLAUWE LIJN\n\n");
 				Delay.msDelay(500);
