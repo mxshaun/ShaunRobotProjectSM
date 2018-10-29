@@ -6,7 +6,6 @@ import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.*;
 import lejos.hardware.port.*;
 import lejos.robotics.Color;
-import main.RobotLauncher1;
 import ev3.robotproject.library.*;
 import java.io.IOException;
 
@@ -16,10 +15,13 @@ public class LijnVolger implements Runnable{
 	private float colorValueBlack;
 	private float colorValueWhite;
 	private float colorBorder;
+	private LijnvolgerOpdracht1 opdracht1;
+	
 	//private float afwijking; // dit getal reprenteerd de hoek of draai naar/ of van de colorborder,
 							 // waarmee het stuursysteem aangestuurd kan worden
 	
-	public LijnVolger() {
+	public LijnVolger(LijnvolgerOpdracht1 lijnvolgerOpdracht1) {
+		this.opdracht1 = lijnvolgerOpdracht1;
 	}
 	
 	public void calibreerWit() {
@@ -44,8 +46,12 @@ public class LijnVolger implements Runnable{
 	 */
 	public int bepaalAfwijking() {
 		int afwijking;
+		colorBorder = (colorValueWhite - colorValueBlack) / 2;
+		colorValue = RedSensor.getRed();
+		
+		afwijking = (int) (colorValue / ((colorValueWhite - colorValueBlack) / 180));
+		
 		// hiering moet de hoek of draaiïng van de afwijking van de colorborder bepaalt worden.
-		afwijking = 10;
 		return afwijking;
 	}
 
@@ -55,12 +61,12 @@ public class LijnVolger implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		calibreerWit();
-		calibreerZwart();
-		while(RobotLauncher1.getStartOpdracht()) {
 
-			RobotLauncher1.setRijRichting(bepaalAfwijking());
+		while(opdracht1.getStartOpdracht()) {
+
+			opdracht1.setRijRichting(bepaalAfwijking());
 			System.out.println("rijrichting bepaalt");
+			System.out.println(bepaalAfwijking());
 			Lcd.clear();
 		}
 	}
