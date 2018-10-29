@@ -10,12 +10,13 @@ import ev3.robotproject.library.Logging;
 import ev3.robotproject.library.Motor;
 import ev3.robotproject.library.RedSensor;
 import ev3.robotproject.library.Wielaandrijving;
-import main.RobotLauncher1;
 
 public class Piloot implements Runnable{
 	private final String NAAM = "Bestuurder";
+	private LijnvolgerOpdracht1 opdracht1;
 	
-	public Piloot() {
+	public Piloot(LijnvolgerOpdracht1 lijnvolgerOpdracht1) {
+		this.opdracht1 = lijnvolgerOpdracht1;
 	}
 	
 	/**
@@ -39,8 +40,8 @@ public class Piloot implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		while(RobotLauncher1.getStartOpdracht()) {
-			rijOverLijn(RobotLauncher1.getRijRichting());
+		while(opdracht1.getStartOpdracht()) {
+			rijOverLijn(opdracht1.getRijRichting());
 			System.out.println("rijrichting opgehaald");
 			Lcd.clear();
 		}

@@ -1,4 +1,4 @@
-package main;
+package nl.hva.miw.robot.cohort13;
 
 import ev3.robotproject.library.Logging;
 import ev3.robotproject.library.Wielaandrijving;
@@ -11,25 +11,19 @@ import lejos.robotics.chassis.Chassis;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
-import nl.hva.miw.robot.cohort13.Piloot;
-import nl.hva.miw.robot.cohort13.LijnVolger;
 
 
-public class RobotLauncher1 {
-	static Piloot piloot = new Piloot();
-	static LijnVolger lijnScanner = new LijnVolger();
-	static int rijRichting;
-	static boolean startOpdracht;
+public class LijnvolgerOpdracht1 {
+	Piloot piloot = new Piloot(this);
+	LijnVolger lijnScanner = new LijnVolger(this);
+	int rijRichting;
+	boolean startOpdracht;
 
-	public static void main(String[] args) throws Exception{
-		//Logging.setup(RobotLauncher1.class.getPackage(), false);
-		//Logging.log("Starting test");
-		
-		lijnVolgerOpdracht();
-
+	public LijnvolgerOpdracht1(boolean startOpdracht) {
+		this.startOpdracht = startOpdracht;
 	}
 	
-	public static void lijnVolgerOpdracht() {
+	public void lijnVolgerOpdracht() {
 		Button.LEDPattern(4); // flash green led and
 		Sound.beepSequenceUp(); // make sound when ready.
 
@@ -41,9 +35,9 @@ public class RobotLauncher1 {
 		lijnScanner.calibreerWit();
 		lijnScanner.calibreerZwart();
 		
-		Thread t1 = new Thread((Runnable) piloot);
+		Thread t1 = new Thread(piloot);
 		//Logging.log("Thread 1 gemaakt");
-		Thread t2 = new Thread((Runnable) lijnScanner);
+		Thread t2 = new Thread(lijnScanner);
 		//Logging.log("Thread 2 gemaakt");
 		startOpdracht = true;
 
@@ -53,20 +47,20 @@ public class RobotLauncher1 {
 		//Logging.log("Thread 2 gestart");
 	}
 
-	public synchronized static void setRijRichting(int richting) {
+	public synchronized void setRijRichting(int richting) {
 		rijRichting = richting;	
 	}
 
-	public synchronized static int getRijRichting() {
+	public synchronized int getRijRichting() {
 		// TODO Auto-generated method stub
 		return rijRichting;
 	}
 	
-	public synchronized static void setStartOpdracht(boolean start) {
+	public synchronized void setStartOpdracht(boolean start) {
 		startOpdracht = start;
 	}
 	
-	public synchronized static boolean getStartOpdracht() {
+	public synchronized boolean getStartOpdracht() {
 		return startOpdracht;
 	}
 
