@@ -7,15 +7,11 @@ import lejos.hardware.motor.*;
 import lejos.hardware.port.*;
 import lejos.robotics.Color;
 import ev3.robotproject.library.*;
+import ev3.robotproject.library.Motor;
+
 import java.io.IOException;
 
 public class LineFollower {
-	//static UnregulatedMotor motorA = new UnregulatedMotor(MotorPort.A);
-	//static UnregulatedMotor motorB = new UnregulatedMotor(MotorPort.B);
-	static TouchSensor touch = new TouchSensor(SensorPort.S1);
-	static ColorSensor color = new ColorSensor(SensorPort.S3);
-	static EV3LargeRegulatedMotor motorAA = new EV3LargeRegulatedMotor(MotorPort.A);
-	static EV3LargeRegulatedMotor motorBB = new EV3LargeRegulatedMotor(MotorPort.B);
 
 	public static void main(String[] args) throws Exception {
 		Logging.setup(LineFollower.class.getPackage(), false);
@@ -24,13 +20,10 @@ public class LineFollower {
 		float colorValueBlack;
 		float colorValue;
 		float colorBorder;
-		
-		System.out.println("Line Follower\n");
+		float minimaalVermogen = -80;
+		float maximaalVermogen = 720;
 
-		color.setRedMode();
-		color.setFloodLight(Color.RED);
-		color.setFloodLight(true);
-		
+		System.out.println("Line Follower\n");
 
 		Button.LEDPattern(4); // flash green led and
 		Sound.beepSequenceUp(); // make sound when ready.
@@ -39,18 +32,21 @@ public class LineFollower {
 
 		Button.waitForAnyPress();
 		Logging.log("Button is pressed");
-		
+
 		System.out.println("Scan wit vlak, press button");
 		Button.waitForAnyPress();
-		colorValueWhite = color.getRed();
+
+		colorValueWhite = RedSensor.getRed();
+
 		Logging.log("colorValueWhite: %f", colorValueWhite);
-		
+
 		System.out.println("Scan zwart vlak, press button");
 		Button.waitForAnyPress();
-		colorValueBlack = color.getRed();
+
+		colorValueBlack = RedSensor.getRed();
+
 		Logging.log("colorValueBlack: %f", colorValueBlack);
 
-		
 		colorBorder = (colorValueBlack + colorValueWhite) / 2;
 		Logging.log("colorborder: %f", colorBorder);
 		Button.LEDPattern(4); // flash green led and
@@ -58,164 +54,51 @@ public class LineFollower {
 
 		System.out.println("Press any key to start the race");
 		Button.waitForAnyPress();
-		float maxSpeedMotorA = motorAA.getMaxSpeed(); 
-		float maxSpeedMotorB = motorBB.getMaxSpeed();
-		
-//		motorAA.setSpeed(maxSpeedMotorA / 2);
-//		motorBB.setSpeed(maxSpeedMotorB / 2);
-//		motorAA.forward();
-//		motorBB.forward();
-		//motorB.setPower(25);
+		float maxSpeedMotor = (maximaalVermogen * ((float) 0.75));
+		Motor.rechtVooruit((int) maxSpeedMotor);
+		Logging.log("maximale snelheid is %f", maxSpeedMotor);
 
-		// drive waiting for touch sensor or escape key to stop driving.
-
-//		while (!touch.isTouched() && Button.ESCAPE.isUp()) {
-//			
-//			colorValue = color.getRed();
-//			Logging.log("gemeten colorvalue: %f",  colorValue);
-//			LCD.clear(7);
-////			float maxSpeedMotorAA = motorAA.getMaxSpeed();
-////			float maxSpeedMotorBB = motorBB.getMaxSpeed();
-//			
-//			//Voordat de loop-comando's gegeven worden, worden de motoren gestopt.
-//			motorAA.stop();
-//			motorBB.stop();
-//
-//			if (colorValue > colorBorder) {
-//				if (colorValue/colorBorder > 1.5) {
-//					motorAA.setSpeed(maxSpeedMotorA * (float)0.5);
-//					motorBB.setSpeed(maxSpeedMotorB * (float)0.5);
-//					motorAA.forward();
-//					motorBB.backward();
-////				} else if (colorValue/colorBorder > 1.6) {
-////					motorAA.setSpeed(maxSpeedMotorAA * (float)0.8);
-////					motorBB.setSpeed(maxSpeedMotorBB * (float)0.2);
-////
-////					motorAA.forward();
-////					motorBB.backward();
-////				} else if (colorValue/colorBorder > 1.5) {
-////					motorAA.setSpeed(maxSpeedMotorAA * (float)0.4);
-////					motorBB.setSpeed(maxSpeedMotorBB * (float)0.1);
-////
-////					motorAA.forward();
-////					motorBB.backward();
-////				} else if (colorValue/colorBorder > 1.4) {
-////					motorAA.setSpeed(maxSpeedMotorAA * (float)0.4);
-////					motorBB.setSpeed(maxSpeedMotorBB * (float)0.0);
-////
-////					motorAA.forward();
-////					motorBB.forward();
-////				} else if (colorValue/colorBorder > 1.3) {
-////					motorAA.setSpeed(maxSpeedMotorAA * (float)0.3);
-////					motorBB.setSpeed(maxSpeedMotorBB * (float)0.1);
-////
-////					motorAA.forward();
-////					motorBB.forward();
-//				} else if (colorValue/colorBorder > 1.2) {
-//					motorAA.setSpeed(maxSpeedMotorA * (float)0.5);
-//					motorBB.setSpeed(maxSpeedMotorB * (float)0.3);
-//
-//					motorAA.forward();
-//					motorBB.forward();
-//				} 
-//				motorAA.setSpeed(maxSpeedMotorA * (float)0.5);
-//				motorBB.setSpeed(maxSpeedMotorB * (float)0.45);
-//
-//				motorAA.forward();
-//				motorBB.forward();
-//			} else {
-//				if (colorValue/colorBorder < 0.30) {
-//					motorAA.setSpeed(maxSpeedMotorA * (float)0.5);
-//					motorBB.setSpeed(maxSpeedMotorB * (float)0.5);
-//
-//					motorAA.backward();
-//					motorBB.forward();
-////				} else if (colorValue/colorBorder < 0.40) {
-////					motorAA.setSpeed(maxSpeedMotorAA * (float)0.2);
-////					motorBB.setSpeed(maxSpeedMotorBB * (float)0.8);
-////
-////					motorAA.backward();
-////					motorBB.forward();
-////				} else if (colorValue/colorBorder < 0.50) {
-////					motorAA.setSpeed(maxSpeedMotorAA * (float)0.1);
-////					motorBB.setSpeed(maxSpeedMotorBB * (float)0.4);
-////
-////					motorAA.backward();
-////					motorBB.forward();
-////				} else if (colorValue/colorBorder < 0.60) {
-////					motorAA.setSpeed(maxSpeedMotorAA * (float)0.0);
-////					motorBB.setSpeed(maxSpeedMotorBB * (float)0.4);
-////
-////					motorAA.forward();
-////					motorBB.forward();
-////				} else if (colorValue/colorBorder < 0.70) {
-////					motorAA.setSpeed(maxSpeedMotorAA * (float)0.1);
-////					motorBB.setSpeed(maxSpeedMotorBB * (float)0.3);
-////
-////					motorAA.forward();
-////					motorBB.forward();
-//				} else if (colorValue/colorBorder < 0.80) {
-//					motorAA.setSpeed(maxSpeedMotorA * (float)0.3);
-//					motorBB.setSpeed(maxSpeedMotorB * (float)0.5);
-//
-//					motorAA.forward();
-//					motorBB.forward();
-//				}
-//				Logging.log("Moterkrcht A: %d Motorkracht B: %d", motorAA.getSpeed(), motorBB.getSpeed());
-//				motorAA.setSpeed(maxSpeedMotorA * (float)0.45);
-//				motorBB.setSpeed(maxSpeedMotorB * (float)0.5);
-//
-//				motorAA.forward();
-//				motorBB.forward();
-//			}
-//		}
-		
-		motorAA.setSpeed(maxSpeedMotorA / 2);
-		motorBB.setSpeed(maxSpeedMotorB / 2);
-		motorAA.forward();
-		motorBB.forward();
-		
-		while (!touch.isTouched() && Button.ESCAPE.isUp()) {
-
-            colorValue = color.getRed();
-            
-            Lcd.clear(7);
-            Lcd.print(7,  "value=%.3f", colorValue);
-
-            if (colorValue > ((colorBorder + colorValueWhite) / 2)) { //Linksom snel draaien
-            	motorAA.setSpeed(maxSpeedMotorA * (float)0.3);
-            	motorBB.setSpeed(maxSpeedMotorB * (float)0.15);
-            	motorAA.forward();
-            	motorBB.backward();
-            } else if (colorValue > colorBorder) { //Linksom draaien
-            	motorAA.setSpeed(maxSpeedMotorA * (float)0.4);
-            	motorBB.setSpeed(maxSpeedMotorB * (float)0.2);
-            	motorAA.forward();
-            	motorBB.forward();
-            } else if (colorValue < ((colorBorder + colorValueBlack)) / 2) { //Rechtsom snel draaien
-            	motorAA.setSpeed(maxSpeedMotorA * (float)0.15);
-            	motorBB.setSpeed(maxSpeedMotorB * (float)0.3);
-            	motorAA.backward();
-            	motorBB.forward();
-            } else { //Rechtsom draaien
-            	motorAA.setSpeed(maxSpeedMotorA * (float)0.2);
-            	motorBB.setSpeed(maxSpeedMotorB * (float)0.4);
-            	motorAA.forward();
-            	motorBB.forward();
-            }
-        }
-		
-		
+		while (!TouchSensor.isTouched() && Button.ESCAPE.isUp()) {
+			colorValue = RedSensor.getRed();
+			Lcd.clear(7);
+			Lcd.print(7, "value=%.3f", colorValue);
+			Logging.log("ColorValue: %f", colorValue);
+			float snelheidWielB = ((colorValue / colorValueWhite) * ((float)0.8 * maxSpeedMotor)) 
+					- ((float) 0.2 * maxSpeedMotor);
+			float snelheidWielA = (((1 - colorValue) / colorValueBlack) * ((float)0.8 * maxSpeedMotor)) 
+					- ((float) 0.2 * maxSpeedMotor);
+			//float snelheidWielA = maximaalVermogen - ((-(maximaalVermogen - minimaalVermogen) / (colorValueWhite - colorValueBlack))
+			//					* ((colorValueWhite - colorValueBlack) + (colorValueBlack - colorValue)) 
+			//					+ (maximaalVermogen - minimaalVermogen));
+			//float snelheidWielB = minimaalVermogen - ((maximaalVermogen - minimaalVermogen) / (colorValueWhite - colorValueBlack))
+			//					* ((colorValueWhite - colorValueBlack) + (colorValueBlack - colorValue)) 
+			//					- (maximaalVermogen - minimaalVermogen);
+			Logging.log("wiel a snelheid: %f en wiel b snelheid: %f", snelheidWielA, snelheidWielB);
+			if (snelheidWielA < 0 || snelheidWielB < 0) {
+				Logging.log("draait om as 'als het ware'");
+				if(snelheidWielA < 0) {				
+					Motor.draaiOmAs(((int) (snelheidWielA * (float) 1.3)), (int) snelheidWielB);
+					Logging.log("snelheid ach teruit = %f", snelheidWielA);
+				} else {
+					Motor.draaiOmAs((int) snelheidWielA, ((int) (snelheidWielB * (float) 1.3)));
+					Logging.log("snelheid achteruit = %f", snelheidWielB);
+				}
+				
+				
+			} else {
+				Motor.bochtVooruit((int) snelheidWielA, (int) snelheidWielB);
+				Logging.log("bocht vooruit 'als het ware'");
+			}
+			
+		}
 
 		// stop motors with brakes on.
-		motorAA.stop();
-		motorBB.stop();
+		Motor.uitRollen();
 
 		// free up resources.
-		motorAA.close();
-		motorBB.close();
-		touch.close();
-		color.close();
+		Motor.sluit();
+		TouchSensor.close();
+		RedSensor.close();
 
 		Sound.beepSequence(); // we are done.
 	}

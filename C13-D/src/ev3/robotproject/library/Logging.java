@@ -121,8 +121,8 @@ public class Logging
 
      isSetup = true;
  }
-
- /**
+ 
+  /**
   * Flush logged data to disk file. Not normally needed.
   */
  public static void flushlog()
