@@ -14,13 +14,12 @@ import lejos.robotics.navigation.MovePilot;
 
 
 public class LijnvolgerOpdracht1 {
-	Piloot piloot = new Piloot(this);
-	LijnVolger lijnScanner = new LijnVolger(this);
-	int rijRichting;
-	boolean startOpdracht;
+	private Piloot piloot = new Piloot(this);
+	private LijnVolger lijnScanner = new LijnVolger(this);
+	private volatile int rijRichting;
+	private boolean startOpdracht;
 
-	public LijnvolgerOpdracht1(boolean startOpdracht) {
-		this.startOpdracht = startOpdracht;
+	public LijnvolgerOpdracht1() {
 	}
 	
 	public void lijnVolgerOpdracht() {
@@ -36,28 +35,31 @@ public class LijnvolgerOpdracht1 {
 		lijnScanner.calibreerZwart();
 		
 		Thread t1 = new Thread(piloot);
-		//Logging.log("Thread 1 gemaakt");
 		Thread t2 = new Thread(lijnScanner);
-		//Logging.log("Thread 2 gemaakt");
 		startOpdracht = true;
-
+		try {
+			t1.join();
+			t2.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		t1.start();
-		//Logging.log("Thread 1 gestart");		
 		t2.start();
-		//Logging.log("Thread 2 gestart");
 	}
 
-	public synchronized void setRijRichting(int richting) {
-		rijRichting = richting;	
+	public void setRijRichting(int richting) {
+		this.rijRichting = richting;	
 	}
 
-	public synchronized int getRijRichting() {
+	public int getRijRichting() {
 		// TODO Auto-generated method stub
 		return rijRichting;
 	}
 	
 	public synchronized void setStartOpdracht(boolean start) {
-		startOpdracht = start;
+		this.startOpdracht = start;
 	}
 	
 	public synchronized boolean getStartOpdracht() {
