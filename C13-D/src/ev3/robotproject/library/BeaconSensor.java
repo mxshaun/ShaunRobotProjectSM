@@ -6,6 +6,7 @@ import lejos.hardware.port.Port;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3IRSensor;
 import lejos.robotics.SampleProvider;
+import lejos.utility.Delay;
 
 public class BeaconSensor {
 
@@ -48,7 +49,8 @@ public class BeaconSensor {
 			Lcd.print(6, "Dir: %f", getDirection());
 			Lcd.print(7, "Dis: %f", getDistance());
 			Motor.draaiOmAs(100, -100);
-		} while (getDirection() > 3 || getDirection() < -3);
+			Delay.msDelay(5000);
+		} while (getDirection() > 10 || getDirection() < -10);
 
 		Motor.rem();
 	}

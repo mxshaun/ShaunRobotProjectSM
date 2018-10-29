@@ -6,6 +6,8 @@ import ev3.robotproject.library.Lcd;
 import ev3.robotproject.library.Motor;
 import ev3.robotproject.library.TouchSensor;
 import lejos.hardware.Button;
+import lejos.robotics.localization.BeaconLocator;
+import lejos.robotics.localization.BeaconPoseProvider;
 import lejos.utility.Delay;
 
 public class BeaconTest {
@@ -16,6 +18,7 @@ public class BeaconTest {
 		// indrukken.
 		System.out.println("start om te beginnen");
 		Button.waitForAnyPress();
+		
 
 		// de robot blijft draaien tot de beacon is gevonden (totdat de beacon in zicht
 		// is van de infrarood sensor).
@@ -24,6 +27,12 @@ public class BeaconTest {
 		// Loop die scant waar de beacon is en er naartoe rijd.
 		while (!TouchSensor.isTouched() && Button.ESCAPE.isUp() && (BeaconSensor.getDistance() > 10)) {
 
+//			float dir = BeaconSensor.getDirection();
+//			float dis = BeaconSensor.getDistance();
+//		
+//			int direction  = (int) dir;
+//			int distance = (int) dis;
+			
 			int direction = (int) BeaconSensor.getDirection();
 			int distance = (int) BeaconSensor.getDistance();
 
@@ -32,8 +41,8 @@ public class BeaconTest {
 			Lcd.clear(3);
 			Lcd.clear(4);
 			Lcd.print(5, "Versie 1.0.5");
-			Lcd.print(6, "Dir: %d", direction);
-			Lcd.print(7, "Dis: %d", distance);
+			Lcd.print(6, "Dir: %7d", direction);
+			Lcd.print(7, "Dis: %7d", distance);
 
 			// aansturen motoren op basis van direction
 			if (direction > 0) {
@@ -46,13 +55,14 @@ public class BeaconTest {
 					// we moeten uit de while loop (break statement zorgde laatste keer voor een crash. dus misschien in de while loop voorwaarden verwerken).
 
 				} else {
-					Motor.rechtVooruit(100);
+					Motor.rechtVooruit(300);
 				}
 			}
 		}
 		
 		// Beacon zou nu voor de robot moeten staan. De grijper gaat nu het object pakken. 
 		GrijpMotor.grijpen();
+		GrijpMotor.stop();
 		// Een stuk ermee rijden? en daar weer loslaten.
 		
 		// Motor maakt bochtje achteruit
@@ -67,10 +77,15 @@ public class BeaconTest {
 		
 		// Laat beacon los
 		GrijpMotor.losLaten();
+		GrijpMotor.stop();
 		
 		// Motor stukje achteruit
 		Motor.rechtAchteruit(400);
 		
+		//
+		Motor.sluit();
+		GrijpMotor.sluit();
+		BeaconSensor.sluit();
 		
 
 	}
