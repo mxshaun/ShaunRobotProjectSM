@@ -19,21 +19,17 @@ public class RobotLauncher1 {
 	static Piloot piloot = new Piloot();
 	static LijnVolger lijnScanner = new LijnVolger();
 	static int rijRichting;
-	static boolean start;
+	static boolean startOpdracht;
 
 	public static void main(String[] args) throws Exception{
-		Logging.setup(RobotLauncher1.class.getPackage(), false);
-		Logging.log("Starting test");
+		//Logging.setup(RobotLauncher1.class.getPackage(), false);
+		//Logging.log("Starting test");
 		
-		//lijnVolgerOpdracht();
+		lijnVolgerOpdracht();
 
 	}
 	
 	public static void lijnVolgerOpdracht() {
-		start = true;
-		lijnScanner.setVoerTaakUit(start);
-		piloot.setVoerTaakUit(start);
-		
 		Button.LEDPattern(4); // flash green led and
 		Sound.beepSequenceUp(); // make sound when ready.
 
@@ -42,24 +38,19 @@ public class RobotLauncher1 {
 		Button.waitForAnyPress();
 		Logging.log("Button is pressed");
 		
-		Thread t1 = new Thread((Runnable) piloot);
-		Logging.log("Thread 1 gemaakt");
-		Thread t2 = new Thread((Runnable) lijnScanner);
-		Logging.log("Thread 2 gemaakt");
-		try {
-			t1.join();
-			Logging.log("Thread 1 gejoint");
-			t2.join();
-			Logging.log("Thread 2 gejoint");
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		lijnScanner.calibreerWit();
+		lijnScanner.calibreerZwart();
 		
+		Thread t1 = new Thread((Runnable) piloot);
+		//Logging.log("Thread 1 gemaakt");
+		Thread t2 = new Thread((Runnable) lijnScanner);
+		//Logging.log("Thread 2 gemaakt");
+		startOpdracht = true;
+
 		t1.start();
-		Logging.log("Thread 1 gestart");
+		//Logging.log("Thread 1 gestart");		
 		t2.start();
-		Logging.log("Thread 2 gestart");
+		//Logging.log("Thread 2 gestart");
 	}
 
 	public synchronized static void setRijRichting(int richting) {
@@ -69,6 +60,14 @@ public class RobotLauncher1 {
 	public synchronized static int getRijRichting() {
 		// TODO Auto-generated method stub
 		return rijRichting;
+	}
+	
+	public synchronized static void setStartOpdracht(boolean start) {
+		startOpdracht = start;
+	}
+	
+	public synchronized static boolean getStartOpdracht() {
+		return startOpdracht;
 	}
 
 }
