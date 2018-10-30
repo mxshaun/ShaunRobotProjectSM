@@ -61,7 +61,7 @@ public final class Wielaandrijving {
 	
 	/**
 	 * @param graden, draait x 'graden' om de as. 
-	 * @param wacht, wacht tot de draai voltooit is bij 'true'
+	 * @param wacht, wacht tot de draai voltooid is bij 'true'
 	 */
 	public static void draaiOmAs(double graden, boolean wacht) {
 		piloot.rotate(graden, wacht);
