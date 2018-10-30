@@ -39,8 +39,7 @@ public class PilootBeaconGrijper extends Piloot {
 			}
 
 		//opdracht2.setStartOpdracht(false);
-			
-	}
+
 		
 
 	/*	while ((direction > 1 || direction < -1) && !TouchSensor.isTouched()) {

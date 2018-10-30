@@ -3,14 +3,8 @@ package nl.hva.miw.robot.cohort13;
 import java.io.IOException;
 
 import ev3.robotproject.library.InfraroodSensor;
-import ev3.robotproject.library.GrijpMotor;
-import ev3.robotproject.library.Lcd;
-import ev3.robotproject.library.Logging;
 import ev3.robotproject.library.Motor;
-import ev3.robotproject.library.TouchSensor;
-import ev3.robotproject.library.Wielaandrijving;
-import lejos.hardware.Button;
-import lejos.utility.Delay;
+
 
 public class BeaconTest implements Runnable {
 	private final String NAAM = "BeaconScanner";
@@ -20,10 +14,10 @@ public class BeaconTest implements Runnable {
 		this.opdracht2 = beaconFollowerOpdracht2;
 	}
 
-<<<<<<< HEAD
 		// De robot gaat zoeken naar de beaconsensor.
 		// begint met draaien en zoeken naar de beacon
-		int direction = (int) InfraroodSensor.getDirection();
+		
+/*	int direction = (int) InfraroodSensor.getDirection();
 		Logging.log("Direction = " + direction);
 
 		if (direction == 0) {
@@ -84,14 +78,15 @@ public class BeaconTest implements Runnable {
 			Logging.log("moet er uit als distance kleiner is dan 3");
 			Wielaandrijving.rijAfstand((Wielaandrijving.getMaxLineaireSnelheid() / 4), 10, false);
 			distance = (int) InfraroodSensor.getDistance();
-=======
+*/
+			
 	public  int getDirection() {
-		int direction = (int) BeaconSensor.getDirection();
+		int direction = (int) InfraroodSensor.getDirection();
 		return direction;
 	}
 	
 	public int getDistance() {
-		int distance = (int) BeaconSensor.getDistance();
+		int distance = (int) InfraroodSensor.getDistance();
 		return distance;
 	}
 	
@@ -110,21 +105,20 @@ public class BeaconTest implements Runnable {
 			//System.out.println("Distance bepaald: " + getDistance());
 			
 			
->>>>>>> shaunversiegrijper
+
 		}
 		
 	}
 
-<<<<<<< HEAD
-	private static void zoekBeacon() {
+
+/*	private static void zoekBeacon() {
 		int direction = (int) InfraroodSensor.getDirection();
 		while (direction > 10 || direction < -10) {
 			Motor.draaiOmAs(-100, 100);
 			direction = (int) InfraroodSensor.getDirection();
 		}
 		Motor.rem();
-	}
+	}*/
 }
-=======
-}
->>>>>>> shaunversiegrijper
+
+
