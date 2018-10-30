@@ -6,13 +6,11 @@ import lejos.hardware.port.*;
 import lejos.robotics.Color;
 import lejos.utility.Delay;
 import lejos.utility.Stopwatch;
+import ev3.robotproject.library.Lcd;
 import ev3.robotproject.library.*;
 import ev3.robotproject.library.Motor;
 
-public class LineFollower {
-	
-//	static TouchSensor touch = new TouchSensor(SensorPort.S1);
-//	 RedSensor color = new RedSensor(SensorPort.S3);	 
+public class LineFollower {	 
 	
 	public static void main(String[] args) throws Exception {
 		Logging.setup(LineFollower.class.getPackage(), false);
@@ -20,7 +18,6 @@ public class LineFollower {
 		float colorValueWhite;
 		float colorValueBlack;
 		float colorBorder;
-		int tellerAantalKeerLijn = 0;
 		
 		System.out.println("Line Follower\n");
 		
@@ -41,9 +38,11 @@ public class LineFollower {
 		System.out.println("Press any key to start the race");
 		Button.waitForAnyPress();
 		
-		//Starten lijn scanner
+		//Starten lijn scanner en klaar zetten Stopwatch
 		ScanLine lijn = new ScanLine();
 		Stopwatch sw = new Stopwatch();
+		boolean swAan = false;
+		int rondetijd=0;
 		lijn.join();
 		lijn.start();
 		
@@ -52,33 +51,45 @@ public class LineFollower {
 		Logging.log("begint met rijden");
 		Motor.rechtVooruit(180);
 		Delay.msDelay(250);
-		Logging.log("Teller bedraagt direct na de start: %d", tellerAantalKeerLijn);
+		Logging.log("Teller bedraagt direct na de start: %d", lijn.getTeller());
 		
 		//Starten controle-loop
 		Logging.log("begin loop");
-		while (Button.ESCAPE.isUp() && tellerAantalKeerLijn<2) {
-//			Logging.log("Teller bedraagt direct voor 'followLine()': %d", tellerAantalKeerBlauweLijn);
+		while (Button.ESCAPE.isUp() && (lijn.getTeller()<2)) {
 			followLine(colorValueWhite, colorValueBlack);
-			if(lijn.findLine()) {
-				tellerAantalKeerLijn++;
-			}
-			if (tellerAantalKeerLijn ==1) {
+			Logging.log("Teller: %d", lijn.getTeller());
+			if (lijn.getTeller() ==1 && !swAan) {
 				sw.reset();
+				swAan = true;
 			}
-			if (tellerAantalKeerLijn == 2) {
-				int rondetijd = sw.elapsed();
-				Logging.log("Teller staat op %d met %d milliseconden", tellerAantalKeerLijn, rondetijd);
+			if (lijn.getTeller() == 2 && swAan) {
+				rondetijd = sw.elapsed();
+				swAan = false;
+				Logging.log("Teller staat op %d met %.2f seconden", lijn.getTeller(), (float)(rondetijd/1000));
 			}
 		}
 
 		// stop motors with brakes on.
 		Motor.rem();
+		Logging.log("Motoren geremd");
 
 		// free up resources.
 		Motor.sluit();
-//		touch.close();
+		Logging.log("Motor gesloten");
 		RedSensor.close();
+		Logging.log("Red Sensor gesloten");
 		ColorIdSensor.close();
+		Logging.log("ColorID Sensor gesloten");
+		lijn.setShutDown(true);
+		Logging.log("ScanLine Thread gesloten");
+		
+		while (Button.ESCAPE.isUp())
+        {
+            Lcd.clear(20);
+            Lcd.print(20, "Rondetijd: %.2f", (float)(rondetijd/1000));
+            Delay.msDelay(250);
+        }
+		
 		Sound.beepSequence(); // we are done.
 	}
 	
@@ -152,9 +163,4 @@ public class LineFollower {
 		Logging.log("colorborder: %f", colorBorder);
 		return colorBorder;
 	}
-	
-
-	
-	
-
 }
