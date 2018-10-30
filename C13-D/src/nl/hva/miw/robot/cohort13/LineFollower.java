@@ -20,7 +20,7 @@ public class LineFollower {
 		float colorValueWhite;
 		float colorValueBlack;
 		float colorBorder;
-		int tellerAantalKeerBlauweLijn = 0;
+		int tellerAantalKeerLijn = 0;
 		
 		System.out.println("Line Follower\n");
 		
@@ -41,32 +41,34 @@ public class LineFollower {
 		System.out.println("Press any key to start the race");
 		Button.waitForAnyPress();
 		
-		//Starten blauwe lijn scanner
-		ScanBlueLine blauweLijn = new ScanBlueLine();
-		blauweLijn.start();
+		//Starten lijn scanner
+		ScanLine lijn = new ScanLine();
+		Stopwatch sw = new Stopwatch();
+		lijn.join();
+		lijn.start();
+		
 		
 		//Starten met rijden
 		Logging.log("begint met rijden");
 		Motor.rechtVooruit(180);
 		Delay.msDelay(250);
-//		Logging.log("Teller bedraagt direct na de start: %d", tellerAantalKeerBlauweLijn);
+		Logging.log("Teller bedraagt direct na de start: %d", tellerAantalKeerLijn);
 		
 		//Starten controle-loop
 		Logging.log("begin loop");
-//		Stopwatch sw = new Stopwatch();
-		while (Button.ESCAPE.isUp() && tellerAantalKeerBlauweLijn<2) {
+		while (Button.ESCAPE.isUp() && tellerAantalKeerLijn<2) {
 //			Logging.log("Teller bedraagt direct voor 'followLine()': %d", tellerAantalKeerBlauweLijn);
 			followLine(colorValueWhite, colorValueBlack);
-//			if(blauweLijn.findBlueLine()) {
-//				tellerAantalKeerBlauweLijn++;
-//			}
-//			if (tellerAantalKeerBlauweLijn ==1) {
-//				sw.reset();
-//			}
-//			if (tellerAantalKeerBlauweLijn == 2) {
-//				int rondetijd = sw.elapsed();
-//				Logging.log("Teller staat op 2 met %d milliseconden", rondetijd);
-//			}
+			if(lijn.findLine()) {
+				tellerAantalKeerLijn++;
+			}
+			if (tellerAantalKeerLijn ==1) {
+				sw.reset();
+			}
+			if (tellerAantalKeerLijn == 2) {
+				int rondetijd = sw.elapsed();
+				Logging.log("Teller staat op %d met %d milliseconden", tellerAantalKeerLijn, rondetijd);
+			}
 		}
 
 		// stop motors with brakes on.
@@ -76,7 +78,7 @@ public class LineFollower {
 		Motor.sluit();
 //		touch.close();
 		RedSensor.close();
-		RgbSensor.close();
+		ColorIdSensor.close();
 		Sound.beepSequence(); // we are done.
 	}
 	
@@ -90,7 +92,7 @@ public class LineFollower {
 		float min = colorValueBlack + CORRECTION_COLOR_MARGE;
 		float max = colorValueWhite - CORRECTION_COLOR_MARGE*((min+CORRECTION_COLOR_MARGE)/min);
 		int maxSpeed = 720;
-		double speedCorrection = 0.7;
+		double speedCorrection = 0.6;
 		
 		
 		
