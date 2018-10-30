@@ -1,5 +1,8 @@
 package main;
 
+import ev3.robotproject.library.Wielaandrijving;
+import lejos.hardware.Button;
+import lejos.hardware.lcd.LCD;
 import nl.hva.miw.robot.cohort13.LijnVolger;
 import nl.hva.miw.robot.cohort13.LijnvolgerOpdracht1;
 

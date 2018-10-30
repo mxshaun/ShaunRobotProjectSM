@@ -34,12 +34,12 @@ public class Piloot implements Runnable {
 		 *   die gemaakt dient te worden.
 		 */
 		double maxSnelheid = Wielaandrijving.getMaxLineaireSnelheid();
-		double snelheid = (afwijking / 90);
+		double snelheid = (afwijking / 360);
 		if (snelheid > 1) {
 			snelheid = snelheid - 1;
 		}
-		snelheid = snelheid * maxSnelheid;
-		double draaisnelheid = (afwijking/2) - 45;
+		snelheid = snelheid * (maxSnelheid * 0.5);
+		double draaisnelheid = (afwijking - 360);
 			Wielaandrijving.setSnelheid(snelheid, draaisnelheid);
 
 	}

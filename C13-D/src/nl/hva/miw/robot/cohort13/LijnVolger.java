@@ -49,7 +49,7 @@ public class LijnVolger implements Runnable{
 		colorBorder = (colorValueWhite - colorValueBlack) / 2;
 		colorValue = RedSensor.getRed();
 		
-		afwijking = (int) (colorValue / ((colorValueWhite - colorValueBlack) / 180));
+		afwijking = (int) (colorValue / ((colorValueWhite - colorValueBlack) / 720));
 		
 		// hiering moet de hoek of draaiïng van de afwijking van de colorborder bepaalt worden.
 		return afwijking;
