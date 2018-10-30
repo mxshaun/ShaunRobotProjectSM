@@ -31,7 +31,8 @@ public final class RgbSensor {
 	 * Set color sensor to RGB light level mode.
 	 */
 	public static void setRgbMode(){
-		RGB_SENSOR.setCurrentMode("RGB");
+		RGB_SENSOR.setCurrentMode(KLEUR);
+		RGB_SENSOR.setFloodlight(Color.WHITE);
 		sample = new float[RGB_SENSOR.sampleSize()];
 	}
 
@@ -45,8 +46,6 @@ public final class RgbSensor {
 	 */
 	public static Color getColor() {
 
-		RGB_SENSOR.setCurrentMode(KLEUR);
-		RGB_SENSOR.setFloodlight(Color.WHITE);
 		RGB_SENSOR.fetchSample(sample, 0);
 		
 		return new Color((int)(sample[0] * 255), (int)(sample[1] * 255), (int)(sample[2] * 255));
