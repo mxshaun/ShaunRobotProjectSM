@@ -5,12 +5,13 @@ import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3IRSensor;
 import lejos.robotics.SampleProvider;
 
-public class BeaconSensor {
+public class InfraroodSensor {
 
 	final static EV3IRSensor ir = new EV3IRSensor(SensorPort.S4);
-	static SampleProvider seek = ir.getSeekMode();
+	static SampleProvider seek = ir.getSeekMode(); 
+	static SampleProvider scan = ir.getDistanceMode();
 
-	public BeaconSensor(Port port) {
+	public InfraroodSensor(Port port) {
 		// dit is een utility class en gebruikt dus geen constructor.
 	}
 

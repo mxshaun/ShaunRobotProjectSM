@@ -7,7 +7,7 @@ import lejos.hardware.port.*;
 import lejos.utility.Delay;
 import ev3.robotproject.library.*;
 
-public class Obstacle {
+public class ObstacleOpdracht3TestKlasse {
 	
     public static void main(String[] args)
     {
@@ -22,7 +22,7 @@ public class Obstacle {
 
         Button.waitForAnyPress();
         
-        range = (uss.getRange() + 17) * 1000;
+        range = uss.getRange();
 
         Lcd.print(7, "range=");
 
@@ -35,7 +35,7 @@ public class Obstacle {
             Lcd.print(7, 7, "%.3f", range);
             Delay.msDelay(500);
 
-            range = (uss.getRange() + 17) * 1000;
+            range = uss.getRange();
         }
         
         // free up resources.

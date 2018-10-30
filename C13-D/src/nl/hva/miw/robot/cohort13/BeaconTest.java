@@ -2,7 +2,7 @@ package nl.hva.miw.robot.cohort13;
 
 import java.io.IOException;
 
-import ev3.robotproject.library.BeaconSensor;
+import ev3.robotproject.library.InfraroodSensor;
 import ev3.robotproject.library.GrijpMotor;
 import ev3.robotproject.library.Lcd;
 import ev3.robotproject.library.Logging;
@@ -30,7 +30,7 @@ public class BeaconTest {
 
 		// De robot gaat zoeken naar de beaconsensor.
 		// begint met draaien en zoeken naar de beacon
-		int direction = (int) BeaconSensor.getDirection();
+		int direction = (int) InfraroodSensor.getDirection();
 		Logging.log("Direction = " + direction);
 
 		if (direction == 0) {
@@ -38,7 +38,7 @@ public class BeaconTest {
 				Logging.log("in de eerste if direction while loop: direction=" + direction);
 				Logging.log("moet er uit knallen als de direction 1 of 0 is");
 				Wielaandrijving.draaiOmAs(5, false);
-				direction = (int) BeaconSensor.getDirection();
+				direction = (int) InfraroodSensor.getDirection();
 			} while (direction > 2 || direction < -2 || direction == 0);
 		} else {
 
@@ -47,7 +47,7 @@ public class BeaconTest {
 				Logging.log("moet er uit knallen als de direction 1 of 0 is");
 
 				Wielaandrijving.draaiOmAs(5, false);
-				direction = (int) BeaconSensor.getDirection();
+				direction = (int) InfraroodSensor.getDirection();
 			}
 
 		}
@@ -55,19 +55,19 @@ public class BeaconTest {
 
 		// Gaat rijden naar de beacon totdat de distance kleiner is dan 15
 
-		int distance = (int) BeaconSensor.getDistance();
+		int distance = (int) InfraroodSensor.getDistance();
 
 		while (distance > 10) {
 			Logging.log("in de tweede while loop: distance=" + distance);
 			Logging.log("moet er uit als distance kleiner is dan 15");
 
 			Wielaandrijving.rijAfstand((Wielaandrijving.getMaxLineaireSnelheid() / 4), 200, false);
-			distance = (int) BeaconSensor.getDistance();
+			distance = (int) InfraroodSensor.getDistance();
 		}
 		Logging.log("uit de tweede while loop: want distance=" + distance);
 
 		// gaat weer de hoek bepalen en nu nauwkeuriger.
-		direction = (int) BeaconSensor.getDirection();
+		direction = (int) InfraroodSensor.getDirection();
 		Logging.log("uit de tweede direction while loop");
 		Logging.log("de direction is nu: " + direction);
 
@@ -80,7 +80,7 @@ public class BeaconTest {
 			} else if (direction < 0) {
 				Wielaandrijving.draaiOmAs(-1, false);
 			}
-			direction = (int) BeaconSensor.getDirection();
+			direction = (int) InfraroodSensor.getDirection();
 		}
 
 		Logging.log("uit de derde while loop want direction: " + direction);
@@ -90,7 +90,7 @@ public class BeaconTest {
 			Logging.log("in de vierde while loop: distance=" + distance);
 			Logging.log("moet er uit als distance kleiner is dan 3");
 			Wielaandrijving.rijAfstand((Wielaandrijving.getMaxLineaireSnelheid() / 4), 10, false);
-			distance = (int) BeaconSensor.getDistance();
+			distance = (int) InfraroodSensor.getDistance();
 		}
 
 		Logging.log("uit de vierde while loop want distance= " + distance);
@@ -173,10 +173,10 @@ public class BeaconTest {
 	}
 
 	private static void zoekBeacon() {
-		int direction = (int) BeaconSensor.getDirection();
+		int direction = (int) InfraroodSensor.getDirection();
 		while (direction > 10 || direction < -10) {
 			Motor.draaiOmAs(-100, 100);
-			direction = (int) BeaconSensor.getDirection();
+			direction = (int) InfraroodSensor.getDirection();
 		}
 		Motor.rem();
 	}
