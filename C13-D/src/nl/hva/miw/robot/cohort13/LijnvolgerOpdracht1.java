@@ -27,6 +27,7 @@ public class LijnvolgerOpdracht1 {
 		Sound.beepSequenceUp(); // make sound when ready.
 
 		System.out.println("Press any key to start the Test");
+		
 
 		Button.waitForAnyPress();
 		Logging.log("Button is pressed");
