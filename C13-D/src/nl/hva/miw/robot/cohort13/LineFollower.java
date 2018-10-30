@@ -4,6 +4,7 @@ import lejos.hardware.Button;
 import lejos.hardware.Sound;
 import lejos.hardware.port.*;
 import lejos.robotics.Color;
+import lejos.utility.Delay;
 import lejos.utility.Stopwatch;
 import ev3.robotproject.library.*;
 import ev3.robotproject.library.Motor;
@@ -46,7 +47,8 @@ public class LineFollower {
 		
 		//Starten met rijden
 		Logging.log("begint met rijden");
-//		Motor.rechtVooruit((int)(Motor.getMaxSpeed()*0.5));
+		Motor.rechtVooruit(180);
+		Delay.msDelay(250);
 //		Logging.log("Teller bedraagt direct na de start: %d", tellerAantalKeerBlauweLijn);
 		
 		//Starten controle-loop
@@ -74,7 +76,7 @@ public class LineFollower {
 		Motor.sluit();
 //		touch.close();
 		RedSensor.close();
-
+		RgbSensor.close();
 		Sound.beepSequence(); // we are done.
 	}
 	
