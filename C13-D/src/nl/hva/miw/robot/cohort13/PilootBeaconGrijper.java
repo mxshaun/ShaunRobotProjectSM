@@ -1,5 +1,6 @@
 package nl.hva.miw.robot.cohort13;
 
+import ev3.robotproject.library.GrijpMotor;
 import ev3.robotproject.library.Lcd;
 import ev3.robotproject.library.Logging;
 import ev3.robotproject.library.TouchSensor;
@@ -63,7 +64,20 @@ public class PilootBeaconGrijper extends Piloot {
 	public void run() {
 		// TODO Auto-generated method stub
 		while (opdracht2.getStartOpdracht()) {
-			rijd(opdracht2.getDirection(), opdracht2.getDistance());
+			while((opdracht2.getDirection() == 0) && (opdracht2.getDistance() == 100)) {
+				Wielaandrijving.setSnelheid((Wielaandrijving.getMaxLineaireSnelheid() / 2), 45);
+			
+			}
+			
+			if((opdracht2.getDirection() == 0) && (opdracht2.getDistance() <= 10)) {
+				Wielaandrijving.stop();
+				//GrijpMotor.grijpen();
+			}
+			
+			double draaiSnelheid = (opdracht2.getDirection() / 25) * 90;
+			
+			Wielaandrijving.setSnelheid((Wielaandrijving.getMaxLineaireSnelheid() / 2), draaiSnelheid);
+
 			// System.out.println("Hoek en afstand bepaald.");
 		}
 	}
