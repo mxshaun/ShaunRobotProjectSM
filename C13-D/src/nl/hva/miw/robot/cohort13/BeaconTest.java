@@ -41,7 +41,11 @@ public class BeaconTest {
 		Logging.log("Gaan de while loop in: ");
 
 		
-		while (!TouchSensor.isTouched() && Button.ESCAPE.isUp() && (nabijMeting != 4)) {
+		
+		// Andere mogelijkheid is om de touchsensor te gebruiken om  uit de loop te breken en het object te pakken! zeker als de uitslagen van de nabijheid afstand zo slecht blijven gaan.
+		
+		
+		while (!TouchSensor.isTouched() && Button.ESCAPE.isUp() && (nabijMeting != 10)) {
 			
 			Logging.log("We zijn in de while loop");
 			direction = (int) BeaconSensor.getDirection();
@@ -52,8 +56,12 @@ public class BeaconTest {
 
 			
 			
-			if (distance < 1) {
+			if (distance <= 1) {
 				nabijMeting++;
+			} 
+			
+			if (distance < 1) {
+				break;
 			}
 			
 			Logging.log("Nabijmeting = " + nabijMeting);
