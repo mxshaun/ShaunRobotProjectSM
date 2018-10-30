@@ -74,9 +74,9 @@ public final class Wielaandrijving {
 	 * en de methode zorgt niet voor het wachten tot het afmaken van de draai, dan wordt de draai onderbroken!
 	 * 
 	 */
-	public static void vooruit() {
+	public static void vooruit(double snelheid) {
 		piloot.stop();
-		piloot.setLinearSpeed(getMaxLineaireSnelheid());
+		piloot.setLinearSpeed(snelheid);
 		piloot.forward();
 	}
 	

@@ -26,7 +26,7 @@ public class PilootLineFollower extends Piloot{
 	public void run() {
 		// TODO Auto-generated method stub
 		while (opdracht1.getStartOpdracht()) {
-			rijOverLijn(opdracht1.getRijRichting());
+			rij(opdracht1.getRijRichting());
 			System.out.println("rijrichting opgehaald");
 			Lcd.clear();
 		}
