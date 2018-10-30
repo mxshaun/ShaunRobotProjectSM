@@ -14,7 +14,7 @@ import lejos.robotics.navigation.MovePilot;
 
 
 public class LijnvolgerOpdracht1 {
-	private Piloot piloot = new Piloot(this);
+	private PilootLineFollower piloot = new PilootLineFollower(this);
 	private LijnVolger lijnScanner = new LijnVolger(this);
 	private volatile int rijRichting;
 	private boolean startOpdracht;
