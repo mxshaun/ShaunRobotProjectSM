@@ -4,13 +4,26 @@ import ev3.robotproject.library.Lcd;
 import ev3.robotproject.library.Wielaandrijving;
 
 public class PilootLineFollower extends Piloot{
-	private final String NAAM = "Bestuurder";
+	private final String NAAM = "Lijnvolgpiloot";
 	private LijnvolgerOpdracht1 opdracht1;
 
 	public PilootLineFollower(LijnvolgerOpdracht1 lijnvolgerOpdracht1) {
 		super();
 		this.opdracht1 = lijnvolgerOpdracht1;
 	}
+
+
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while (opdracht1.getStartOpdracht()) {
+			rij(opdracht1.getRijRichting());
+			System.out.println("rijrichting opgehaald");
+			Lcd.clear();
+		}
+	}
+
 
 	/**
 	 * Deze methode zorgt voor het rijden met een maximale snelheid proportioneel
@@ -20,18 +33,6 @@ public class PilootLineFollower extends Piloot{
 	 *            hoek van draaiïng in graden.
 	 * @return
 	 */
-
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		while (opdracht1.getStartOpdracht()) {
-			rijOverLijn(opdracht1.getRijRichting());
-			System.out.println("rijrichting opgehaald");
-			Lcd.clear();
-		}
-	}
-
 	@Override
 	public void rij(int afwijking) {
 		/**
@@ -40,6 +41,7 @@ public class PilootLineFollower extends Piloot{
 		 */
 		double maxSnelheid = Wielaandrijving.getMaxLineaireSnelheid();
 		double snelheid = (afwijking / 360);
+		
 		if (snelheid > 1) {
 			snelheid = snelheid - 1;
 		}
