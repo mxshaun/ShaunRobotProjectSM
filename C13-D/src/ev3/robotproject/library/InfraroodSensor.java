@@ -61,5 +61,13 @@ public class InfraroodSensor {
 		Motor.rem();
 		Lcd.clear();
 	}
+	
+	public static float getAfstand() {
+		// methode die de afstand opvraagt van de beacon
+		float[] sample = new float[scan.sampleSize()];
+
+		scan.fetchSample(sample, 0);
+		return sample[0];
+	}
 
 }

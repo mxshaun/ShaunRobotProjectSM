@@ -12,7 +12,6 @@ public class ObstacleOpdracht3TestKlasse {
     public static void main(String[] args)
     {
         float                range;
-        UltraSonicSensor     uss = new UltraSonicSensor(SensorPort.S4);
         
         System.out.println("UltraSonic Demo");
         System.out.println("Press any key to start");
@@ -22,7 +21,7 @@ public class ObstacleOpdracht3TestKlasse {
 
         Button.waitForAnyPress();
         
-        range = uss.getRange();
+        range = InfraroodSensor.getAfstand();
 
         Lcd.print(7, "range=");
 
@@ -35,11 +34,11 @@ public class ObstacleOpdracht3TestKlasse {
             Lcd.print(7, 7, "%.3f", range);
             Delay.msDelay(500);
 
-            range = uss.getRange();
+            range = InfraroodSensor.getAfstand();
         }
         
         // free up resources.
-        uss.close();
+        InfraroodSensor.sluit();
         
         Sound.beepSequence();    // we are done.
 
