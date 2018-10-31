@@ -51,7 +51,7 @@ public class LijnVolger implements Runnable{
 		
 		afwijking = (int) (colorValue / ((colorValueWhite - colorValueBlack) / 720));
 		
-		// hiering moet de hoek of draaiïng van de afwijking van de colorborder bepaalt worden.
+		// hiering moet de hoek of draaiï¿½ng van de afwijking van de colorborder bepaalt worden.
 		return afwijking;
 	}
 
@@ -64,7 +64,7 @@ public class LijnVolger implements Runnable{
 
 		while(opdracht1.getStartOpdracht()) {
 
-			opdracht1.setRijRichting(bepaalAfwijking());
+//			opdracht1.setRijRichting(bepaalAfwijking());
 			System.out.println("rijrichting bepaalt");
 			System.out.println(bepaalAfwijking());
 			Lcd.clear();
