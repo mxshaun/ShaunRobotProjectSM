@@ -23,13 +23,9 @@ public class RobotOpdrachtenMain {
 			if (buttonId == 16) {
 				LijnvolgerOpdracht1 opdracht1 = new LijnvolgerOpdracht1();
 				opdracht1.lijnVolgerOpdracht();
-			} else if (buttonId == 2) {
-				BeaconfollowerOprachtTest opdracht2 = new BeaconfollowerOprachtTest();
-				
-//				opdracht2.XXXXX();
-				
-				
-				
+			} else if (buttonId ==
+					2) {
+				BeaconfollowerOprachtTest opdracht2 = new BeaconfollowerOprachtTest();				
 				Lcd.clear();
 				Lcd.print(2, "Opdracht 2");
 				opdracht2.rijNaarBeacon();
@@ -45,7 +41,9 @@ public class RobotOpdrachtenMain {
 				opdracht3.startOpdracht3();
 				Lcd.clear();
 				Lcd.print(2, "Opdracht 3");
-			} else {
+			} else if (buttonId == 32){ //Escape toets
+				break;
+			}	else {
 				Lcd.clear();
 				Lcd.print(2, "Wrong button");
 				Lcd.print(3, "Press again");
