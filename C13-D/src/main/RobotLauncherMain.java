@@ -16,14 +16,14 @@ public class RobotLauncherMain {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		opdracht2 = new BeaconFollowerOpdracht2();
-		opdracht2.BeaconFollowerOpdracht22();
+		//opdracht2 = new BeaconFollowerOpdracht2();
+		//opdracht2.BeaconFollowerOpdracht22();
 		// TODO Auto-generated method stub
 		//opdracht1 = new LijnvolgerOpdracht1();
 		//opdracht1.lijnVolgerOpdracht();
 		
-		//opdracht3 = new PathFinderOpdracht3();
-		//opdracht3.startOpdracht3();
+		opdracht3 = new PathFinderOpdracht3();
+		opdracht3.startOpdracht3();
 
 	}
 

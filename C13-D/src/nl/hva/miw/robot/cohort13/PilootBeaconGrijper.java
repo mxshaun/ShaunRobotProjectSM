@@ -69,9 +69,10 @@ public class PilootBeaconGrijper extends Piloot {
 			
 			}
 			
-			if((opdracht2.getDirection() == 0) && (opdracht2.getDistance() <= 10)) {
+			if((opdracht2.getDirection() == 0) && (opdracht2.getDistance() <= 2)) {
 				Wielaandrijving.stop();
 				//GrijpMotor.grijpen();
+				//opdracht2.setStartOpdracht(false);
 			}
 			
 			double draaiSnelheid = (opdracht2.getDirection() / 25) * 90;
@@ -80,6 +81,7 @@ public class PilootBeaconGrijper extends Piloot {
 
 			// System.out.println("Hoek en afstand bepaald.");
 		}
+
 	}
 
 	@Override
