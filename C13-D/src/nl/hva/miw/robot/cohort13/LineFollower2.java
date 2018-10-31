@@ -3,6 +3,7 @@ package nl.hva.miw.robot.cohort13;
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
 import lejos.utility.Delay;
+import ev3.robotproject.library.Lcd;
 import ev3.robotproject.library.Motor;
 import ev3.robotproject.library.RedSensor;
 
@@ -32,10 +33,9 @@ public class LineFollower2 implements Runnable {
 		Sound.beepSequenceUp(); // make sound when ready.
 		
 		//Klaar zetten van de robot voor het rijden
-//		Lcd.clear(40);
-//        Lcd.print(40, "Press any key to start the round");
-//        Delay.msDelay(250);
-		System.out.println("Press any key to start the round");
+		Lcd.clear();
+        Lcd.print(2, "Press any key");
+        Lcd.print(3, "to start the round");
 		Button.waitForAnyPress();
 		
 		//Starten met rijden
@@ -59,7 +59,6 @@ public class LineFollower2 implements Runnable {
 	//De methode waarmee de LineFollower de motoren aanstuurt.
 	public void followLine(float colorValueWhite, float colorValueBlack) {
 		//Scanner in Red-mode scannen
-//		RedSensor.setRedMode();
 		float colorValue = RedSensor.getRed();
 		
 		//Bepalen "vaste" waarden en variabelen
@@ -95,11 +94,9 @@ public class LineFollower2 implements Runnable {
 	
 	//Starten van de calibratie
 	public void startCalibratie() {
-		
-//		Lcd.clear(40);
-//        Lcd.print(40, "Press any key to start the calibration");
-//        Delay.msDelay(250);
-		System.out.println("Press any key to start the calibration");
+		Lcd.clear();
+        Lcd.print(2, "Press any key to start");
+        Lcd.print(3, "the calibration");
 		Button.waitForAnyPress();
 		RedSensor.setRedMode();
 		RedSensor.setFloodLight(true);
@@ -107,10 +104,9 @@ public class LineFollower2 implements Runnable {
 
 	//scannen van de wit-waarde op dat moment (direct voor rijden van de ronde).
 	public float calibreerWit() {
-//		Lcd.clear(40);
-//        Lcd.print(40, "Scan WHITE & press any key");
-//        Delay.msDelay(250);
-		System.out.println("Scan het witte vlak,\npress button");
+		Lcd.clear();
+        Lcd.print(2, "Scan WHITE &");
+        Lcd.print(3, "press any key");
 		Button.waitForAnyPress();
 		float colorValueWhite = RedSensor.getRed();
 		return colorValueWhite;
@@ -118,11 +114,10 @@ public class LineFollower2 implements Runnable {
 	
 	//scannen van de zwart-waarde op dat moment (direct voor rijden van de ronde).
 	public float calibreerZwart() {
-//		Lcd.clear(40);
-//        Lcd.print(40, "Scan BLACK & press any key");
-//        Delay.msDelay(250);
-		System.out.println("Scan de zwarte lijn,\nzwart vlak, press button");
-		Button.waitForAnyPress();
+		Lcd.clear();
+        Lcd.print(2, "Scan BLACK &");
+        Lcd.print(3, "press any key");
+        Button.waitForAnyPress();
 		float colorValueBlack = RedSensor.getRed();
 		return colorValueBlack;
 	}
