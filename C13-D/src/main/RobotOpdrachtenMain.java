@@ -27,6 +27,9 @@ public class RobotOpdrachtenMain {
 				BeaconfollowerOprachtTest opdracht2 = new BeaconfollowerOprachtTest();
 				
 //				opdracht2.XXXXX();
+				
+				
+				
 				Lcd.clear();
 				Lcd.print(2, "Opdracht 2");
 				opdracht2.rijNaarBeacon();

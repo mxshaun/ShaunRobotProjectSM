@@ -3,6 +3,7 @@ package nl.hva.miw.robot.cohort13;
 import ev3.robotproject.library.GrijpMotor;
 import ev3.robotproject.library.InfraroodSensor;
 import ev3.robotproject.library.Logging;
+import ev3.robotproject.library.Motor;
 import ev3.robotproject.library.TouchSensor;
 import ev3.robotproject.library.Wielaandrijving;
 import lejos.hardware.Sound;
@@ -130,7 +131,9 @@ public class BeaconfollowerOprachtTest {
 	}
 	
 	public void rijdWeg() {
-		Wielaandrijving.setSnelheid(-100, -100);
+		Motor.rechtAchteruit(100);
+		Delay.msDelay(1000);
+		Motor.rem();
 	}
 	
 	
