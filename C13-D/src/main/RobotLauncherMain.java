@@ -24,11 +24,11 @@ public class RobotLauncherMain {
 		//opdracht1 = new LijnvolgerOpdracht1();
 		//opdracht1.lijnVolgerOpdracht();
 		
-		//opdracht3 = new PathFinderOpdracht3();
-		//opdracht3.startOpdracht3();
-		Wielaandrijving.rijAfstand(250, 200, false);
-		GrijpMotor.losLaten();
-		GrijpMotor.grijpen();
+		opdracht3 = new PathFinderOpdracht3();
+		opdracht3.startOpdracht3();
+		//Wielaandrijving.rijAfstand(250, 200, false);
+		//GrijpMotor.losLaten();
+		//GrijpMotor.grijpen();
 
 		
 //		test.rijNaarBeacon();
