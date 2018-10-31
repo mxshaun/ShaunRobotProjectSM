@@ -62,7 +62,7 @@ public class LineFollower2 implements Runnable {
 		float colorValue = RedSensor.getRed();
 		
 		//Bepalen "vaste" waarden en variabelen
-		final float CORRECTION_COLOR_MARGE = 0.10f;
+		final float CORRECTION_COLOR_MARGE = 0.05f;
 		float min = colorValueBlack + CORRECTION_COLOR_MARGE;
 		float max = colorValueWhite - CORRECTION_COLOR_MARGE*((min+CORRECTION_COLOR_MARGE)/min);
 		int maxSpeed = 720;
