@@ -17,10 +17,9 @@ public class RobotLauncherMain {
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-
 		opdracht2 = new BeaconFollowerOpdracht2();
-		opdracht2.BeaconFollowerOpdracht22();
-		// TODO Auto-generated method stub
+		//opdracht2.BeaconFollowerOpdracht22();
+
 		//opdracht1 = new LijnvolgerOpdracht1();
 		//opdracht1.lijnVolgerOpdracht();
 		
