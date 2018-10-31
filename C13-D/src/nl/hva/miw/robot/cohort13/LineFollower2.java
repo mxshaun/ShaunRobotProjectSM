@@ -11,6 +11,7 @@ public class LineFollower2 implements Runnable {
 	
 	private LijnvolgerOpdracht1 opdracht1;
 	private boolean start;
+	private boolean afmeldenThread;
 	
 	public LineFollower2(LijnvolgerOpdracht1 opdracht1) {
 		super();
@@ -54,6 +55,9 @@ public class LineFollower2 implements Runnable {
 		
 		//Sluiten van de Rood-scanner
 		RedSensor.close();
+		
+		//Afmelden van de Thread
+		afmeldenThread();
 	}
 	
 	//De methode waarmee de LineFollower de motoren aanstuurt.
@@ -62,11 +66,12 @@ public class LineFollower2 implements Runnable {
 		float colorValue = RedSensor.getRed();
 		
 		//Bepalen "vaste" waarden en variabelen
-		final float CORRECTION_COLOR_MARGE = 0.05f;
+		final float CORRECTION_COLOR_MARGE = 0.09f;
+		final float CORRECTION_POWER_MARGE = -65;
 		float min = colorValueBlack + CORRECTION_COLOR_MARGE;
 		float max = colorValueWhite - CORRECTION_COLOR_MARGE*((min+CORRECTION_COLOR_MARGE)/min);
 		int maxSpeed = 720;
-		double speedCorrection = 0.6;
+		double speedCorrection = 0.65;
 		
 		//Bepalen vermogen links
 		int vermogenLinks =(int)((max-colorValue) / (max-min) * maxSpeed * speedCorrection);
@@ -76,16 +81,16 @@ public class LineFollower2 implements Runnable {
 		
 		//Aansturen motoren
 		if (colorValue<min) {
-			if (vermogenRechts > -75) {
-				Motor.draaiOmAs(vermogenLinks, (vermogenRechts * 1));
+			if (vermogenRechts > CORRECTION_POWER_MARGE) {
+				Motor.draaiOmAs(vermogenLinks, vermogenRechts);
 			} else {
-				Motor.draaiOmAs(vermogenLinks, (vermogenRechts * 2));
+				Motor.draaiOmAs(vermogenLinks, vermogenRechts);
 			}
 		} else if (colorValue>max) {
-			if (vermogenLinks > -75) {
-				Motor.draaiOmAs((vermogenLinks * 1), vermogenRechts);
+			if (vermogenLinks > CORRECTION_POWER_MARGE) {
+				Motor.draaiOmAs(vermogenLinks, vermogenRechts);
 			} else {
-				Motor.draaiOmAs((vermogenLinks * 2), vermogenRechts);
+				Motor.draaiOmAs(vermogenLinks, vermogenRechts);
 			}
 		} else {
 			Motor.bochtVooruit(vermogenLinks, vermogenRechts);
@@ -131,6 +136,12 @@ public class LineFollower2 implements Runnable {
 	//De getter voor de starten van de start/finish lijn tread.
 	public boolean getStart() {
 		return this.start;
+	}
+	
+	//De getter voor het afmelden van de Thread
+	public boolean afmeldenThread() {
+		afmeldenThread = true;
+		return afmeldenThread;
 	}
 
 
