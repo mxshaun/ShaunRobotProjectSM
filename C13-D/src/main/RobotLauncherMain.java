@@ -18,7 +18,13 @@ public class RobotLauncherMain {
 		// TODO Auto-generated method stub
 		BeaconfollowerOprachtTest test = new BeaconfollowerOprachtTest();
 		
-		test.run();
+		test.rijNaarBeacon();
+		
+		test.grijpBeacon();
+		test.rijdMetBeacon();
+		test.laatBeaconLos();
+		
+		
 	}
 
 }

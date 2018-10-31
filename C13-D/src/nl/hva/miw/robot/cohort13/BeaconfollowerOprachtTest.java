@@ -1,9 +1,11 @@
 package nl.hva.miw.robot.cohort13;
 
+import ev3.robotproject.library.GrijpMotor;
 import ev3.robotproject.library.InfraroodSensor;
 import ev3.robotproject.library.Logging;
 import ev3.robotproject.library.TouchSensor;
 import ev3.robotproject.library.Wielaandrijving;
+import lejos.utility.Delay;
 
 public class BeaconfollowerOprachtTest {
 	
@@ -19,18 +21,27 @@ public class BeaconfollowerOprachtTest {
 		
 	}
 
-	public void run()  throws Exception{
+	public void rijNaarBeacon()  throws Exception{
 
 		Logging.setup(BeaconfollowerOprachtTest.class.getPackage(), false);
 
 		int direction = (int) InfraroodSensor.getDirection();
+		int distance = (int) InfraroodSensor.getDistance();
 
+		
 		if (direction == 0) {
 			do {
 				Logging.log("in de eerste if direction while loop: direction=" + direction);
 				Logging.log("moet er uit knallen als de direction 1 of 0 is");
-				Wielaandrijving.draaiOmAs(5, false);
+				Wielaandrijving.draaiOmAs(20, false);
 				direction = (int) InfraroodSensor.getDirection();
+				
+				if (direction > 2) {
+					Wielaandrijving.draaiOmAs(2, false);
+				} else if (direction < -2) {
+					Wielaandrijving.draaiOmAs(-2, false);
+				}
+				
 			} while (direction > 2 || direction < -2 || direction == 0);
 		} else {
 
@@ -47,13 +58,13 @@ public class BeaconfollowerOprachtTest {
 
 		// Gaat rijden naar de beacon totdat de distance kleiner is dan 15
 
-		int distance = (int) InfraroodSensor.getDistance();
+		distance = (int) InfraroodSensor.getDistance();
 
 		while (distance > 10) {
 			Logging.log("in de tweede while loop: distance=" + distance);
 			Logging.log("moet er uit als distance kleiner is dan 15");
 
-			Wielaandrijving.rijAfstand((Wielaandrijving.getMaxLineaireSnelheid() / 4), 200, false);
+			Wielaandrijving.rijAfstand((Wielaandrijving.getMaxLineaireSnelheid() / 4), 100, true);
 			distance = (int) InfraroodSensor.getDistance();
 		}
 		Logging.log("uit de tweede while loop: want distance=" + distance);
@@ -65,7 +76,7 @@ public class BeaconfollowerOprachtTest {
 
 		while (direction > 0 || direction < 0) {
 			Logging.log("in de derde while loop: direction=" + direction);
-			Logging.log("moet er uit als direction 1 of 0 is");
+			Logging.log("moet er uit als direction 0 is");
 
 			if (direction > 0) {
 				Wielaandrijving.draaiOmAs(2, false);
@@ -78,13 +89,28 @@ public class BeaconfollowerOprachtTest {
 		Logging.log("uit de derde while loop want direction: " + direction);
 
 		// gaat nu weer naar de beacon rijden totdat de afstand 0 is.
-		while (distance > 0 && !TouchSensor.isTouched()) {
+		while (!TouchSensor.isTouched()) {
 			Logging.log("in de vierde while loop: distance=" + distance);
 			Logging.log("moet er uit als distance kleiner is dan 3");
 			Wielaandrijving.rijAfstand((Wielaandrijving.getMaxLineaireSnelheid() / 4), 10, false);
 			distance = (int) InfraroodSensor.getDistance();
 		}
-
+		Wielaandrijving.stop();
 	}
+	
+	
+	public void grijpBeacon() {
+		GrijpMotor.grijpen();
+	}
+	
+	public void rijdMetBeacon() {
+		Wielaandrijving.rijAfstand(Wielaandrijving.getMaxLineaireSnelheid()/5 , 200, true);
+	}
+	
+	public void laatBeaconLos() {
+		GrijpMotor.losLaten();
+	}
+	
+	
 
 }
