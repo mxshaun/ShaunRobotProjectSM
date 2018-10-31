@@ -7,7 +7,7 @@ import lejos.utility.Delay;
 public final class GrijpMotor {
 	
 	
-	final static EV3MediumRegulatedMotor MOTOR_GRIJP = new EV3MediumRegulatedMotor(MotorPort.C);
+	final static EV3MediumRegulatedMotor MOTOR_GRIJP = new EV3MediumRegulatedMotor(MotorPort.B);
 	
 	
 	//default constructor. doet niks.

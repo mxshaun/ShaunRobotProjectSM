@@ -16,7 +16,7 @@ public final class Wielaandrijving {
 	 * nog exactere waardes te krijgen - ter vervanging van '43.2' en '64.8'.
 	 */
 	private static Wheel wheel1 = WheeledChassis.modelWheel(Motor.A, 43.2).offset(-64.8); 
-	private static Wheel wheel2 = WheeledChassis.modelWheel(Motor.B, 43.2).offset(64.8);
+	private static Wheel wheel2 = WheeledChassis.modelWheel(Motor.C, 43.2).offset(64.8);
 	private static Chassis chassis = new WheeledChassis(new Wheel[]{wheel1, wheel2}, WheeledChassis.TYPE_DIFFERENTIAL); 
 	private static MovePilot piloot = new MovePilot(chassis);
 

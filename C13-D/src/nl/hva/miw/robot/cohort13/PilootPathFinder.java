@@ -7,7 +7,9 @@ public class PilootPathFinder extends Piloot {
 	private double lineaireSnelheid = 200;
 
 	public PilootPathFinder(PathFinderOpdracht3 pathFinderOpdracht3) {
+		super();
 		this.opdracht3 = pathFinderOpdracht3;
+		
 	}
 
 //	public void rijVooruit(int afwijking) {
@@ -38,7 +40,7 @@ public class PilootPathFinder extends Piloot {
 					e.printStackTrace();
 				}
 				if(draaiTeller != 1) {
-					Wielaandrijving.draaiOmAs(89, true);
+					Wielaandrijving.draaiOmAs(88, true);
 					draaiTeller++;
 					try {
 						Thread.sleep(1000);;
@@ -47,14 +49,14 @@ public class PilootPathFinder extends Piloot {
 						e.printStackTrace();
 					}
 				} else {
-					Wielaandrijving.draaiOmAs(89, true);
+					Wielaandrijving.draaiOmAs(88, true);
 					try {
 						Thread.sleep(1000);;
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					Wielaandrijving.draaiOmAs(89, true);
+					Wielaandrijving.draaiOmAs(88, true);
 					try {
 						Thread.sleep(1000);;
 					} catch (InterruptedException e) {

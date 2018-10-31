@@ -1,5 +1,6 @@
 package main;
 
+import ev3.robotproject.library.GrijpMotor;
 import ev3.robotproject.library.Wielaandrijving;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
@@ -22,8 +23,10 @@ public class RobotLauncherMain {
 		//opdracht1 = new LijnvolgerOpdracht1();
 		//opdracht1.lijnVolgerOpdracht();
 		
-		opdracht3 = new PathFinderOpdracht3();
-		opdracht3.startOpdracht3();
+		//opdracht3 = new PathFinderOpdracht3();
+		//opdracht3.startOpdracht3();
+		GrijpMotor.losLaten();
+		GrijpMotor.grijpen();
 
 	}
 
