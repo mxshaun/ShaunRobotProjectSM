@@ -6,8 +6,9 @@ import lejos.hardware.port.MotorPort;
 public final class Motor {
 	
 	// declareren van het rechter wiel motor (MOTOR_A) en het linker wiel motor (MOTOR_B):
+	
 	final static EV3LargeRegulatedMotor MOTOR_LINKER = new EV3LargeRegulatedMotor(MotorPort.A);
-	final static EV3LargeRegulatedMotor MOTOR_RECHTER = new EV3LargeRegulatedMotor(MotorPort.C);
+	final static EV3LargeRegulatedMotor MOTOR_RECHTER = new EV3LargeRegulatedMotor(MotorPort.B);
 
 	private Motor() {
 	}

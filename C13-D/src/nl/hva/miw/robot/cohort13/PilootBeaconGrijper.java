@@ -84,10 +84,5 @@ public class PilootBeaconGrijper extends Piloot {
 
 	}
 
-	@Override
-	public void rij(int afwijking) {
-		// TODO Auto-generated method stub
-
-	}
 
 }
