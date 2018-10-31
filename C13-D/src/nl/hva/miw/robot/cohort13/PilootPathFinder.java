@@ -38,7 +38,7 @@ public class PilootPathFinder extends Piloot {
 					e.printStackTrace();
 				}
 				if(draaiTeller != 1) {
-					Wielaandrijving.draaiOmAs(90, true);
+					Wielaandrijving.draaiOmAs(89, true);
 					draaiTeller++;
 					try {
 						Thread.sleep(1000);;
@@ -47,14 +47,14 @@ public class PilootPathFinder extends Piloot {
 						e.printStackTrace();
 					}
 				} else {
-					Wielaandrijving.draaiOmAs(90, true);
+					Wielaandrijving.draaiOmAs(89, true);
 					try {
 						Thread.sleep(1000);;
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					Wielaandrijving.draaiOmAs(90, true);
+					Wielaandrijving.draaiOmAs(89, true);
 					try {
 						Thread.sleep(1000);;
 					} catch (InterruptedException e) {
