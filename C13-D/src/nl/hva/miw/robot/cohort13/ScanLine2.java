@@ -2,6 +2,7 @@ package nl.hva.miw.robot.cohort13;
 
 
 import ev3.robotproject.library.ColorIdSensor;
+import ev3.robotproject.library.Lcd;
 import lejos.hardware.Button;
 import lejos.utility.Delay;
 import lejos.utility.Stopwatch;
@@ -43,6 +44,9 @@ public class ScanLine2 implements Runnable {
 				}
 			}
 		} catch (Exception e) {
+			Lcd.clear();
+			Lcd.print(2, "Foutje bedankt!");
+			Lcd.print(3, "ScanLine2");
 
 		}
 		
@@ -51,10 +55,8 @@ public class ScanLine2 implements Runnable {
 		 */
 		
 		if (swTijdAanwezig) {
-            for (int i=0;i<8;i++) {
-            	System.out.println();
-            }
-			System.out.printf("Rondetijd: %.3f seconden\n", (float)(rondetijd/1000.0));
+			Lcd.clear();
+			Lcd.print(2, "Rondetijd: %.3f seconden\n", (float)(rondetijd/1000.0));
 			Button.waitForAnyPress();
         }	
 	}
@@ -78,7 +80,8 @@ public class ScanLine2 implements Runnable {
 		try {
 			//leeg
 		} catch (Exception e) {
-			System.out.println("Loggen in finLine() lukt niet");
+			Lcd.clear();
+			Lcd.print(2, "Loggen in findLine() lukt niet.");
 		}
 		return (colorName == "Red" || colorName == "Orange");
 	}

@@ -24,13 +24,6 @@ public class LijnvolgerOpdracht1 {
 		Thread t2 = new Thread(lijnScanner);
 		
 		startOpdracht = true; //opdracht boolean op true zetten
-		try {
-			t1.join();
-			t2.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		t1.start();
 		//wachten met starten van de Lijn Scanner thread
@@ -38,6 +31,13 @@ public class LijnvolgerOpdracht1 {
 		}
 		t2.start();
 		
+		try {
+			t1.join();
+			t2.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 	/*
 	 * De getter en setter voor de Boolean voor het uitvoeren
