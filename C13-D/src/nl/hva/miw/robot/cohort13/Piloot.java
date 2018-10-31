@@ -21,10 +21,10 @@ public class Piloot implements Runnable {
 
 	/**
 	 * Deze methode zorgt voor het rijden met een maximale snelheid proportioneel
-	 * aan de gewenste hoek van draaiïng.
+	 * aan de gewenste hoek van draaiï¿½ng.
 	 * 
 	 * @param hoek,
-	 *            hoek van draaiïng in graden.
+	 *            hoek van draaiï¿½ng in graden.
 	 * @return
 	 */
 
@@ -52,7 +52,7 @@ public class Piloot implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		while (opdracht1.getStartOpdracht()) {
-			rijOverLijn(opdracht1.getRijRichting());
+//			rijOverLijn(opdracht1.getRijRichting());
 			System.out.println("rijrichting opgehaald");
 			Lcd.clear();
 		}
