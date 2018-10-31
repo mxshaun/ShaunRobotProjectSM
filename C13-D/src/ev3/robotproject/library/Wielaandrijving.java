@@ -22,10 +22,10 @@ public final class Wielaandrijving {
 	 *   testen. Dus Wheel1 en 2, dienen nog exactere waardes te krijgen - ter
 	 *   vervanging van '43.2' en '64.8'.
 	 */
+
 	private static Wheel wheel1 = WheeledChassis.modelWheel(Motor.MOTOR_LINKER, 43.2).offset(-64.8);
 	private static Wheel wheel2 = WheeledChassis.modelWheel(Motor.MOTOR_RECHTER, 43.2).offset(64.8);
-	private static Chassis chassis = new WheeledChassis(new Wheel[] { wheel1, wheel2 },
-			WheeledChassis.TYPE_DIFFERENTIAL);
+	private static Chassis chassis = new WheeledChassis(new Wheel[] { wheel1, wheel2 },WheeledChassis.TYPE_DIFFERENTIAL);
 	private static MovePilot piloot = new MovePilot(chassis);
 
 	private Wielaandrijving() {

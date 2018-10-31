@@ -133,6 +133,10 @@ public class BeaconfollowerOprachtTest {
 	public void rijdWeg() {
 		Motor.rechtAchteruit(100);
 		Delay.msDelay(1000);
+<<<<<<< HEAD
+=======
+		Motor.rem();
+>>>>>>> developerbranch
 	}
 	
 	

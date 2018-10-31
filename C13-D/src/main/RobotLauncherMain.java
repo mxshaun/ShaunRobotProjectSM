@@ -1,5 +1,6 @@
 package main;
 
+import ev3.robotproject.library.GrijpMotor;
 import ev3.robotproject.library.Wielaandrijving;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
@@ -25,16 +26,17 @@ public class RobotLauncherMain {
 		
 		opdracht3 = new PathFinderOpdracht3();
 		opdracht3.startOpdracht3();
+		//Wielaandrijving.rijAfstand(250, 200, false);
+		//GrijpMotor.losLaten();
+		//GrijpMotor.grijpen();
 
-
-		BeaconfollowerOprachtTest test = new BeaconfollowerOprachtTest();
 		
-		test.rijNaarBeacon();
-		
-		test.grijpBeacon();
-		test.rijdMetBeacon();
-		test.laatBeaconLos();
-		
+//		test.rijNaarBeacon();
+//		
+//		test.grijpBeacon();
+//		test.rijdMetBeacon();
+//		test.laatBeaconLos();
+//		
 		
 
 	}

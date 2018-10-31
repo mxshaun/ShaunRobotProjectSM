@@ -9,8 +9,9 @@ public final class GrijpMotor {
 
 	final static EV3MediumRegulatedMotor MOTOR_GRIJP = new EV3MediumRegulatedMotor(MotorPort.C);
 
-	// default constructor. doet niks.
-	private GrijpMotor() {
+	
+	//default constructor. doet niks.
+	private GrijpMotor() {	
 	}
 
 	public static void grijpen() {

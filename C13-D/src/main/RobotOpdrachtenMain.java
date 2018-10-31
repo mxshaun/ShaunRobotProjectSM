@@ -27,6 +27,9 @@ public class RobotOpdrachtenMain {
 				BeaconfollowerOprachtTest opdracht2 = new BeaconfollowerOprachtTest();
 				
 //				opdracht2.XXXXX();
+				
+				
+				
 				Lcd.clear();
 				Lcd.print(2, "Opdracht 2");
 				opdracht2.rijNaarBeacon();
@@ -38,8 +41,8 @@ public class RobotOpdrachtenMain {
 				
 				
 			} else if (buttonId == 8) {
-//				PathFinderOpdracht3 opdracht3 = new PathFinderOpdracht3();
-//				opdracht3.XXXX();
+				PathFinderOpdracht3 opdracht3 = new PathFinderOpdracht3();
+				opdracht3.startOpdracht3();
 				Lcd.clear();
 				Lcd.print(2, "Opdracht 3");
 			} else {
