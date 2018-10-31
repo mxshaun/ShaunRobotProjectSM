@@ -18,7 +18,9 @@ public class PilootBeaconGrijper extends Piloot {
 
 	public void rijd(int direction, int distance) {
 		
-		int draaifactor = 1;
+		zoekBeacon(direction, distance);
+		
+		
 
 		while (distance > 2 && !TouchSensor.isTouched()) {
 
@@ -39,6 +41,15 @@ public class PilootBeaconGrijper extends Piloot {
 				}
 			}
 
+	public void zoekBeacon(int direction, int distance) {
+		
+		while (direction == 0) {
+		Wielaandrijving.draaiOmAs(90, true);
+		}
+		
+		
+		
+	}
 		//opdracht2.setStartOpdracht(false);
 
 		

@@ -6,17 +6,25 @@ import lejos.robotics.chassis.Chassis;
 import lejos.robotics.chassis.Wheel;
 import lejos.robotics.chassis.WheeledChassis;
 import lejos.robotics.navigation.MovePilot;
+import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.motor.Motor;
 import lejos.hardware.port.MotorPort;
 
 
+
 public final class Wielaandrijving {
+	
+	
+	final static EV3LargeRegulatedMotor MOTOR_LINKER = new EV3LargeRegulatedMotor(MotorPort.A);
+	final static EV3LargeRegulatedMotor MOTOR_RECHTER = new EV3LargeRegulatedMotor(MotorPort.B);
+
 	/**
 	 * @ To-Do, Het Chassis moet nog exacter uitgemeten, in de zin van meten en testen. Dus Wheel1 en 2, dienen 
 	 * nog exactere waardes te krijgen - ter vervanging van '43.2' en '64.8'.
 	 */
-	private static Wheel wheel1 = WheeledChassis.modelWheel(Motor.A, 43.2).offset(-64.8); 
-	private static Wheel wheel2 = WheeledChassis.modelWheel(Motor.C, 43.2).offset(64.8);
+
+	private static Wheel wheel1 = WheeledChassis.modelWheel(MOTOR_LINKER, 43.2).offset(-64.8); 
+	private static Wheel wheel2 = WheeledChassis.modelWheel(MOTOR_RECHTER, 43.2).offset(64.8);
 	private static Chassis chassis = new WheeledChassis(new Wheel[]{wheel1, wheel2}, WheeledChassis.TYPE_DIFFERENTIAL); 
 	private static MovePilot piloot = new MovePilot(chassis);
 
@@ -99,6 +107,7 @@ public final class Wielaandrijving {
 		}
 		
 	}
+	
 	
 
 }
