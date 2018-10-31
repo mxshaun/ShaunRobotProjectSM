@@ -5,11 +5,12 @@ import lejos.hardware.Button;
 import lejos.utility.Delay;
 import nl.hva.miw.robot.cohort13.LijnvolgerOpdracht1;
 import nl.hva.miw.robot.cohort13.BeaconFollowerOpdracht2;
+import nl.hva.miw.robot.cohort13.BeaconfollowerOprachtTest;
 import nl.hva.miw.robot.cohort13.PathFinderOpdracht3;
 
 public class RobotOpdrachtenMain {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
 		while (Button.ESCAPE.isUp()) {
 			Lcd.clear();
@@ -23,10 +24,19 @@ public class RobotOpdrachtenMain {
 				LijnvolgerOpdracht1 opdracht1 = new LijnvolgerOpdracht1();
 				opdracht1.lijnVolgerOpdracht();
 			} else if (buttonId == 2) {
-//				BeaconFollowerOpdracht2 opdracht2 = new BeaconFollowerOpdracht2();
+				BeaconfollowerOprachtTest opdracht2 = new BeaconfollowerOprachtTest();
+				
 //				opdracht2.XXXXX();
 				Lcd.clear();
 				Lcd.print(2, "Opdracht 2");
+				opdracht2.rijNaarBeacon();
+				opdracht2.grijpBeacon();
+				opdracht2.rijdMetBeacon();
+				
+				opdracht2.laatBeaconLos();
+				opdracht2.rijdWeg();
+				
+				
 			} else if (buttonId == 8) {
 //				PathFinderOpdracht3 opdracht3 = new PathFinderOpdracht3();
 //				opdracht3.XXXX();
