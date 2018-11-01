@@ -30,14 +30,32 @@ public class LijnvolgerOpdracht1 {
 		while(!piloot.getStart()) {
 		}
 		t2.start();
+		while(!piloot.afmeldenThread() && !lijnScanner.afmeldenThread()) {
+			/*
+			 * Wachten totdat de threads afgemeld/gejoint kunnen worden.
+			 * De piloot-thread stopt zijn while loop nav een seintje
+			 * uit de lijnScanner-thread. Omdat de lijnScanner-thread 
+			 * ook eerst de stopwatch tijd toont, is de piloot-thread
+			 * altijd eerder klaar.
+			 */
+		}
 		
+		//Afsluiten van piloot-thread
 		try {
 			t1.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		while (!lijnScanner.afmeldenThread()) {
+			//Wachten totdat tijd is getoond en afmelden thread op true is gezet.
+		}
+		
+		try {
 			t2.join();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
 	}
 	/*
 	 * De getter en setter voor de Boolean voor het uitvoeren
