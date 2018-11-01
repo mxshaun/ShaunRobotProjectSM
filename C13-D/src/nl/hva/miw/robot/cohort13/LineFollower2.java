@@ -66,32 +66,27 @@ public class LineFollower2 implements Runnable {
 		float colorValue = RedSensor.getRed();
 		
 		//Bepalen "vaste" waarden en variabelen
-		final float CORRECTION_COLOR_MARGE = 0.09f;
-		final float CORRECTION_POWER_MARGE = -65;
+		final float CORRECTION_COLOR_MARGE = 0.05f;
+		final float CORRECTION_POWER_MARGE = 4.25f;
 		float min = colorValueBlack + CORRECTION_COLOR_MARGE;
 		float max = colorValueWhite - CORRECTION_COLOR_MARGE*((min+CORRECTION_COLOR_MARGE)/min);
 		int maxSpeed = 720;
-		double speedCorrection = 0.65;
+		double speedCorrection = 1.0;
 		
 		//Bepalen vermogen links
-		int vermogenLinks =(int)((max-colorValue) / (max-min) * maxSpeed * speedCorrection);
+//		int vermogenLinks =(int)((max-colorValue) / (max-min) * maxSpeed * speedCorrection);
+		int vermogenLinks =(int)((max-colorValue) * maxSpeed * speedCorrection);	
 		
 		//Bepalen vermogen rechts
-		int vermogenRechts = (int)((colorValue-min) / (max-min) * maxSpeed * speedCorrection);
+//		int vermogenRechts = (int)((colorValue-min) / (max-min) * maxSpeed * speedCorrection);
+		int vermogenRechts = (int)((colorValue-min) * maxSpeed * speedCorrection);
 		
 		//Aansturen motoren
 		if (colorValue<min) {
-			if (vermogenRechts > CORRECTION_POWER_MARGE) {
-				Motor.draaiOmAs(vermogenLinks, vermogenRechts);
-			} else {
-				Motor.draaiOmAs(vermogenLinks, vermogenRechts);
-			}
+			Motor.draaiOmAs(vermogenLinks, (int)(vermogenRechts * CORRECTION_POWER_MARGE));
 		} else if (colorValue>max) {
-			if (vermogenLinks > CORRECTION_POWER_MARGE) {
-				Motor.draaiOmAs(vermogenLinks, vermogenRechts);
-			} else {
-				Motor.draaiOmAs(vermogenLinks, vermogenRechts);
-			}
+//			Motor.draaiOmAs((int)(vermogenLinks * CORRECTION_POWER_MARGE), vermogenRechts);
+			Motor.draaiOmAs(vermogenLinks, vermogenRechts);
 		} else {
 			Motor.bochtVooruit(vermogenLinks, vermogenRechts);
 		}
@@ -100,8 +95,9 @@ public class LineFollower2 implements Runnable {
 	//Starten van de calibratie
 	public void startCalibratie() {
 		Lcd.clear();
-        Lcd.print(2, "Press any key to start");
-        Lcd.print(3, "the calibration");
+        Lcd.print(2, "Press any key");
+        Lcd.print(3, "to start the");
+        Lcd.print(4, "calibration");
 		Button.waitForAnyPress();
 		RedSensor.setRedMode();
 		RedSensor.setFloodLight(true);

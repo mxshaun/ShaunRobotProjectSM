@@ -39,21 +39,23 @@ public class LijnvolgerOpdracht1 {
 			 * altijd eerder klaar.
 			 */
 		}
-		while (!lijnScanner.afmeldenThread()) {
-			
-			try {
-				t1.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
+		
+		//Afsluiten van piloot-thread
+		try {
+			t1.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
+		
+		while (!lijnScanner.afmeldenThread()) {
+			//Wachten totdat tijd is getoond en afmelden thread op true is gezet.
+		}
+		
 		try {
 			t2.join();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
 	}
 	/*
 	 * De getter en setter voor de Boolean voor het uitvoeren

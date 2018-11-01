@@ -9,6 +9,7 @@ import lejos.robotics.ColorDetector;
 public final class ColorIdSensor {
 	final static EV3ColorSensor COLOR_ID_SENSOR = new EV3ColorSensor(SensorPort.S2);
 	final static String KLEUR = "ColorID"; // 'ColorID', omdat we een basis kleur scannen
+	
 	static float[] sample;
 	
 	public static int getSampleSize() {
