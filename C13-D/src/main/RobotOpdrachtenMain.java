@@ -28,10 +28,11 @@ public class RobotOpdrachtenMain {
 				Lcd.clear();
 				Lcd.print(2, "Opdracht 2");
 				opdracht2.rijNaarBeacon();
+				
 				opdracht2.grijpBeacon();
-				opdracht2.rijdMetBeacon();
+				//opdracht2.rijdMetBeacon();
 				opdracht2.laatBeaconLos();
-				opdracht2.rijdWeg();
+				//opdracht2.rijdWeg();
 				
 			} else if (buttonId == 8) {
 				PathFinderOpdracht3 opdracht3 = new PathFinderOpdracht3();
