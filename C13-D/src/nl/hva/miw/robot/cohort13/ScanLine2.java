@@ -53,7 +53,7 @@ public class ScanLine2 implements Runnable {
 		}
 		
 		//Sluiten van de Color ID scanner
-		ColorIdSensor.close();
+//		ColorIdSensor.close();
 		
 		//Tonen van de ronde tijd op het scherm
 		if (swTijdAanwezig) {
