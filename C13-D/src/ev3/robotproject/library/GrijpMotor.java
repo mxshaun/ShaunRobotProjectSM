@@ -2,7 +2,6 @@ package ev3.robotproject.library;
 
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.MotorPort;
-import lejos.hardware.port.Port;
 import lejos.utility.Delay;
 
 public final class GrijpMotor {
@@ -18,15 +17,15 @@ public final class GrijpMotor {
 
 		MOTOR_GRIJP.setSpeed((MOTOR_GRIJP.getMaxSpeed() / 3));
 		MOTOR_GRIJP.backward();
-		Delay.msDelay(4500);
+		Delay.msDelay(2500);
 		MOTOR_GRIJP.stop();
 
 	}
 
 	public static void losLaten() {
-		MOTOR_GRIJP.setSpeed((MOTOR_GRIJP.getMaxSpeed() / 3));
+		MOTOR_GRIJP.setSpeed((MOTOR_GRIJP.getMaxSpeed()));
 		MOTOR_GRIJP.forward();
-		Delay.msDelay(4500);
+		Delay.msDelay(2500);
 		MOTOR_GRIJP.stop();
 	}
 
