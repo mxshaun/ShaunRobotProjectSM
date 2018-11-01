@@ -35,8 +35,9 @@ public class BeaconfollowerOprachtTest {
 			do {
 				Logging.log("in de eerste if direction while loop: direction=" + direction);
 				Logging.log("moet er uit knallen als de direction 1 of 0 is");
-				Wielaandrijving.draaiOmAs(8, false);
-				Delay.msDelay(500);
+				//Wielaandrijving.draaiOmAs(8, false);
+				Motor.draaiOmAs(100, 50);
+				//Delay.msDelay(500);
 				direction = (int) InfraroodSensor.getDirection();
 				
 			} while (direction > 2 || direction < -2 || direction == 0);
@@ -45,7 +46,6 @@ public class BeaconfollowerOprachtTest {
 			while ((direction > 1 || direction < -1)) {
 				Logging.log("in de eerste else direction while loop: direction=" + direction);
 				Logging.log("moet er uit knallen als de direction 1 of 0 is");
-
 				Wielaandrijving.draaiOmAs(5, false);
 				Delay.msDelay(1000);
 
@@ -116,10 +116,12 @@ public class BeaconfollowerOprachtTest {
 	public void rijdMetBeacon() {
 		//Wielaandrijving.rijAfstand(Wielaandrijving.getMaxLineaireSnelheid()/5 , 200, false);
 		
-		Wielaandrijving.rijAfstand(100, 200, false);
+		Motor.rechtAchteruit(100);
+		//Wielaandrijving.rijAfstand(100, 200, false);
 		//Wielaandrijving.setSnelheid(50, 100);
-		Delay.msDelay(2000);
-		Wielaandrijving.stop();
+		Delay.msDelay(1000);
+		Motor.rem();
+		//Wielaandrijving.stop();
 		Wielaandrijving.setSnelheid(100, 200);
 		Delay.msDelay(2000);
 		Wielaandrijving.stop();
@@ -133,10 +135,8 @@ public class BeaconfollowerOprachtTest {
 	public void rijdWeg() {
 		Motor.rechtAchteruit(100);
 		Delay.msDelay(1000);
-<<<<<<< HEAD
-=======
 		Motor.rem();
->>>>>>> developerbranch
+		Motor.sluit();
 	}
 	
 	
