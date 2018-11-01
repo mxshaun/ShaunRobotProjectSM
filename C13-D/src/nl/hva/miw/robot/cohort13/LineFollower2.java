@@ -51,10 +51,10 @@ public class LineFollower2 implements Runnable {
 		
 		//Stoppen en sluiten van de motor
 		Motor.rem();
-		Motor.sluit();
+//		Motor.sluit();
 		
 		//Sluiten van de Rood-scanner
-		RedSensor.close();
+//		RedSensor.close();
 		
 		//Afmelden van de Thread
 		afmeldenThread();
