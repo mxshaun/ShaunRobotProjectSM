@@ -51,7 +51,6 @@ public class SituatieDetector implements Runnable{
 		while(opdracht3.getStart()) {
 			colorInt = ColorIdSensor.getColor();
 			colorName = ColorIdSensor.colorName(colorInt);
-			
 			if((!opdracht3.isStartDoolhof()) && (colorName == "White")) {
 				opdracht3.setStartDoolhof(true);
 			}
@@ -59,12 +58,15 @@ public class SituatieDetector implements Runnable{
 			if(!opdracht3.isFinishDoolhof() && (colorName == "Black")) {
 				opdracht3.setFinishDoolhof(true);
 				opdracht3.setStart(false);
-				}
-			
-			if(colorName == "Green") {
-			opdracht3.setKruising(true);
 			}
 			
+			if(!(colorName == "Blue")){
+				opdracht3.setKruising(false);
+			}
+			
+			if(colorName == "Blue") {
+			opdracht3.setKruising(true);
+			}
 		}
 	}
 

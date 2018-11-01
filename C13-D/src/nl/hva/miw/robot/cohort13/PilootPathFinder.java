@@ -32,19 +32,14 @@ public class PilootPathFinder extends Piloot {
 //			}
 //			Wielaandrijving.stop();
 			if (opdracht3.isKruising()) {
-				Wielaandrijving.rijAfstand(225, 130, false);
+				Wielaandrijving.rijAfstand(225, 330, true);
 				try {
-					Thread.sleep(5000);
+					Thread.sleep(2000);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				try {
-					Thread.sleep(200);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+
 				Wielaandrijving.draaiOmAs(88, true);
 				try {
 					Thread.sleep(1000);
@@ -54,7 +49,7 @@ public class PilootPathFinder extends Piloot {
 					e.printStackTrace();
 				}
 			} else {
-				if (opdracht3.getAfstandObstakel() > 20) {
+				if (opdracht3.getAfstandObstakel() > 30) {
 					draaiTeller = 0;
 					Wielaandrijving.setSnelheid(lineaireSnelheid, 0); //
 
@@ -79,6 +74,7 @@ public class PilootPathFinder extends Piloot {
 						}
 					} else {
 						Wielaandrijving.draaiOmAs(88, true);
+						draaiTeller++;
 						try {
 							Thread.sleep(1000);
 							;
@@ -87,6 +83,7 @@ public class PilootPathFinder extends Piloot {
 							e.printStackTrace();
 						}
 						Wielaandrijving.draaiOmAs(88, true);
+						draaiTeller++;
 						try {
 							Thread.sleep(1000);
 							;

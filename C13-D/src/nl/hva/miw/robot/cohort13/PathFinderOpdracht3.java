@@ -63,26 +63,27 @@ public class PathFinderOpdracht3 {
 
 		t1.start();
 		t3.start();
-	
+
 		Wielaandrijving.setSnelheid(125, 0);
 		while (!startDoolhof) {
 
 		}
 		Wielaandrijving.stop();
 		t2.start();
-		while(start) {
-			if(!start) {
-				try {
-					t1.join();
-					t2.join();
-					t3.join();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+		while (start) {
 		}
+		try {
+			t1.join();
+			t2.join();
+			t3.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
+
+
 
 	public void setAfstandObstakel(int afstand) {
 		this.afstandObstakel = afstand;
