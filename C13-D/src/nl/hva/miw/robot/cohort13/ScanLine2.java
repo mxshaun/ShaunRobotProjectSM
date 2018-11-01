@@ -24,7 +24,6 @@ public class ScanLine2 implements Runnable {
 
 	public void run() {
 		ColorIdSensor.setColorIdMode();
-		
 		Stopwatch sw = new Stopwatch();
 		
 		try {
@@ -32,13 +31,13 @@ public class ScanLine2 implements Runnable {
 	        	foundLine = findLine();
 	        	if (foundLine) {
 	        		teller++;
-	        		if (teller == 1 && !swAan) {
+	        		if (teller == 1 && !swAan) { //starten van de stopwatch
 	    				sw.reset();
 	    				swAan = true;
 	    			}
 					Delay.msDelay(1000);
 				}
-	        	if (teller == 2 && swAan) {
+	        	if (teller == 2 && swAan) { //stoppen van de stopwatch
 					rondetijd = sw.elapsed();
 					swAan = false;
 					swTijdAanwezig = true;
@@ -49,12 +48,8 @@ public class ScanLine2 implements Runnable {
 			Lcd.clear();
 			Lcd.print(2, "Foutje bedankt!");
 			Lcd.print(3, "ScanLine2");
-
 		}
-		
-		//Sluiten van de Color ID scanner
-//		ColorIdSensor.close();
-		
+				
 		//Tonen van de ronde tijd op het scherm
 		if (swTijdAanwezig) {
 			Lcd.clear();
