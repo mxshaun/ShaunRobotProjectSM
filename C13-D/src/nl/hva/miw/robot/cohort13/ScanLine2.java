@@ -14,6 +14,7 @@ public class ScanLine2 implements Runnable {
 	boolean foundLine;
 	boolean swAan = false;
 	boolean swTijdAanwezig = false;
+	boolean afmeldenThread;
 	private LijnvolgerOpdracht1 opdracht1;
 	
 	public ScanLine2(LijnvolgerOpdracht1 opdracht1) {
@@ -23,6 +24,7 @@ public class ScanLine2 implements Runnable {
 
 	public void run() {
 		ColorIdSensor.setColorIdMode();
+		
 		Stopwatch sw = new Stopwatch();
 		
 		try {
@@ -50,15 +52,17 @@ public class ScanLine2 implements Runnable {
 
 		}
 		
-		/*
-		 * Tonen van de ronde tijd op het scherm
-		 */
+		//Sluiten van de Color ID scanner
+		ColorIdSensor.close();
 		
+		//Tonen van de ronde tijd op het scherm
 		if (swTijdAanwezig) {
 			Lcd.clear();
 			Lcd.print(2, "Rondetijd: %.3f seconden\n", (float)(rondetijd/1000.0));
 			Button.waitForAnyPress();
-        }	
+        }
+		
+		afmeldenThread();
 	}
 	
 	/*
@@ -85,4 +89,10 @@ public class ScanLine2 implements Runnable {
 		}
 		return (colorName == "Red" || colorName == "Orange");
 	}
+	
+	//De getter voor het afmelden van de Thread
+		public boolean afmeldenThread() {
+			afmeldenThread = true;
+			return afmeldenThread;
+		}
 }

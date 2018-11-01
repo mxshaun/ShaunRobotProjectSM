@@ -24,9 +24,21 @@ public class PilootPathFinder extends Piloot {
 	public void run() {
 		int draaiTeller = 0;
 
-		while (opdracht3.getStart())
+		while (opdracht3.getStart()) {
+//			
+//			Wielaandrijving.setSnelheid(125, 0);
+//			while (!opdracht3.isStartDoolhof()) {
+//
+//			}
+//			Wielaandrijving.stop();
 			if (opdracht3.isKruising()) {
-				Wielaandrijving.setSnelheid((lineaireSnelheid / 2), 0);
+				Wielaandrijving.rijAfstand(225, 130, false);
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				try {
 					Thread.sleep(200);
 				} catch (InterruptedException e) {
@@ -85,6 +97,8 @@ public class PilootPathFinder extends Piloot {
 					}
 				}
 			}
+		}
+		Wielaandrijving.stop();
 	}
 
 }

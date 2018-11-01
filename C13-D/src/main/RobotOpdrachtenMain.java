@@ -4,7 +4,6 @@ import ev3.robotproject.library.Lcd;
 import lejos.hardware.Button;
 import lejos.utility.Delay;
 import nl.hva.miw.robot.cohort13.LijnvolgerOpdracht1;
-import nl.hva.miw.robot.cohort13.BeaconFollowerOpdracht2;
 import nl.hva.miw.robot.cohort13.BeaconfollowerOprachtTest;
 import nl.hva.miw.robot.cohort13.PathFinderOpdracht3;
 
@@ -23,25 +22,25 @@ public class RobotOpdrachtenMain {
 			if (buttonId == 16) {
 				LijnvolgerOpdracht1 opdracht1 = new LijnvolgerOpdracht1();
 				opdracht1.lijnVolgerOpdracht();
-			} else if (buttonId == 2) {
+			} else if (buttonId ==
+					2) {
 				BeaconfollowerOprachtTest opdracht2 = new BeaconfollowerOprachtTest();
-				
 				Lcd.clear();
 				Lcd.print(2, "Opdracht 2");
 				opdracht2.rijNaarBeacon();
 				opdracht2.grijpBeacon();
 				opdracht2.rijdMetBeacon();
-				
 				opdracht2.laatBeaconLos();
 				opdracht2.rijdWeg();
-				
 				
 			} else if (buttonId == 8) {
 				PathFinderOpdracht3 opdracht3 = new PathFinderOpdracht3();
 				opdracht3.startOpdracht3();
 				Lcd.clear();
 				Lcd.print(2, "Opdracht 3");
-			} else {
+			} else if (buttonId == 32){ //Escape toets
+				break;
+			}	else {
 				Lcd.clear();
 				Lcd.print(2, "Wrong button");
 				Lcd.print(3, "Press again");

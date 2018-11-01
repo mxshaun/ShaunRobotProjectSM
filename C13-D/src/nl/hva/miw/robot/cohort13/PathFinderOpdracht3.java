@@ -17,14 +17,12 @@ public class PathFinderOpdracht3 {
 	private boolean finishDoolhof;
 	int colorInt;
 	String colorName;
-	
-	
 
-	public boolean isKruising() {
+	public synchronized boolean isKruising() {
 		return kruising;
 	}
 
-	public void setKruising(boolean kruising) {
+	public synchronized void setKruising(boolean kruising) {
 		this.kruising = kruising;
 	}
 
@@ -48,69 +46,56 @@ public class PathFinderOpdracht3 {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	public void startOpdracht3() {
 		Button.LEDPattern(4); // flash green led and
 		Sound.beepSequenceUp(); // make sound when ready.
 		Lcd.clear();
 		Lcd.print(1, "Press any key to start the Test");
-		
 
 		Button.waitForAnyPress();
-		
+
 		start = true; // start de opdracht
-		
-		
+
 		Thread t1 = new Thread(sensor);
-		//Thread t3 = new Thread(situatie);
 		Thread t2 = new Thread(piloot);
-		
+		Thread t3 = new Thread(situatie);
+
 		t1.start();
-		//t3.start();
-//		try {
-//			t1.join();
-//			t3.join();
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		//Wielaandrijving.setSnelheid(125, 0);
-		//while(!startDoolhof) {
-			
-		//}
-		//Wielaandrijving.stop();
-		t2.start();
-//		try {
-//			t2.join();
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		while(!finishDoolhof)
-		try {
-			int colorInt = ColorIdSensor.getColor();
-			String colorName = ColorIdSensor.colorName(colorInt);
-			} catch (Exception e) {
-				
-			}
-			if(colorName == "Black") {
-				setStart(false);
-				
-			}
-	}
+		t3.start();
 	
+		Wielaandrijving.setSnelheid(125, 0);
+		while (!startDoolhof) {
+
+		}
+		Wielaandrijving.stop();
+		t2.start();
+		while(start) {
+			if(!start) {
+				try {
+					t1.join();
+					t2.join();
+					t3.join();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 	public void setAfstandObstakel(int afstand) {
 		this.afstandObstakel = afstand;
 	}
-	
+
 	public int getAfstandObstakel() {
 		return this.afstandObstakel;
 	}
-	
+
 	public void setStart(boolean start) {
 		this.start = start;
 	}
-	
+
 	public boolean getStart() {
 		return this.start;
 	}

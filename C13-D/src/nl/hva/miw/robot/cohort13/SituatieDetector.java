@@ -33,8 +33,7 @@ public class SituatieDetector implements Runnable{
 	
 	public boolean checkFinish() {
 		try {
-		colorInt = ColorIdSensor.getColor();
-		colorName = ColorIdSensor.colorName(colorInt);
+		
 		} catch (Exception e) {
 			
 		}
@@ -48,10 +47,24 @@ public class SituatieDetector implements Runnable{
 	
 	@Override
 	public void run() {
+		ColorIdSensor.setColorIdMode();
 		while(opdracht3.getStart()) {
-			opdracht3.setStartDoolhof(checkStart());
-			opdracht3.setKruising(checkKruising());
-			opdracht3.setFinishDoolhof(checkFinish());
+			colorInt = ColorIdSensor.getColor();
+			colorName = ColorIdSensor.colorName(colorInt);
+			
+			if((!opdracht3.isStartDoolhof()) && (colorName == "White")) {
+				opdracht3.setStartDoolhof(true);
+			}
+			
+			if(!opdracht3.isFinishDoolhof() && (colorName == "Black")) {
+				opdracht3.setFinishDoolhof(true);
+				opdracht3.setStart(false);
+				}
+			
+			if(colorName == "Green") {
+			opdracht3.setKruising(true);
+			}
+			
 		}
 	}
 
