@@ -40,9 +40,9 @@ public class BeaconfollowerOprachtTest {
 					Lcd.print(2, "direction: " + direction);
 					Lcd.print(3, "distance: " + distance);
 					Lcd.print(4, "in de eerste if while loop");
+			} 	while ((direction > 10) || (direction < -10) || (direction == 0));
 
-				} while (direction > 10 || direction < -10 || direction == 0);
-			} else {
+				} else {
 
 				while ((direction > 1 || direction < -1)) {
 					Logging.log("in de eerste else direction while loop: direction=" + direction);
@@ -58,19 +58,17 @@ public class BeaconfollowerOprachtTest {
 					Lcd.print(3, "distance: " + distance);
 					Lcd.print(4, "in de eerste else while loop");
 				}
-
 			}
+
+			
 			Logging.log("uit de eerste while loop want direction: " + direction);
 			Lcd.clear();
 
 			while (direction > 1 || direction < -1) {
 
-				if (direction > 1) {
+			
 					Motor.draaiOmAs(20, -20);
-				} else if (direction < -1) {
-					Motor.draaiOmAs(-20, 20);
-				} else
-					Motor.rem();
+				
 
 				direction = (int) InfraroodSensor.getDirection();
 				distance = (int) InfraroodSensor.getDistance();
@@ -85,11 +83,11 @@ public class BeaconfollowerOprachtTest {
 
 			distance = (int) InfraroodSensor.getDistance();
 
-			while (distance > 10 && (direction < 8 || direction > -8)) {
+			while ((distance > 10) ) {
 				Logging.log("in de tweede while loop: distance=" + distance);
 				Logging.log("moet er uit als distance kleiner is dan 10");
 
-				Wielaandrijving.setSnelheid(80, 0);
+				Wielaandrijving.setSnelheid(70, 0);
 
 				direction = (int) InfraroodSensor.getDirection();
 				distance = (int) InfraroodSensor.getDistance();
@@ -105,15 +103,12 @@ public class BeaconfollowerOprachtTest {
 			Logging.log("uit de tweede direction while loop");
 			Logging.log("de direction is nu: " + direction);
 
-			while (direction > 0 || direction < 0) {
+			while ((direction > 1) || (direction < -1)) {
 				Logging.log("in de derde while loop: direction=" + direction);
 				Logging.log("moet er uit als direction 0 is");
-
-				if (direction > 0) {
-					Motor.draaiOmAs(10, 0);
-					//Wielaandrijving.draaiOmAs(2, true);
-				} else if (direction < 0) {
-					Motor.draaiOmAs(0, -10);
+{
+					Motor.draaiOmAs(20, -20);
+				
 
 					//Wielaandrijving.draaiOmAs(-2, true);
 				}
@@ -184,7 +179,7 @@ public class BeaconfollowerOprachtTest {
 
 		Lcd.print(3, "RIJD WEG");
 
-		Motor.rechtAchteruit(100);
+		Motor.rechtAchteruit(800);
 		Delay.msDelay(3000);
 		Motor.rem();
 		Lcd.clear();

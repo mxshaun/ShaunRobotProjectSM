@@ -4,7 +4,6 @@ import ev3.robotproject.library.Lcd;
 import lejos.hardware.Button;
 import lejos.utility.Delay;
 import nl.hva.miw.robot.cohort13.LijnvolgerOpdracht1;
-import nl.hva.miw.robot.cohort13.BeaconFollowerOpdracht2;
 import nl.hva.miw.robot.cohort13.BeaconfollowerOprachtTest;
 import nl.hva.miw.robot.cohort13.PathFinderOpdracht3;
 
