@@ -67,7 +67,7 @@ public class LineFollower2 implements Runnable {
 		
 		//Bepalen "vaste" waarden en variabelen
 		final float CORRECTION_COLOR_MARGE = 0.05f;
-		final float CORRECTION_POWER_MARGE = 4.25f;
+		final float CORRECTION_POWER_MARGE = 4.5f;
 		float min = colorValueBlack + CORRECTION_COLOR_MARGE;
 		float max = colorValueWhite - CORRECTION_COLOR_MARGE*((min+CORRECTION_COLOR_MARGE)/min);
 		int maxSpeed = 720;
