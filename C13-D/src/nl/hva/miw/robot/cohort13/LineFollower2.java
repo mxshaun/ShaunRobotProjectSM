@@ -51,11 +51,7 @@ public class LineFollower2 implements Runnable {
 		
 		//Stoppen en sluiten van de motor
 		Motor.rem();
-		Motor.sluit();
-		
-		//Sluiten van de Rood-scanner
-		RedSensor.close();
-		
+				
 		//Afmelden van de Thread
 		afmeldenThread();
 	}
@@ -74,18 +70,15 @@ public class LineFollower2 implements Runnable {
 		double speedCorrection = 1.0;
 		
 		//Bepalen vermogen links
-//		int vermogenLinks =(int)((max-colorValue) / (max-min) * maxSpeed * speedCorrection);
 		int vermogenLinks =(int)((max-colorValue) * maxSpeed * speedCorrection);	
 		
 		//Bepalen vermogen rechts
-//		int vermogenRechts = (int)((colorValue-min) / (max-min) * maxSpeed * speedCorrection);
 		int vermogenRechts = (int)((colorValue-min) * maxSpeed * speedCorrection);
 		
 		//Aansturen motoren
 		if (colorValue<min) {
 			Motor.draaiOmAs(vermogenLinks, (int)(vermogenRechts * CORRECTION_POWER_MARGE));
 		} else if (colorValue>max) {
-//			Motor.draaiOmAs((int)(vermogenLinks * CORRECTION_POWER_MARGE), vermogenRechts);
 			Motor.draaiOmAs(vermogenLinks, vermogenRechts);
 		} else {
 			Motor.bochtVooruit(vermogenLinks, vermogenRechts);
