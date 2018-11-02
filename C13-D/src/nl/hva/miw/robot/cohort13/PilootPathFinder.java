@@ -5,6 +5,12 @@ import ev3.robotproject.library.Wielaandrijving;
 public class PilootPathFinder extends Piloot {
 	private PathFinderOpdracht3 opdracht3;
 	private double lineaireSnelheid = 200;
+	private int draaiTeller;
+	private final int DRAAI_TELLER_RESET = 0;
+	private final int DRAAI_HOEK = 88;
+	private final int MUUR_GRENS = 30;
+	private final int RIJ_NAAR_MIDDEN_KRUISING = 330;
+	private final int RIJSNELHEID_OP_KRUISING = 225;
 
 	public PilootPathFinder(PathFinderOpdracht3 pathFinderOpdracht3) {
 		super();
@@ -12,35 +18,50 @@ public class PilootPathFinder extends Piloot {
 
 	}
 
-	// public void rijVooruit(int afwijking) {
-	//
-	// Wielaandrijving.vooruit();
-	// }
-
-	// public void draai() {
-	// Wielaandrijving.draaiOmAs(90, true);
-	// }
-
 	public void run() {
-		int draaiTeller = 0;
 
 		while (opdracht3.getStart()) {
-//			
-//			Wielaandrijving.setSnelheid(125, 0);
-//			while (!opdracht3.isStartDoolhof()) {
-//
-//			}
-//			Wielaandrijving.stop();
-			if (opdracht3.isKruising()) {
-				Wielaandrijving.rijAfstand(225, 330, true);
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 
-				Wielaandrijving.draaiOmAs(88, true);
+			kruisingHandeling(opdracht3.isKruising());
+			rechtdoor(opdracht3.getAfstandObstakel());
+			vindWeg(opdracht3.getAfstandObstakel());
+			Wielaandrijving.stop();
+			
+		}
+		Wielaandrijving.stop();
+	}
+
+
+	public int getDraaiTeller() {
+		return draaiTeller;
+	}
+	
+	public void setDraaiTeller(int draaiTeller) {
+		this.draaiTeller = draaiTeller;
+	}
+
+	public void setDraaiTellerPlus1() {
+		this.draaiTeller++;
+	}
+
+	public void rechtdoor(int afstandObstakel) {
+		if (afstandObstakel > MUUR_GRENS) {
+			setDraaiTeller(DRAAI_TELLER_RESET);
+			Wielaandrijving.setSnelheid(lineaireSnelheid, 0);
+
+		}
+	}
+	
+	public void vindWeg(int afstandObstakel) {
+		if (afstandObstakel < MUUR_GRENS) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			if (getDraaiTeller() != 1) {
+				Wielaandrijving.draaiOmAs(DRAAI_HOEK, true);
+				setDraaiTellerPlus1();
 				try {
 					Thread.sleep(1000);
 					;
@@ -49,53 +70,48 @@ public class PilootPathFinder extends Piloot {
 					e.printStackTrace();
 				}
 			} else {
-				if (opdracht3.getAfstandObstakel() > 30) {
-					draaiTeller = 0;
-					Wielaandrijving.setSnelheid(lineaireSnelheid, 0); //
-
-				} else {
-					Wielaandrijving.stop();
-					try {
-						Thread.sleep(1000);
-						;
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					if (draaiTeller != 1) {
-						Wielaandrijving.draaiOmAs(88, true);
-						draaiTeller++;
-						try {
-							Thread.sleep(1000);
-							;
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					} else {
-						Wielaandrijving.draaiOmAs(88, true);
-						draaiTeller++;
-						try {
-							Thread.sleep(1000);
-							;
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						Wielaandrijving.draaiOmAs(88, true);
-						draaiTeller++;
-						try {
-							Thread.sleep(1000);
-							;
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
+				Wielaandrijving.draaiOmAs(DRAAI_HOEK, true);
+				setDraaiTellerPlus1();
+				try {
+					Thread.sleep(1000);
+					;
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			}
+				Wielaandrijving.draaiOmAs(DRAAI_HOEK, true);
+				setDraaiTellerPlus1();
+				try {
+					Thread.sleep(1000);
+					;
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} 
 		}
-		Wielaandrijving.stop();
+	}
+
+	/**
+	 * 
+	 */
+	public void kruisingHandeling(boolean isKruising) {
+		Wielaandrijving.rijAfstand(RIJSNELHEID_OP_KRUISING, RIJ_NAAR_MIDDEN_KRUISING, true);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		Wielaandrijving.draaiOmAs(MUUR_GRENS, true);
+		try {
+			Thread.sleep(1000);
+			;
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
