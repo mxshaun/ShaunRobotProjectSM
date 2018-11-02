@@ -11,14 +11,21 @@ public class RobotOpdrachtenMain {
 
 	public static void main(String[] args) throws Exception {
 		
+		/*
+		 * Een while loop starten om het keuezemenu op het scherm te
+		 * zetten en te houden zolang geen Escape toetst is ingedrukt.
+		 */
 		while (Button.ESCAPE.isUp()) {
 			Lcd.clear();
 			Lcd.print(2, "Links: opdr 1");
 			Lcd.print(3, "Midden: opdr 2");
 			Lcd.print(4, "Rechts: opdr 3");
 			Button.waitForAnyPress();
-			int buttonId = Button.getButtons();
+			int buttonId = Button.getButtons(); //Uitlezen van de ingedrukte toets. Deze output is een int.
 			
+			/*
+			 * Het starten van de if, else if, else statement voor het verwerken van de keuzes.
+			 */
 			if (buttonId == 16) {
 				LijnvolgerOpdracht1 opdracht1 = new LijnvolgerOpdracht1();
 				opdracht1.lijnVolgerOpdracht();
@@ -46,10 +53,6 @@ public class RobotOpdrachtenMain {
 				Lcd.print(3, "Press again");
 				Delay.msDelay(1000);
 			}
-			
 		}
-
-
 	}
-
 }
