@@ -6,66 +6,53 @@ public class SituatieDetector implements Runnable{
 	private PathFinderOpdracht3 opdracht3;
 	private int colorInt;
 	private String colorName;
+	private final String KLEUR_START = "White";
+	private final String KLEUR_KRUISING = "Blue";
+	private final String KLEUR_FINISH = "Black";
 	
 	public SituatieDetector(PathFinderOpdracht3 opdracht3) {
 		this.opdracht3 = opdracht3;
 	}
-	
-	public boolean checkKruising() {
-		try{
-			colorInt = ColorIdSensor.getColor();
-			colorName = ColorIdSensor.colorName(colorInt);
-		} catch (Exception e) {
-				
-		}
-		return (colorName == "Green");
-	}
-	
-	public boolean checkStart() {
-		try {
-		colorInt = ColorIdSensor.getColor();
-		colorName = ColorIdSensor.colorName(colorInt);
-		} catch (Exception e) {
-			
-		}
-		return (colorName == "White");
-	}
-	
-	public boolean checkFinish() {
-		try {
 		
-		} catch (Exception e) {
-			
-		}
-		if(colorName == "Black") {
-			opdracht3.setStart(false);
-			
-		}
-		return (colorName == "Black");
-		
-	}
-	
 	@Override
 	public void run() {
 		ColorIdSensor.setColorIdMode();
 		while(opdracht3.getStart()) {
+			
 			getColor();
-			if((!opdracht3.isStartDoolhof()) && (colorName == "White")) {
-				opdracht3.setStartDoolhof(true);
-			}
-			
-			if(!opdracht3.isFinishDoolhof() && (colorName == "Black")) {
-				opdracht3.setFinishDoolhof(true);
-				opdracht3.setStart(false);
-			}
-			
-			if(!(colorName == "Blue")){
-				opdracht3.setKruising(false);
-			}
-			
-			if(colorName == "Blue") {
-			opdracht3.setKruising(true);
-			}
+			checkStartDoolhof();
+			checkFinishDoolhof();
+			checkKruising();
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public void checkKruising() {
+		if(!(colorName == KLEUR_KRUISING)){
+			opdracht3.setKruising(false);
+		} else {
+		opdracht3.setKruising(true);
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public void checkFinishDoolhof() {
+		if(!opdracht3.isFinishDoolhof() && (colorName == KLEUR_FINISH)) {
+			opdracht3.setFinishDoolhof(true);
+			opdracht3.setStart(false);
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public void checkStartDoolhof() {
+		if((!opdracht3.isStartDoolhof()) && (colorName == KLEUR_START)) {
+			opdracht3.setStartDoolhof(true);
 		}
 	}
 
@@ -73,8 +60,24 @@ public class SituatieDetector implements Runnable{
 	 * 
 	 */
 	public void getColor() {
-		colorInt = ColorIdSensor.getColor();
-		colorName = ColorIdSensor.colorName(colorInt);
+		this.colorInt = ColorIdSensor.getColor();
+		this.colorName = ColorIdSensor.colorName(colorInt);
+	}
+
+	public int getColorInt() {
+		return colorInt;
+	}
+
+	public void setColorInt(int colorInt) {
+		this.colorInt = colorInt;
+	}
+
+	public String getColorName() {
+		return colorName;
+	}
+
+	public void setColorName(String colorName) {
+		this.colorName = colorName;
 	}
 
 }
