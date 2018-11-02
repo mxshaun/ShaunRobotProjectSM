@@ -33,11 +33,8 @@ public class RobotOpdrachtenMain {
 				BeaconfollowerOprachtTest opdracht2 = new BeaconfollowerOprachtTest();
 				Lcd.clear();
 				Lcd.print(2, "Opdracht 2");
-				opdracht2.rijNaarBeacon();
-				opdracht2.grijpBeacon();
-				opdracht2.rijdMetBeacon();
-				opdracht2.laatBeaconLos();
-				opdracht2.rijdWeg();
+				opdracht2.startOpdracht2();
+				
 				
 			} else if (buttonId == 8) {
 				PathFinderOpdracht3 opdracht3 = new PathFinderOpdracht3();

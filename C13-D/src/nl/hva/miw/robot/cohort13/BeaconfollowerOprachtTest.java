@@ -11,7 +11,8 @@ import lejos.hardware.Sound;
 import lejos.utility.Delay;
 
 /**
- * Dit is de beaconfollower opdracht. Hier staan alle methodes in om het beacon Object te kunnen grijpen. 
+ * Dit is de beaconfollower opdracht. Hier staan alle methodes in om het beacon
+ * Object te kunnen grijpen.
  *
  */
 public class BeaconfollowerOprachtTest {
@@ -24,47 +25,119 @@ public class BeaconfollowerOprachtTest {
 
 	}
 
-	public void rijNaarBeacon() throws Exception {
-		try {
-			Logging.setup(BeaconfollowerOprachtTest.class.getPackage(), false);
+	public void startOpdracht2() throws Exception {
 
-			int direction = (int) InfraroodSensor.getDirection();
-			int distance = (int) InfraroodSensor.getDistance();
-			Lcd.clear();
+		Logging.setup(BeaconfollowerOprachtTest.class.getPackage(), false);
 
-			// Gaat zoeken naar de beacon. Draait totdat de beacon is gevonden.
-			zoekBeacon(direction);
-			Logging.log("Beacon is gevonden, direction: " + direction);
-			Lcd.clear();
+		int direction = (int) InfraroodSensor.getDirection();
+		int distance = (int) InfraroodSensor.getDistance();
+		Lcd.clear();
 
-			// De beacon is gevonden, maar hij gaat nu nauwkeurig naar de beacon draaien.
-			zoekNauwkeurigBeacon(direction);
-			Logging.log("Nauwkeurig gedraait naar de beacon, direction: " + direction);
-			Lcd.clear();
+		// Gaat zoeken naar de beacon. Draait totdat de beacon is gevonden.
+		zoekBeacon(direction);
+		/**Logging.log("Beacon is gevonden, direction: " + direction);**/
+		Lcd.clear();
 
-			// Gaat rijden naar de beacon totdat de distance kleiner is dan 10
-			distance = (int) InfraroodSensor.getDistance();
-			rijdStukNaarBeacon(distance);
-			Logging.log("Stuk naar beacon gereden totdat de distance = " + distance);
-			Lcd.clear();
+		// De beacon is gevonden, maar hij gaat nu nauwkeurig naar de beacon draaien.
+		zoekNauwkeurigBeacon(direction);
+		/**Logging.log("Nauwkeurig gedraait naar de beacon, direction: " + direction);**/
+		Lcd.clear();
 
-			// gaat weer de hoek bepalen en nu nauwkeuriger.
-			direction = (int) InfraroodSensor.getDirection();
-			Logging.log("de direction is nu: " + direction);
-			
-			draaiNaarBeacon(direction);
-			Logging.log("draaiNaarBeacon uitgevoerd, direction: " + direction);
-			Lcd.clear();
+		// Gaat rijden naar de beacon totdat de distance kleiner is dan 10
+		distance = (int) InfraroodSensor.getDistance();
+		rijdStukNaarBeacon(distance);
+		/**Logging.log("Stuk naar beacon gereden totdat de distance = " + distance);**/
+		Lcd.clear();
 
-			// gaat nu weer naar de beacon rijden totdat de touchsensor het object heeft aangeraakt.
-			rijdLaatsteStukBeacon();
-			Lcd.clear();
-			Wielaandrijving.stop();
+		// gaat weer de hoek bepalen en nu nauwkeuriger.
+		direction = (int) InfraroodSensor.getDirection();
+		/**Logging.log("de direction is nu: " + direction);**/
 
-		} catch (Exception e) {
-			System.out.println("error bij rijnaarbeacon");
+		draaiNaarBeacon(direction);
+		/**Logging.log("draaiNaarBeacon uitgevoerd, direction: " + direction);**/
+		Lcd.clear();
+
+		// gaat nu weer naar de beacon rijden totdat de touchsensor het object heeft
+		// aangeraakt.
+		rijdLaatsteStukBeacon();
+		Lcd.clear();
+		Wielaandrijving.stop();
+
+		// Gaat nu gebruik maken van de verschillende grijper en stukken rijden
+		// methodes.
+		grijpBeacon();
+		rijdMetBeacon();
+		laatBeaconLos();
+		rijdWeg();
+	}
+
+	private void zoekBeacon(int direction) {
+
+		if (direction == 0) {
+			do {
+				//Logging.log("in de eerste if direction while loop: direction=" + direction);
+				//Logging.log("moet er uit knallen als de direction 1 of 0 is");
+
+				Motor.draaiOmAs(40, -40);
+
+				direction = (int) InfraroodSensor.getDirection();
+				Lcd.print(2, "direction: " + direction);
+				Lcd.print(4, "zoekBeacon if");
+			} while ((direction > 10) || (direction < -10) || (direction == 0));
+
+		} else {
+
+			while ((direction > 1 || direction < -1)) {
+				//Logging.log("in de eerste else direction while loop: direction=" + direction);
+				//Logging.log("moet er uit knallen als de direction 1 of 0 is");
+
+				Motor.draaiOmAs(20, 0);
+				Wielaandrijving.draaiOmAs(5, false);
+				Delay.msDelay(1000);
+
+				direction = (int) InfraroodSensor.getDirection();
+				Lcd.print(2, "direction: " + direction);
+				Lcd.print(4, "zoekBeacon else");
+			}
 		}
+	}
 
+	private void zoekNauwkeurigBeacon(int direction) {
+		while (direction > 1 || direction < -1) {
+
+			Motor.draaiOmAs(20, -20);
+
+			direction = (int) InfraroodSensor.getDirection();
+			Lcd.print(2, "direction: " + direction);
+			Lcd.print(4, "Nauwkeurig zoeken");
+		}
+	}
+
+	private void rijdStukNaarBeacon(int distance) {
+
+		while ((distance > 10)) {
+			//Logging.log("in de tweede while loop: distance=" + distance);
+			//Logging.log("moet er uit als distance kleiner is dan 10");
+
+			Wielaandrijving.setSnelheid(70, 0);
+
+			distance = (int) InfraroodSensor.getDistance();
+			Lcd.print(3, "distance: " + distance);
+			Lcd.print(4, "Rijd stukje naar Beacon");
+		}
+	}
+
+	private void draaiNaarBeacon(int direction) {
+		while ((direction > 1) || (direction < -1)) {
+			//Logging.log("in de derde while loop: direction=" + direction);
+			//Logging.log("moet er uit als direction 0 is");
+
+			Motor.draaiOmAs(20, -20);
+
+			direction = (int) InfraroodSensor.getDirection();
+			Lcd.print(2, "direction: " + direction);
+			Lcd.print(4, "draai naar beacon laatste keer");
+		}
 	}
 
 	private void rijdLaatsteStukBeacon() {
@@ -80,88 +153,7 @@ public class BeaconfollowerOprachtTest {
 			distance = (int) InfraroodSensor.getDistance();
 			Lcd.print(2, "direction: " + direction);
 			Lcd.print(3, "distance: " + distance);
-			Lcd.print(4, "in de vierde while loop");
-		}
-	}
-
-	private void draaiNaarBeacon(int direction) {
-		//int distance;
-		while ((direction > 1) || (direction < -1)) {
-			Logging.log("in de derde while loop: direction=" + direction);
-			Logging.log("moet er uit als direction 0 is");
-
-			Motor.draaiOmAs(20, -20);
-
-			direction = (int) InfraroodSensor.getDirection();
-			//distance = (int) InfraroodSensor.getDistance();
-			Lcd.print(2, "direction: " + direction);
-			//Lcd.print(3, "distance: " + distance);
-			Lcd.print(4, "in de derde while loop. (direction opniew)");
-		}
-	}
-
-	private void rijdStukNaarBeacon(int distance) {
-		// int direction;
-		while ((distance > 10)) {
-			Logging.log("in de tweede while loop: distance=" + distance);
-			Logging.log("moet er uit als distance kleiner is dan 10");
-
-			Wielaandrijving.setSnelheid(70, 0);
-
-			// direction = (int) InfraroodSensor.getDirection();
-			distance = (int) InfraroodSensor.getDistance();
-			// Lcd.print(2, "direction: " + direction);
-			Lcd.print(3, "distance: " + distance);
-			Lcd.print(4, "rijd stukje naar Beacon");
-		}
-	}
-
-	private void zoekNauwkeurigBeacon(int direction) {
-		int distance;
-		while (direction > 1 || direction < -1) {
-
-			Motor.draaiOmAs(20, -20);
-
-			direction = (int) InfraroodSensor.getDirection();
-			distance = (int) InfraroodSensor.getDistance();
-			Lcd.print(2, "direction: " + direction);
-			Lcd.print(3, "distance: " + distance);
-			Lcd.print(4, "De speciale loop");
-		}
-	}
-
-	private void zoekBeacon(int direction) {
-		int distance;
-		if (direction == 0) {
-			do {
-				Logging.log("in de eerste if direction while loop: direction=" + direction);
-				Logging.log("moet er uit knallen als de direction 1 of 0 is");
-				Motor.draaiOmAs(40, -40);
-				// Wielaandrijving.draaiOmAs(8, false);
-				// Delay.msDelay(500);
-				direction = (int) InfraroodSensor.getDirection();
-				distance = (int) InfraroodSensor.getDistance();
-				Lcd.print(2, "direction: " + direction);
-				Lcd.print(3, "distance: " + distance);
-				Lcd.print(4, "in de eerste if while loop");
-			} while ((direction > 10) || (direction < -10) || (direction == 0));
-
-		} else {
-
-			while ((direction > 1 || direction < -1)) {
-				Logging.log("in de eerste else direction while loop: direction=" + direction);
-				Logging.log("moet er uit knallen als de direction 1 of 0 is");
-
-				Motor.draaiOmAs(20, 0);
-				Wielaandrijving.draaiOmAs(5, false);
-				Delay.msDelay(1000);
-
-				direction = (int) InfraroodSensor.getDirection();
-				distance = (int) InfraroodSensor.getDistance();
-				Lcd.print(2, "direction: " + direction);
-				Lcd.print(3, "distance: " + distance);
-				Lcd.print(4, "in de eerste else while loop");
-			}
+			Lcd.print(4, "rijd laatste stuk Beacon, bots!");
 		}
 	}
 
@@ -173,12 +165,9 @@ public class BeaconfollowerOprachtTest {
 	}
 
 	public void rijdMetBeacon() {
-		// Wielaandrijving.rijAfstand(Wielaandrijving.getMaxLineaireSnelheid()/5 , 200,
-		// false);
 		Lcd.print(3, "RIJDMETBEACON");
 
 		Wielaandrijving.rijAfstand(100, 200, false);
-		// Wielaandrijving.setSnelheid(50, 100);
 		Delay.msDelay(2000);
 		Wielaandrijving.stop();
 		Wielaandrijving.setSnelheid(100, 200);
