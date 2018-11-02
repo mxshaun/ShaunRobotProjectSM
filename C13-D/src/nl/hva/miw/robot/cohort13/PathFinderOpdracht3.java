@@ -1,6 +1,5 @@
 package nl.hva.miw.robot.cohort13;
 
-import ev3.robotproject.library.ColorIdSensor;
 import ev3.robotproject.library.Lcd;
 import ev3.robotproject.library.Wielaandrijving;
 import lejos.hardware.Button;
@@ -15,38 +14,7 @@ public class PathFinderOpdracht3 {
 	private boolean kruising;
 	private boolean startDoolhof;
 	private boolean finishDoolhof;
-	int colorInt;
-	String colorName;
-
-	public synchronized boolean isKruising() {
-		return kruising;
-	}
-
-	public synchronized void setKruising(boolean kruising) {
-		this.kruising = kruising;
-	}
-
-	public boolean isStartDoolhof() {
-		return startDoolhof;
-	}
-
-	public void setStartDoolhof(boolean startDoolhof) {
-		this.startDoolhof = startDoolhof;
-	}
-
-	public boolean isFinishDoolhof() {
-		return finishDoolhof;
-	}
-
-	public void setFinishDoolhof(boolean finishDoolhof) {
-		this.finishDoolhof = finishDoolhof;
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	public void startOpdracht3() {
 		Button.LEDPattern(4); // flash green led and
 		Sound.beepSequenceUp(); // make sound when ready.
@@ -83,7 +51,29 @@ public class PathFinderOpdracht3 {
 
 	}
 
+	public synchronized boolean isKruising() {
+		return kruising;
+	}
 
+	public synchronized void setKruising(boolean kruising) {
+		this.kruising = kruising;
+	}
+
+	public boolean isStartDoolhof() {
+		return startDoolhof;
+	}
+
+	public void setStartDoolhof(boolean startDoolhof) {
+		this.startDoolhof = startDoolhof;
+	}
+
+	public boolean isFinishDoolhof() {
+		return finishDoolhof;
+	}
+
+	public void setFinishDoolhof(boolean finishDoolhof) {
+		this.finishDoolhof = finishDoolhof;
+	}
 
 	public void setAfstandObstakel(int afstand) {
 		this.afstandObstakel = afstand;
