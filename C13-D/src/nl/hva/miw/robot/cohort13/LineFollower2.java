@@ -66,14 +66,15 @@ public class LineFollower2 implements Runnable {
 		final float CORRECTION_POWER_MARGE = 4.5f;
 		float min = colorValueBlack + CORRECTION_COLOR_MARGE;
 		float max = colorValueWhite - CORRECTION_COLOR_MARGE*((min+CORRECTION_COLOR_MARGE)/min);
-		int maxSpeed = 720;
-		double speedCorrection = 1.0;
+		final int MAX_SPEED = 720;
+		final double SPEED_CORRECTION = 1.0;
+		
 		
 		//Bepalen vermogen links
-		int vermogenLinks =(int)((max-colorValue) * maxSpeed * speedCorrection);	
+		int vermogenLinks =(int)((max-colorValue) * MAX_SPEED * SPEED_CORRECTION);	
 		
 		//Bepalen vermogen rechts
-		int vermogenRechts = (int)((colorValue-min) * maxSpeed * speedCorrection);
+		int vermogenRechts = (int)((colorValue-min) * MAX_SPEED * SPEED_CORRECTION);
 		
 		//Aansturen motoren
 		if (colorValue<min) {

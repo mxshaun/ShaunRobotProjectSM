@@ -29,8 +29,7 @@ public class RobotOpdrachtenMain {
 			if (buttonId == 16) {
 				LijnvolgerOpdracht1 opdracht1 = new LijnvolgerOpdracht1();
 				opdracht1.lijnVolgerOpdracht();
-			} else if (buttonId ==
-					2) {
+			} else if (buttonId ==2) {
 				BeaconfollowerOprachtTest opdracht2 = new BeaconfollowerOprachtTest();
 				Lcd.clear();
 				Lcd.print(2, "Opdracht 2");
