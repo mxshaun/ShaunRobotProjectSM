@@ -9,6 +9,7 @@ public class PathFinderOpdracht3 {
 	private ObstakelDetector sensor = new ObstakelDetector(this);
 	private PilootPathFinder piloot = new PilootPathFinder(this);
 	private SituatieDetector situatie = new SituatieDetector(this);
+	
 	private int afstandObstakel;
 	private boolean start;
 	private boolean kruising;

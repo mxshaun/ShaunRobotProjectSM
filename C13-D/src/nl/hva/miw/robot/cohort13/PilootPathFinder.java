@@ -104,7 +104,7 @@ public class PilootPathFinder extends Piloot {
 			e1.printStackTrace();
 		}
 
-		Wielaandrijving.draaiOmAs(MUUR_GRENS, true);
+		Wielaandrijving.draaiOmAs(DRAAI_HOEK, true);
 		try {
 			Thread.sleep(1000);
 			;
