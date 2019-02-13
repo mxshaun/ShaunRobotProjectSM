@@ -75,9 +75,6 @@ public class BeaconfollowerOprachtTest {
 
 		if (direction == 0) {
 			do {
-				//Logging.log("in de eerste if direction while loop: direction=" + direction);
-				//Logging.log("moet er uit knallen als de direction 1 of 0 is");
-
 				Motor.draaiOmAs(40, -40);
 
 				direction = (int) InfraroodSensor.getDirection();
@@ -88,9 +85,6 @@ public class BeaconfollowerOprachtTest {
 		} else {
 
 			while ((direction > 1 || direction < -1)) {
-				//Logging.log("in de eerste else direction while loop: direction=" + direction);
-				//Logging.log("moet er uit knallen als de direction 1 of 0 is");
-
 				Motor.draaiOmAs(20, 0);
 				Wielaandrijving.draaiOmAs(5, false);
 				Delay.msDelay(1000);
@@ -116,8 +110,6 @@ public class BeaconfollowerOprachtTest {
 	private void rijdStukNaarBeacon(int distance) {
 
 		while ((distance > 10)) {
-			//Logging.log("in de tweede while loop: distance=" + distance);
-			//Logging.log("moet er uit als distance kleiner is dan 10");
 
 			Wielaandrijving.setSnelheid(70, 0);
 
@@ -129,9 +121,6 @@ public class BeaconfollowerOprachtTest {
 
 	private void draaiNaarBeacon(int direction) {
 		while ((direction > 1) || (direction < -1)) {
-			//Logging.log("in de derde while loop: direction=" + direction);
-			//Logging.log("moet er uit als direction 0 is");
-
 			Motor.draaiOmAs(20, -20);
 
 			direction = (int) InfraroodSensor.getDirection();
